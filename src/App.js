@@ -4,13 +4,25 @@ import './App.css';
 
 import { withAuthenticator } from 'aws-amplify-react'
 import { API } from 'aws-amplify'
+import uuid from 'uuid/v4'
 
 const newBase = {
+  id: uuid(),
   username: 'sethmb',
   baseName: 'noteBase2',
   codeNote: "const funcThing = () => console.log('Hello!')",
   textNote: 'Fat arrow function',
-  createAt: Date.now().toString(),
+  createdAt: Date.now().toString(),
+  modifiedAt: Date.now().toString()
+}
+
+const newerBase = {
+  id: '09234092834092049802938440928340',
+  username: 'sethmb',
+  baseName: 'noteBase2',
+  codeNote: "let x = 1",
+  textNote: 'variable declaration',
+  createdAt: Date.now().toString(),
   modifiedAt: Date.now().toString()
 }
 
@@ -25,37 +37,40 @@ class App extends Component {
     event.preventDefault()
     console.log('Posting...')
     await API.post("notebase3API", "/bases", {
-      body: {
-        username: 'sethmb',
-        baseName: 'noteBase2',
-        codeNote: "const funcThing = () => console.log('Hello!')",
-        textNote: 'Fat arrow function',
-        createAt: Date.now().toString(),
-        modifiedAt: Date.now().toString()
-      }
+      body: newBase
     })
+  }
+
+  handleUpdate = async event => {
+    event.preventDefault()
+    console.log('Updating...')
+    await API.put("notebase3API", "/bases", {
+      body: newerBase
+    })
+    console.log('Done updating')
+  }
+
+  handleDelete = async (event) => {
+    event.preventDefault()
+    console.log('Deleting...')
+    await API.delete("notebase3API", '/bases', {
+      body: newBase
+    })
+
   }
 
 
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-
         <button onClick={this.handleSubmit}>New Base</button>
+        <br />
+        <br />
+        <button onClick={this.handleUpdate}>Update</button>
+        <br />
+        <br />
+        <button onClick={this.handleDelete}>Delete</button>
+
       </div>
     );
   }
