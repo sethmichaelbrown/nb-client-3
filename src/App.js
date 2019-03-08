@@ -5,11 +5,35 @@ import './App.css';
 import { withAuthenticator } from 'aws-amplify-react'
 import { API } from 'aws-amplify'
 
+const newBase = {
+  username: 'sethmb',
+  baseName: 'noteBase2',
+  codeNote: "const funcThing = () => console.log('Hello!')",
+  textNote: 'Fat arrow function',
+  createAt: Date.now().toString(),
+  modifiedAt: Date.now().toString()
+}
+
 class App extends Component {
 
   componentDidMount = async () => {
     const response = await API.get('notebase3API', '/bases')
     console.log(response)
+  }
+
+  handleSubmit = async event => {
+    event.preventDefault()
+    console.log('Posting...')
+    await API.post("notebase3API", "/bases", {
+      body: {
+        username: 'sethmb',
+        baseName: 'noteBase2',
+        codeNote: "const funcThing = () => console.log('Hello!')",
+        textNote: 'Fat arrow function',
+        createAt: Date.now().toString(),
+        modifiedAt: Date.now().toString()
+      }
+    })
   }
 
 
@@ -31,7 +55,7 @@ class App extends Component {
           </a>
         </header>
 
-        {console.log(Date.now())}
+        <button onClick={this.handleSubmit}>New Base</button>
       </div>
     );
   }
