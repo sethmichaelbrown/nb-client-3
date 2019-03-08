@@ -1,0 +1,19 @@
+{
+    "local": {
+        "awscloudformation": {
+            "AuthRoleName": "notebaseappclient3-20190308123754-authRole",
+            "UnauthRoleArn": "arn:aws:iam::075146461562:role/notebaseappclient3-20190308123754-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::075146461562:role/notebaseappclient3-20190308123754-authRole",
+            "Region": "us-west-2",
+            "DeploymentBucketName": "notebaseappclient3-20190308123754-deployment",
+            "UnauthRoleName": "notebaseappclient3-20190308123754-unauthRole",
+            "StackName": "notebaseappclient3-20190308123754",
+            "StackId": "arn:aws:cloudformation:us-west-2:075146461562:stack/notebaseappclient3-20190308123754/ab70dd00-41d9-11e9-a3fa-06b57ba4e740"
+        },
+        "categories": {
+            "auth": {
+                "cognito500e46cc": {}
+            }
+        }
+    }
+}

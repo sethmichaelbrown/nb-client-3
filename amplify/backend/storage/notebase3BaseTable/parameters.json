@@ -1,0 +1,7 @@
+{
+    "tableName": "notebase3BaseTable",
+    "partitionKeyName": "username",
+    "partitionKeyType": "S",
+    "sortKeyName": "baseName",
+    "sortKeyType": "S"
+}

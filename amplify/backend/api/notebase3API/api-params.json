@@ -1,0 +1,35 @@
+{
+    "paths": [
+        {
+            "name": "/bases",
+            "lambdaFunction": "notebase3function",
+            "privacy": {
+                "private": true,
+                "auth": "rw"
+            }
+        }
+    ],
+    "resourceName": "notebase3API",
+    "apiName": "notebase3API",
+    "functionArns": [
+        {
+            "lambdaFunction": "notebase3function"
+        }
+    ],
+    "privacy": {
+        "auth": 1,
+        "unauth": 0,
+        "authRoleName": "notebaseappclient3-20190308123754-authRole",
+        "unAuthRoleName": "notebaseappclient3-20190308123754-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "notebase3function",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}
