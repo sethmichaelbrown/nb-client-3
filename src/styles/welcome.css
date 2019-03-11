@@ -1,22 +1,37 @@
 .Welcome {
   height: 100vh;
   width: 100vw;
-  background: url('../media/images/background-1.png') no-repeat center center fixed;
+  background: url('../media/images/background-3.png') no-repeat center center fixed;
   /* -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover; */
   background-size: cover;
+
+}
+
+.welcome-layer {
+  background-color: rgba(0, 0, 0, .3);
   display: grid;
   grid-template-columns: repeat(3, 33.3vw);
-  grid-template-rows: repeat(3, 33.3vh)
+  grid-template-rows: repeat(3, 33.3vh);
 }
 
 .welcome-header {
-  color: white
+  color: white;
+  margin-top: 2vh;
+  margin-left: 2vw;
 }
 
-.welcome-button{
+.welcome-button {
   grid-column: 2/3;
   grid-row: 3/4;
   margin: auto;
+  margin-top: 10%;
+}
+
+#background-video{
+  position: relative;
+  top: 160px;
+  height: 250px;
+  width: 250px;
 }
