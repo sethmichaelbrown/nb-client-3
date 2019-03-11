@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import { Auth, API } from 'aws-amplify'
-import uuid from 'uuid/v4'
-import { Route, Redirect, Link, Switch, BrowserRouter as Router } from 'react-browser-router'
+import { Auth } from 'aws-amplify'
+import { Route, Redirect, Switch, BrowserRouter as Router } from 'react-browser-router'
 
-import ListView from './components/home/ListView'
 import Home from './components/home/Home'
 import Welcome from './components/Welcome'
+import Editor from './components/editor/Editor'
 import NotFound from './components/NotFound'
 
-console.log(Date.now())
-console.log(uuid())
- console.disableYellowBox = true
 
 class App extends Component {
 
@@ -36,19 +32,17 @@ class App extends Component {
         <div className="App">
 
           {!this.state.userInfo ?
-            <Redirect to='/welcome' /> : <Redirect to='/bases' />
-          }
+            <Redirect to='/welcome' /> : <Redirect to='/bases' />}
 
 
 
           <Switch>
-            <Route
-              exact
-              path="/welcome"
-              component={() => <Welcome />} />
-            <Route
-              exact
-              path="/bases"
+            <Route exact path="/welcome" component={Welcome} />
+
+            <Route exact path="/editor"
+              component={() => <Editor />} />
+
+            <Route exact path="/bases"
               component={() =>
                 <Home
                   userInfo={this.state.userInfo} />} />

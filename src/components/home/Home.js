@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
-// import './App.css';
+import '../../App.css';
+import '../../styles/home.css'
 
 import { withAuthenticator } from 'aws-amplify-react'
-import { Auth, API } from 'aws-amplify'
+import { API } from 'aws-amplify'
 import uuid from 'uuid/v4'
 
 import ListView from './ListView'
 import NavBar from '../NavBar'
+import Greeting from './Greeting'
+import moment from 'moment'
+
+console.log(moment()._d)
+
 
 
 class Home extends Component {
@@ -17,12 +23,14 @@ class Home extends Component {
     newBaseText: ' ',
     userBases: [],
     selectedBase: {},
-    username: ''
+    username: '',
   }
 
   componentDidMount = async () => {
     this.getBases()
-    this.setState({ username: this.props.userInfo.username })
+    const newState = { ...this.state }
+    newState.username = this.props.userInfo.username
+    this.setState({ username: newState.username })
   }
 
   getBases = async () => {
@@ -101,11 +109,29 @@ class Home extends Component {
     return (
       <div className="Home">
         <NavBar />
-        {/* {console.log(this.props)} */}
 
-        <ListView
-          userBases={this.state.userBases} />
+        <div className="Home-grid">
+          <div className="greeting-row">
+            <Greeting
+              userBases={this.state.userBases}
+              username={this.state.username} />
+          </div>
+        </div>
+
+        <div className="container">
+          <div className="newRecent-row">
+            <h1>Add A Base</h1>
+          </div>
+        </div>
+
+        <div className="listView-row">
+
+          <ListView
+            selectedBase={this.selectedBase}
+            userBases={this.state.userBases} />
+        </div>
       </div>
+
     );
   }
 }
