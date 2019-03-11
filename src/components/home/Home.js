@@ -5,6 +5,8 @@ import { withAuthenticator } from 'aws-amplify-react'
 import { Auth, API } from 'aws-amplify'
 import uuid from 'uuid/v4'
 
+import ListView from './ListView'
+import NavBar from '../NavBar'
 
 
 class Home extends Component {
@@ -20,19 +22,18 @@ class Home extends Component {
 
   componentDidMount = async () => {
     this.getBases()
-
+    this.setState({ username: this.props.userInfo.username })
   }
 
   getBases = async () => {
     const newState = { ...this.state }
     const response = await API.get('notebase3API', '/bases')
-    newState.userBases = response
+    const bases = response.filter(base => base.username === this.state.username)
+    newState.userBases = bases
     this.setState({ userBases: newState.userBases })
-    console.log(this.state)
   }
 
   findId = (id) => {
-    console.log(id)
     const base = this.state.userBases.find(base => base.id === id)
     return base
   }
@@ -99,12 +100,14 @@ class Home extends Component {
   render() {
     return (
       <div className="Home">
+        <NavBar />
+        {/* {console.log(this.props)} */}
 
-
-
+        <ListView
+          userBases={this.state.userBases} />
       </div>
     );
   }
 }
 
-export default withAuthenticator(Home, true);
+export default withAuthenticator(Home);

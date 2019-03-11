@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import './App.css';
 
-// import { withAuthenticator } from 'aws-amplify-react'
 import { Auth, API } from 'aws-amplify'
 import uuid from 'uuid/v4'
 import { Route, Redirect, Link, Switch, BrowserRouter as Router } from 'react-browser-router'
 
-import ListView from './components/ListView'
+import ListView from './components/home/ListView'
 import Home from './components/home/Home'
 import Welcome from './components/Welcome'
 import NotFound from './components/NotFound'
 
+console.log(Date.now())
+console.log(uuid())
+ console.disableYellowBox = true
 
 class App extends Component {
 
@@ -40,9 +42,18 @@ class App extends Component {
 
 
           <Switch>
-            <Route exact path="/welcome" component={Welcome} />
-            <Route exact path="/bases" component={Home} />
-             <Route component={NotFound} />
+            <Route
+              exact
+              path="/welcome"
+              component={() => <Welcome />} />
+            <Route
+              exact
+              path="/bases"
+              component={() =>
+                <Home
+                  userInfo={this.state.userInfo} />} />
+
+            <Route component={NotFound} />
           </Switch>
 
         </div>
