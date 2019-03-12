@@ -47,6 +47,7 @@ class Home extends Component {
   }
 
   selectedBase = (event) => {
+    this.props.nullRedirect()
     const newState = { ...this.state }
     newState.selectedBase = this.findId(event.target.id)
     this.setState({ selectedBase: newState.selectedBase })

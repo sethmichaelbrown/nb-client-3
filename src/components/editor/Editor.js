@@ -1,11 +1,23 @@
-import React from 'react'
+import React, { Component } from 'react'
+import CodeEditor from './codeEditor/CodeEditor'
+import { Link } from 'react-browser-router'
 
-const Editor = (props) => {
-  return (
-    <div className="Editor">
-      <h1>Hello from editor!</h1>
-    </div>
-  )
+class Editor extends Component {
+
+  componentDidMount = async () => {
+
+  }
+
+  render() {
+    return (
+      <div className="Editor">
+        <Link to='/bases'>
+          <button type="button" class="btn btn-outline-dark">Back to Bases</button>
+        </Link>
+        <CodeEditor />
+      </div>
+    )
+  }
 }
 
 export default Editor
