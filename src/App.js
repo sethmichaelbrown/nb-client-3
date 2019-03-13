@@ -9,61 +9,43 @@ import Welcome from './components/Welcome'
 import Editor from './components/editor/Editor'
 import NotFound from './components/NotFound'
 
+import BaseHome from './components/BaseHome'
+
 
 class App extends Component {
 
   state = {
     userInfo: null,
     error: null,
-    redirect: true,
+    redirect: false,
   }
 
   componentDidMount = async () => {
     const userInfo = await Auth.currentAuthenticatedUser()
       .then(user => this.setState({ userInfo: user }))
       .catch(err => this.setState({ error: err }));
+
+    // const localVal = localStorage.getItem('CognitoIdentityServiceProvider.43e59kat93rjn7fsptfkilhnpq.LastAuthUser')
+    // if (!localVal) {
+    //   this.setState({ redirect: true })
+    // }
+
+
   }
 
-  nullRedirect = () => {
-    const newState = { ...this.state }
-    newState.redirect = false
-    this.setState({ redirect: newState.redirect })
-  }
 
 
 
 
   render() {
     return (
-      <Router>
-        <div className="App">
 
-          {this.state.redirect ?
-            this.state.userInfo ?
-              <Redirect to='/bases' /> : <Redirect to='/welcome' />
-            : ''}
+      <div className="App">
+        <BaseHome
+          userInfo={this.state.userInfo} />
+      </div>
 
 
-
-
-          <Switch>
-            <Route exact path="/welcome" component={Welcome} />
-
-            <Route exact path="/editor"
-              component={() =>
-                <Editor />} />
-
-            <Route exact path="/bases"
-              component={() =>
-                <Home
-                  nullRedirect={this.nullRedirect}
-                  userInfo={this.state.userInfo} />} />
-
-            <Route component={NotFound} />
-          </Switch>
-
-        </div>
-      </Router >
     );
   }
 }

@@ -3,6 +3,7 @@ import '../../App.css';
 import '../../styles/home.css'
 
 import { withAuthenticator } from 'aws-amplify-react'
+import { Route, Redirect, Switch, BrowserRouter as Router } from 'react-browser-router'
 import { API } from 'aws-amplify'
 import uuid from 'uuid/v4'
 
@@ -10,6 +11,7 @@ import ListView from './ListView'
 import NavBar from '../NavBar'
 import Greeting from './Greeting'
 import moment from 'moment'
+import Editor from '../editor/Editor'
 
 console.log(moment()._d)
 
@@ -131,6 +133,11 @@ class Home extends Component {
             selectedBase={this.selectedBase}
             userBases={this.state.userBases} />
         </div>
+
+        <Switch>
+         
+        </Switch>
+
       </div>
 
     );
