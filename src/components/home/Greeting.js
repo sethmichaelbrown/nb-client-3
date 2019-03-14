@@ -9,10 +9,10 @@ const Greeting = (props) => {
   return (
     <div className="Greeting">
 
-      <div class="card my-2">
-        <div class="card-body">
-          <h5 class="card-title">Hello, {props.username}</h5>
-          <p class="card-text">{props.userBases.length} Bases in {diffLangs.size} {diffLangs.size > 1 ? 'Languages' : 'Language'}</p>
+      <div className="card my-2">
+        <div className="card-body">
+          <h5 className="card-title">Hello, {props.username}</h5>
+          <p className="card-text">{props.userBases.length} Bases in {diffLangs.size} {diffLangs.size > 1 ? 'Languages' : 'Language'}</p>
           <button type="button" className="btn btn-outline-secondary mr-2">My Account</button>
           <button type="button" className="btn btn-outline-secondary">My Account</button>
         </div>

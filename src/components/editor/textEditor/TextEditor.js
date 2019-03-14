@@ -10,7 +10,7 @@ const TextEditor = (props) => {
   return (
     <div className="TextEditor">
       <ReactQuill
-        value={props.selectedBase[0] ? props.selectedBase[0].textNote : ''}
+        // value={editor.getContent()}
         onChange={props.onTextChange}
         height={100}
       />

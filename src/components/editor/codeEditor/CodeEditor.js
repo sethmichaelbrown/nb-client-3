@@ -116,7 +116,7 @@ const themes = [
 
 
 const CodeEditor = (props) => {
-  console.log("CE Props", props.selectedBase[0])
+  // console.log('Props', props)
 
   return (
     <div className="CodeEditor">
@@ -130,15 +130,16 @@ const CodeEditor = (props) => {
           </span>
         </span>
       </div>
-      <AceEditor
+     {props.selectedBase.length > 0 ?  
+     <AceEditor
         mode={props.selectedBase[0] ? props.selectedBase[0].codeLanguage : 'javascript'}
         theme={props.selectedBase[0] ? props.selectedBase[0].theme : 'github'}
         onChange={props.onCodeChange}
+        defaultValue={props.selectedBase[0].codeNote}
         name="UNIQUE_ID_OF_DIV"
-        value={props.selectedBase[0] ? props.selectedBase[0].codeNote : ''}
         editorProps={{ $blockScrolling: true }}
         width={''}
-      />
+      /> : ''}
     </div>
   )
 }

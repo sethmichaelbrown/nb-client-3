@@ -57,7 +57,7 @@ const ListView = (props) => {
                     </div>
                   </div>
                   <div className="col-md-1">
-                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"></input>
+                    <input className="form-check-input" type="checkbox" value="" id="defaultCheck1"></input>
                   </div>
 
                 </div>

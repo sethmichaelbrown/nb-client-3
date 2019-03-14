@@ -6,14 +6,19 @@ import TextEditor from './textEditor/TextEditor'
 
 import { Link } from 'react-browser-router'
 import { API } from 'aws-amplify'
+import moment from 'moment'
 
 import '../../styles/editor.css'
+
 
 class Editor extends Component {
 
   state = {
+    changesSaved: false,
     selectedBase: {},
-    newBaseName: 'Name Goes Here'
+    newBaseName: 'Name Goes Here',
+    codeVal: '',
+    textVal: ''
   }
 
   componentDidMount = async () => {
@@ -21,20 +26,60 @@ class Editor extends Component {
     const response = await API.get('notebase3API', '/bases')
     const sBase = response.filter(base => base.id === this.props.selectedId)
     newState.selectedBase = sBase
-    this.setState({ selectedBase: newState.selectedBase })
-    console.log('Editor State', this.state)
+    this.setState({
+      selectedBase: newState.selectedBase,
+      codeVal: newState.selectedBase.codeNote,
+      textVal: newState.selectedBase.textNote
+    })
+    // console.log(this.state)
+  }
+
+  handleUpdate = async () => {
+    // console.log('Connected')
+    // 
+    // const updateItem = {...this.state.selectedBase[0]}
+    // updateItem.codeNote = this.state.codeVal
+    // updateItem.textNote = this.state.textVal
+    // 
+    // await API.put("notebase3API", "/bases", {
+    //   body: updateItem
+    // })
+  }
+
+  onCodeChange = async (codeValue) => {
+    console.log('Working')
+    // console.log('SelectedBase Code', this.state.selectedBase[0].codeNote)
+    // console.log('New Code', codeValue)
+    const currentTime = moment().format()
+    const updateItem = { ...this.state.selectedBase[0] }
+
+    updateItem.codeNote = `${codeValue}`
+    console.log(updateItem.codeNote)
+    updateItem.modifiedAt = currentTime
+
+    await API.put("notebase3API", "/bases", {
+      body: updateItem
+    })
+
+  }
+
+  onTextChange = (textValue) => {
+    console.log(textValue)
   }
 
   render() {
     return (
-      <div className="Editor">
+      <div className="Editor" >
         <NavBar />
         <div className="row editor-header-row container my-2">
           <div className="col-md-10">
-            {this.state.selectedBase.length > 0 ?
-              <h3>{this.state.selectedBase[0].baseName}</h3> :
-              <h3>{this.state.newBaseName}</h3>
-            }
+            {this.state.selectedBase[0] ?
+              <h3>{this.state.selectedBase[0].baseName}
+                {this.state.changesSaved ? <small>All Changes Saved</small> : ''}
+              </h3>
+              : ''}
+
+
           </div>
           <div className="col-md-2">
             <Link to='/bases'>
@@ -47,13 +92,15 @@ class Editor extends Component {
         <div className="row ">
           <div className="col-md-6">
             <TextEditor
-              onTextChange={this.props.onTextChange}
+              textVal={this.state.textVal}
+              onTextChange={this.onTextChange}
               selectedBase={this.state.selectedBase} />
           </div>
 
           <div className="col-md-6">
             <CodeEditor
-              onCodeChange={this.props.onCodeChange}
+              codeVal={this.state.codeVal}
+              onCodeChange={this.onCodeChange}
               selectedBase={this.state.selectedBase} />
           </div>
         </div>

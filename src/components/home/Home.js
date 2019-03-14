@@ -82,15 +82,6 @@ class Home extends Component {
 
 
 
-  // handleUpdate = async (event) => {
-  //   event.preventDefault()
-  //   console.log('Updating...')
-  //   await API.put("notebase3API", "/bases", {
-  //     body: newerBase
-  //   })
-  //   console.log('Done updating')
-  // }
-
   // handleDelete = async (event) => {
   //   event.preventDefault()
   //   console.log('Deleting...')
