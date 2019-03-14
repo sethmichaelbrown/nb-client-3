@@ -36,8 +36,13 @@ class App extends Component {
     this.setState({ selectedId: newState.selectedId })
   }
 
-  onCodeChange = (newValue) => {
-    console.log(newValue)
+  onCodeChange = (codeValue) => {
+    console.log(codeValue)
+  }
+
+  onTextChange = (textValue) => {
+    console.log('Hello')
+    console.log(textValue)
   }
 
 
@@ -64,6 +69,7 @@ class App extends Component {
             <Route exact path="/editor" render={() =>
               <Editor
                 onCodeChange={this.onCodeChange}
+                onTextChange={this.onTextChange}
                 selectedId={this.state.selectedId} />} />
 
             <Route component={NotFound} />

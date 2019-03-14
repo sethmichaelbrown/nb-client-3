@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-// import { LinkContainer } from 'react-router-bootstrap'
+import 'react-quill/dist/quill.snow.css'
 
 
 import AceEditor from 'react-ace'
@@ -120,8 +120,16 @@ const CodeEditor = (props) => {
 
   return (
     <div className="CodeEditor">
-      <h1>Hello from CodeEditor!</h1>
-
+      <div className="ql-toolbar ql-snow">
+        <span className='ql-formats'>
+          <span className='ql-header ql-picker'>
+            Language
+          </span>
+          <span className='ql-header ql-picker'>
+            Theme
+          </span>
+        </span>
+      </div>
       <AceEditor
         mode={props.selectedBase[0] ? props.selectedBase[0].codeLanguage : 'javascript'}
         theme={props.selectedBase[0] ? props.selectedBase[0].theme : 'github'}
