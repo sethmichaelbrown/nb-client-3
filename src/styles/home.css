@@ -20,3 +20,8 @@
   grid-column: 2/3;
   grid-row: 2/3;
 } */
+
+.list-group-header {
+  color: #565658;
+  background-color: #EAEAEA;
+}

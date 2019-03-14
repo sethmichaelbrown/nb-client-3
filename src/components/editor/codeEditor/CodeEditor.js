@@ -137,6 +137,7 @@ const CodeEditor = (props) => {
         name="UNIQUE_ID_OF_DIV"
         value={props.selectedBase[0] ? props.selectedBase[0].codeNote : ''}
         editorProps={{ $blockScrolling: true }}
+        width={''}
       />
     </div>
   )

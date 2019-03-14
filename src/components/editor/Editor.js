@@ -7,6 +7,8 @@ import TextEditor from './textEditor/TextEditor'
 import { Link } from 'react-browser-router'
 import { API } from 'aws-amplify'
 
+import '../../styles/editor.css'
+
 class Editor extends Component {
 
   state = {
@@ -27,16 +29,22 @@ class Editor extends Component {
     return (
       <div className="Editor">
         <NavBar />
-        <Link to='/bases'>
-          <button type="button" className="btn btn-outline-dark">Back to Bases</button>
-        </Link>
-        
-        {this.state.selectedBase.length > 0 ? 
-        <h3>{this.state.selectedBase[0].baseName}</h3> : 
-        <h3>{this.state.newBaseName}</h3>
-        }
-        
-        <div className="row">
+        <div className="row editor-header-row container my-2">
+          <div className="col-md-10">
+            {this.state.selectedBase.length > 0 ?
+              <h3>{this.state.selectedBase[0].baseName}</h3> :
+              <h3>{this.state.newBaseName}</h3>
+            }
+          </div>
+          <div className="col-md-2">
+            <Link to='/bases'>
+              <button type="button" className="btn btn-outline-dark">Back to Bases</button>
+            </Link>
+          </div>
+
+        </div>
+
+        <div className="row ">
           <div className="col-md-6">
             <TextEditor
               onTextChange={this.props.onTextChange}

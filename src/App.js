@@ -19,7 +19,9 @@ class App extends Component {
     redirect: false,
     selectedId: null,
     selectedBase: {},
-    signedIn: false
+    signedIn: false,
+    codeNote: '',
+    textNote: ''
   }
 
   componentDidMount = async () => {
@@ -41,7 +43,6 @@ class App extends Component {
   }
 
   onTextChange = (textValue) => {
-    console.log('Hello')
     console.log(textValue)
   }
 

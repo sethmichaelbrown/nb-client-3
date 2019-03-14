@@ -1,3 +1,11 @@
-.navbar{
+.navbar {
   background-color: #565658;
+}
+
+a {
+  color: #EAEAEA;
+}
+
+a:hover{
+  color: #7DC3C1;
 }

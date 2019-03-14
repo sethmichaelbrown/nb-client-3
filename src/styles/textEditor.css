@@ -1,0 +1,10 @@
+  .ql-container {
+    height: auto !important;
+  }
+
+  .ql-editor {
+    height: auto !important;
+    min-height: 75vh !important;
+    max-height: 300px;
+    overflow-x: scroll;
+  }

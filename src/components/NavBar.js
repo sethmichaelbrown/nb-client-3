@@ -35,7 +35,7 @@ const NavBar = (props) => {
             <li className="nav-item dropdown">
               <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Dropdown
-        </a>
+              </a>
               <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a className="dropdown-item" href="#">Action</a>
                 <a className="dropdown-item" href="#">Another action</a>
@@ -47,10 +47,7 @@ const NavBar = (props) => {
               <a className="nav-link disabled" href="#">Disabled</a>
             </li>
           </ul>
-          <form className="form-inline my-2 my-lg-0">
-            <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-            <button type="button" className="btn btn-outline-light" onClick={signOut}>Sign Out</button>
-          </form>
+          <button type="button" className="Button__button___1FrBC" onClick={signOut}>Sign Out</button>
         </div>
       </nav>
 

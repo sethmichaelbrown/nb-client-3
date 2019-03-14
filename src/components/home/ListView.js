@@ -7,7 +7,7 @@ const ListView = (props) => {
   return (
     <div className="ListView">
       <ul className="list-group">
-        <li className="list-group-item">
+        <li className="list-group-item list-group-header">
           <div className="row">
             <div className="col-md-3">
               baseName
@@ -19,8 +19,8 @@ const ListView = (props) => {
               Created At
           </div>
             <div className="col-md-3">
-              Spacer - col-md-3
-          </div>
+
+            </div>
           </div>
 
         </li>
@@ -40,11 +40,11 @@ const ListView = (props) => {
                   <div className="col-md-2" id={base.id}>
                     {moment(base.createdAt).calendar()}
                   </div>
-                  <div className="col-md-3">
+                  <div className="col-md-2">
 
                   </div>
 
-                  <div className="col-md-2">
+                  <div className="col-md-1">
                     <button type="button" className="btn-sm btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <span className="sr-only">Toggle Dropdown</span>
                     </button>
@@ -55,6 +55,9 @@ const ListView = (props) => {
                       <div role="separator" className="dropdown-divider"></div>
                       <a className="dropdown-item" href="#">Separated link</a>
                     </div>
+                  </div>
+                  <div className="col-md-1">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"></input>
                   </div>
 
                 </div>

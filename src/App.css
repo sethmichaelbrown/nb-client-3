@@ -5,3 +5,31 @@
   -o-background-size: cover;
   background-size: cover;
 } */
+
+.Form__formSection___3tqxz {
+  box-shadow: none !important;
+}
+
+
+
+.Anchor__a___3JUCG {}
+
+.Anchor__a___3JUCG:hover {
+  color: #5C908F !important;
+}
+
+.Section__sectionFooterSecondaryContent___3cjOa {
+  color: #565658 !important;
+
+}
+
+.Button__button___1FrBC {
+  background-color: #EAEAEA !important;
+  color: #565658 !important;
+}
+
+.Button__button___1FrBC:hover {
+  background-color: #565658 !important;
+  color: #EAEAEA !important;
+  opacity: 1 !important;
+}

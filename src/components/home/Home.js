@@ -3,7 +3,7 @@ import '../../App.css';
 import '../../styles/home.css'
 
 import { withAuthenticator } from 'aws-amplify-react'
-import { Link, Route, Redirect, Switch, BrowserRouter as Router } from 'react-browser-router'
+import { Link } from 'react-browser-router'
 import { API, Auth } from 'aws-amplify'
 import uuid from 'uuid/v4'
 
@@ -11,6 +11,7 @@ import ListView from './ListView'
 import NavBar from '../NavBar'
 import Greeting from './Greeting'
 import moment from 'moment'
+
 
 
 class Home extends Component {
@@ -22,7 +23,7 @@ class Home extends Component {
     selectedBase: {},
     userBases: [],
     userInfo: {},
-    userPreferences: {theme: 'solarized_dark'},
+    userPreferences: { theme: 'solarized_dark' },
     username: '',
   }
 
@@ -30,7 +31,9 @@ class Home extends Component {
     const user = await Auth.currentAuthenticatedUser()
       .then(user => this.setState({ userInfo: user }))
       .catch(err => this.setState({ error: err }))
-
+    const newState = { ...this.state }
+    newState.username = newState.userInfo.username
+    this.setState({ username: newState.username })
     this.getBases()
 
     console.log('Home', this.state)
@@ -47,7 +50,7 @@ class Home extends Component {
 
   handleSubmit = async (event) => {
     event.preventDefault()
-    const length = (this.state.userBases.length + 1 )
+    const length = (this.state.userBases.length + 1)
     const currentTime = moment().format()
     await API.post("notebase3API", "/bases", {
       body: {
@@ -59,7 +62,7 @@ class Home extends Component {
         modifiedAt: `${currentTime}`,
         textNote: this.state.newBaseText,
         theme: 'solarized_dark',
-        username: 'sethmb',
+        username: this.state.username,
       }
     })
     this.getBases()
@@ -105,14 +108,28 @@ class Home extends Component {
       <div className="Home">
         <NavBar />
 
-        {/* <Link to='/editor'> */}
-          <button type="button" onClick={this.handleSubmit} className="btn btn-outline-dark">Create New Base</button>
-        {/* </Link> */}
+        <div className="row container">
+          <div className="col-md-4">
+            <Greeting
+              userBases={this.state.userBases}
+              username={this.state.username} />
+          </div>
+        </div>
 
-        {this.state.userBases ?
-          <ListView
-            selectBaseId={this.props.selectBaseId}
-            userBases={this.state.userBases} /> : ''}
+        {/* <Link to='/editor'>
+          <button type="button" onClick={this.handleSubmit} className="">Create New Base</button>
+        </Link> */}
+
+        <div className="row container">
+          <div className="col-md-12">
+            {this.state.userBases ?
+              <ListView
+                selectBaseId={this.props.selectBaseId}
+                userBases={this.state.userBases} /> : ''}
+
+          </div>
+        </div>
+
 
       </div>
 
