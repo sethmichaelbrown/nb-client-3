@@ -1,5 +1,6 @@
 import React from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
+import moment from 'moment'
 
 const ListView = (props) => {
   // console.log('ListView', props)
@@ -15,7 +16,7 @@ const ListView = (props) => {
               codeLanguage
           </div>
             <div className="col-md-2">
-              createdAt
+              Created At
           </div>
             <div className="col-md-3">
               Spacer - col-md-3
@@ -37,7 +38,7 @@ const ListView = (props) => {
                     {base.codeLanguage}
                   </div>
                   <div className="col-md-2" id={base.id}>
-                    {base.createdAt}
+                    {moment(base.createdAt).calendar()}
                   </div>
                   <div className="col-md-3">
 

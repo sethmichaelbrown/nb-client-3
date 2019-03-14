@@ -63,16 +63,9 @@ class Home extends Component {
       }
     })
     this.getBases()
-    
-    // this.clearInputs()
 
   }
 
-  clearInputs = () => {
-    this.baseName.value = ''
-    this.codeNote.value = ''
-    this.textNote.value = ''
-  }
 
   updateNewBaseState = (event) => {
     const newState = { ...this.state }
