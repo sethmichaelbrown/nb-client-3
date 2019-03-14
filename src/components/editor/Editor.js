@@ -31,29 +31,22 @@ class Editor extends Component {
       codeVal: newState.selectedBase.codeNote,
       textVal: newState.selectedBase.textNote
     })
-    // console.log(this.state)
   }
 
-  handleUpdate = async () => {
-    // console.log('Connected')
-    // 
-    // const updateItem = {...this.state.selectedBase[0]}
-    // updateItem.codeNote = this.state.codeVal
-    // updateItem.textNote = this.state.textVal
-    // 
-    // await API.put("notebase3API", "/bases", {
-    //   body: updateItem
-    // })
-  }
+  // Bug
+  // Because updateItem is pulling from state, the updated values aren't present if you type before the call/ response.
+  // Ideally, both of these actions would happen in the same function
+  // How do to get codeValue and textValue in the same function? 
+
 
   onCodeChange = async (codeValue) => {
     const currentTime = moment().format()
     const updateItem = { ...this.state.selectedBase[0] }
 
     updateItem.codeNote = `${codeValue}`
-    console.log(updateItem.codeNote)
     updateItem.modifiedAt = currentTime
 
+    console.log('Code', updateItem)
     await API.put("notebase3API", "/bases", {
       body: updateItem
     })
@@ -65,13 +58,14 @@ class Editor extends Component {
     const updateItem = { ...this.state.selectedBase[0] }
 
     updateItem.textNote = `${textValue}`
-    console.log(updateItem.codeNote)
     updateItem.modifiedAt = currentTime
 
+    console.log('Text', updateItem)
     await API.put("notebase3API", "/bases", {
       body: updateItem
     })
   }
+
 
   render() {
     return (

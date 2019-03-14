@@ -13,23 +13,11 @@ import NotFound from './components/NotFound'
 class App extends Component {
 
   state = {
-    userInfo: null,
-    username: '',
-    error: null,
-    redirect: false,
     selectedId: null,
-    selectedBase: {},
-    signedIn: false,
-    codeNote: '',
-    textNote: ''
   }
 
   componentDidMount = async () => {
-    const boolVal = localStorage.getItem('amplify-authenticator-authState') === 'signedIn'
-    this.setState({ signedIn: boolVal })
-    // const newState = { ...this.state }
-    // newState.username = newState.userInfo.username
-    // this.setState({ username: newState.username })
+
   }
 
   selectBaseId = (event) => {
@@ -37,15 +25,14 @@ class App extends Component {
     newState.selectedId = event.target.id
     this.setState({ selectedId: newState.selectedId })
   }
-  
-  onCodeChange = (codeValue) => {
-    console.log(codeValue)
-  }
 
-  onTextChange = (textValue) => {
-    console.log(textValue)
+  newBaseSelected = (id) => {
+    console.log('ID from App.js', id)
+    const newState = { ...this.state }
+    newState.selectedId = id
+    this.setState({ selectedId: newState.selectedId })
+    console.log(this.state)
   }
-
 
 
 
@@ -59,21 +46,17 @@ class App extends Component {
         <div className="App">
           <Route to='/' />
 
-
           <Switch>
             <Route exact path="/" component={Welcome} />
 
             <Route exact path="/bases"
               render={() =>
                 <Home
-                  selectBaseId={this.selectBaseId}
-                  userInfo={this.state.userInfo}
-                  username={this.state.username} />} />
+                  newBaseSelected={this.newBaseSelected}
+                  selectBaseId={this.selectBaseId} />} />
 
             <Route exact path="/editor/" render={() =>
               <Editor
-                onCodeChange={this.onCodeChange}
-                onTextChange={this.onTextChange}
                 selectedId={this.state.selectedId} />} />
 
             <Route component={NotFound} />

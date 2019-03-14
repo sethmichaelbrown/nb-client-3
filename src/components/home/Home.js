@@ -52,13 +52,14 @@ class Home extends Component {
     event.preventDefault()
     const length = (this.state.userBases.length + 1)
     const currentTime = moment().format()
+    const newId = uuid()
     await API.post("notebase3API", "/bases", {
       body: {
-        baseName: `new-base-${length}`,
+        baseName: `new-base-6`,
         codeLanguage: 'javascript',
         codeNote: this.state.newBaseCode,
         createdAt: `${currentTime}`,
-        id: uuid(),
+        id: `${newId}`,
         modifiedAt: `${currentTime}`,
         textNote: this.state.newBaseText,
         theme: 'solarized_dark',
@@ -66,31 +67,9 @@ class Home extends Component {
       }
     })
     this.getBases()
-
+    this.props.newBaseSelected(newId)
+    
   }
-
-
-  updateNewBaseState = (event) => {
-    const newState = { ...this.state }
-    let target = event.target.id
-
-    newState[`${target}`] = event.target.value
-
-    this.setState(newState)
-  }
-
-
-
-
-  // handleDelete = async (event) => {
-  //   event.preventDefault()
-  //   console.log('Deleting...')
-  //   await API.delete("notebase3API", '/bases', {
-  //     body: newBase
-  //   })
-  // }
-
-
 
 
   render() {
@@ -107,9 +86,9 @@ class Home extends Component {
           </div>
         </div>
 
-        {/* <Link to='/editor'>
-          <button type="button" onClick={this.handleSubmit} className="">Create New Base</button>
-        </Link> */}
+        
+          <button type="button" onClick={this.handleSubmit} className=""><Link to='/editor'>Create New Base</Link></button>
+        
 
         <div className="row container">
           <div className="col-md-12">
