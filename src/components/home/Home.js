@@ -22,6 +22,7 @@ class Home extends Component {
     selectedBase: {},
     userBases: [],
     userInfo: {},
+    userPreferences: {theme: 'solarized_dark'},
     username: '',
   }
 
@@ -29,7 +30,7 @@ class Home extends Component {
     const user = await Auth.currentAuthenticatedUser()
       .then(user => this.setState({ userInfo: user }))
       .catch(err => this.setState({ error: err }))
-    
+
     this.getBases()
 
     console.log('Home', this.state)
@@ -46,19 +47,24 @@ class Home extends Component {
 
   handleSubmit = async (event) => {
     event.preventDefault()
+    const length = (this.state.userBases.length + 1 )
+    const currentTime = moment().format()
     await API.post("notebase3API", "/bases", {
       body: {
-        id: uuid(),
-        username: this.state.username,
-        baseName: this.state.newBaseName,
+        baseName: `new-base-${length}`,
+        codeLanguage: 'javascript',
         codeNote: this.state.newBaseCode,
+        createdAt: `${currentTime}`,
+        id: uuid(),
+        modifiedAt: `${currentTime}`,
         textNote: this.state.newBaseText,
-        createdAt: moment()._d,
-        modifiedAt: moment()._d
+        theme: 'solarized_dark',
+        username: 'sethmb',
       }
     })
     this.getBases()
-    this.clearInputs()
+    
+    // this.clearInputs()
 
   }
 
@@ -76,6 +82,8 @@ class Home extends Component {
 
     this.setState(newState)
   }
+
+
 
 
   // handleUpdate = async (event) => {
@@ -104,10 +112,15 @@ class Home extends Component {
       <div className="Home">
         <NavBar />
 
+        {/* <Link to='/editor'> */}
+          <button type="button" onClick={this.handleSubmit} className="btn btn-outline-dark">Create New Base</button>
+        {/* </Link> */}
+
         {this.state.userBases ?
           <ListView
             selectBaseId={this.props.selectBaseId}
             userBases={this.state.userBases} /> : ''}
+
       </div>
 
 
@@ -116,4 +129,4 @@ class Home extends Component {
 }
 
 export default withAuthenticator(Home);
-// export default Home;
+

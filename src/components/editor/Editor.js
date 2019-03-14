@@ -27,9 +27,9 @@ class Editor extends Component {
     return (
       <div className="Editor">
         <NavBar />
-        {/* <Link to='/bases'>
+        <Link to='/bases'>
           <button type="button" className="btn btn-outline-dark">Back to Bases</button>
-        </Link> */}
+        </Link>
         
         {this.state.selectedBase.length > 0 ? 
         <h3>{this.state.selectedBase[0].baseName}</h3> : 
