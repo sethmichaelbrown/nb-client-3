@@ -26,11 +26,8 @@ const ListView = (props) => {
 
         {props.userBases.length > 0 ?
           props.userBases.map((base, idx) =>
-
-
             <li className="list-group-item" id={base.id} key={idx}>
-
-              <LinkContainer to='/editor' onClick={(props.selectedBase)} id={base.id}>
+              <LinkContainer to='/editor' onClick={(props.selectBaseId)} id={base.id}>
                 <div className="row" id={base.id}>
 
                   <div className="col-md-3" id={base.id}>
@@ -43,7 +40,7 @@ const ListView = (props) => {
                     {base.createdAt}
                   </div>
                   <div className="col-md-3">
-                  
+
                   </div>
 
                   <div className="col-md-2">

@@ -76,65 +76,63 @@ const modes = [
   "css"]
 
 const themes = [
-"ambiance",
-"chaos",
-"chrome",
-"clouds",
-"clouds_midnight",
-"cobalt",
-"crimson_editor",
-"dawn",
-"dracula",
-"dreamweaver",
-"eclipse",
-"github",
-"gob",
-"gruvbox",
-"idle_fingers",
-"iplastic",
-"katzenmilch",
-"kr_theme",
-"kuroir",
-"merbivore",
-"merbivore_soft",
-"mono_industrial",
-"pastel_on_dark",
-"solarized_dark",
-"solarized_light",
-"sqlserver",
-"terminal",
-"textmate",
-"tomorrow",
-"tomorrow_night",
-"tomorrow_night_blue",
-"tomorrow_night_bright",
-"tomorrow_night_eighties",
-"twilight",
-"vibrant_ink",
-"xcode",
-
+  "ambiance",
+  "chaos",
+  "chrome",
+  "clouds",
+  "clouds_midnight",
+  "cobalt",
+  "crimson_editor",
+  "dawn",
+  "dracula",
+  "dreamweaver",
+  "eclipse",
+  "github",
+  "gob",
+  "gruvbox",
+  "idle_fingers",
+  "iplastic",
+  "katzenmilch",
+  "kr_theme",
+  "kuroir",
+  "merbivore",
+  "merbivore_soft",
+  "mono_industrial",
+  "pastel_on_dark",
+  "solarized_dark",
+  "solarized_light",
+  "sqlserver",
+  "terminal",
+  "textmate",
+  "tomorrow",
+  "tomorrow_night",
+  "tomorrow_night_blue",
+  "tomorrow_night_bright",
+  "tomorrow_night_eighties",
+  "twilight",
+  "vibrant_ink",
+  "xcode",
 ]
 
 
-class CodeEditor extends Component {
+const CodeEditor = (props) => {
+  console.log("CE Props", props.selectedBase[0])
 
+  return (
+    <div className="CodeEditor">
+      <h1>Hello from CodeEditor!</h1>
 
-
-  render() {
-    return (
-      <div className="CodeEditor">
-        <h1>Hello from CodeEditor!</h1>
-
-        <AceEditor
-          mode="java"
-          theme="github"
-          // onChange={onChange}
-          name="UNIQUE_ID_OF_DIV"
-          editorProps={{ $blockScrolling: true }}
-        />
-      </div>
-    )
-  }
+      <AceEditor
+        mode={props.selectedBase[0] ? props.selectedBase[0].codeLanguage : 'javascript'}
+        theme={props.selectedBase[0] ? props.selectedBase[0].theme : 'github'}
+        onChange={props.onCodeChange}
+        name="UNIQUE_ID_OF_DIV"
+        value={props.selectedBase[0] ? props.selectedBase[0].codeNote : ''}
+        editorProps={{ $blockScrolling: true }}
+      />
+    </div>
+  )
 }
+
 
 export default CodeEditor

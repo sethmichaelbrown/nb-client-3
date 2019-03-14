@@ -1,13 +1,22 @@
 import React from 'react'
 import logo from '../media/svgs/text&logo.svg'
+import '../styles/navbar.css'
 
+import { Auth } from 'aws-amplify'
 import { LinkContainer } from 'react-router-bootstrap'
 
 const NavBar = (props) => {
   // console.log('NavBar', props)
+
+  const signOut = () => {
+    Auth.signOut()
+      .then(data => console.log(data))
+      .catch(err => console.log(err));
+  }
+
   return (
     <div className="NavBar">
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg">
         <LinkContainer className="navbar-brand" to='/bases'>
           <img src={logo} alt="noteBase-logo" />
         </LinkContainer>
@@ -40,6 +49,7 @@ const NavBar = (props) => {
           </ul>
           <form className="form-inline my-2 my-lg-0">
             <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
+            <button type="button" className="btn btn-outline-light" onClick={signOut}>Sign Out</button>
           </form>
         </div>
       </nav>

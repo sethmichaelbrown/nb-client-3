@@ -3,18 +3,14 @@ import '../../App.css';
 import '../../styles/home.css'
 
 import { withAuthenticator } from 'aws-amplify-react'
-import { Route, Redirect, Switch, BrowserRouter as Router } from 'react-browser-router'
-import { API } from 'aws-amplify'
+import { Link, Route, Redirect, Switch, BrowserRouter as Router } from 'react-browser-router'
+import { API, Auth } from 'aws-amplify'
 import uuid from 'uuid/v4'
 
 import ListView from './ListView'
 import NavBar from '../NavBar'
 import Greeting from './Greeting'
 import moment from 'moment'
-import Editor from '../editor/Editor'
-
-console.log(moment()._d)
-
 
 
 class Home extends Component {
@@ -23,36 +19,29 @@ class Home extends Component {
     newBaseCode: ' ',
     newBaseName: '',
     newBaseText: ' ',
-    userBases: [],
     selectedBase: {},
+    userBases: [],
+    userInfo: {},
     username: '',
   }
 
   componentDidMount = async () => {
+    const user = await Auth.currentAuthenticatedUser()
+      .then(user => this.setState({ userInfo: user }))
+      .catch(err => this.setState({ error: err }))
+    
     this.getBases()
-    const newState = { ...this.state }
-    newState.username = this.props.userInfo.username
-    this.setState({ username: newState.username })
+
+    console.log('Home', this.state)
+
   }
 
   getBases = async () => {
     const newState = { ...this.state }
     const response = await API.get('notebase3API', '/bases')
-    const bases = response.filter(base => base.username === this.state.username)
-    newState.userBases = bases
+    newState.userBases = response.filter(base => base.username === this.state.userInfo.username)
     this.setState({ userBases: newState.userBases })
-  }
-
-  findId = (id) => {
-    const base = this.state.userBases.find(base => base.id === id)
-    return base
-  }
-
-  selectedBase = (event) => {
-    this.props.nullRedirect()
-    const newState = { ...this.state }
-    newState.selectedBase = this.findId(event.target.id)
-    this.setState({ selectedBase: newState.selectedBase })
+    console.log(this.state)
   }
 
   handleSubmit = async (event) => {
@@ -64,8 +53,8 @@ class Home extends Component {
         baseName: this.state.newBaseName,
         codeNote: this.state.newBaseCode,
         textNote: this.state.newBaseText,
-        createdAt: Date.now().toString(),
-        modifiedAt: Date.now().toString()
+        createdAt: moment()._d,
+        modifiedAt: moment()._d
       }
     })
     this.getBases()
@@ -87,6 +76,7 @@ class Home extends Component {
 
     this.setState(newState)
   }
+
 
   // handleUpdate = async (event) => {
   //   event.preventDefault()
@@ -110,38 +100,20 @@ class Home extends Component {
 
   render() {
     return (
+
       <div className="Home">
         <NavBar />
 
-        <div className="Home-grid">
-          <div className="greeting-row">
-            <Greeting
-              userBases={this.state.userBases}
-              username={this.state.username} />
-          </div>
-        </div>
-
-        <div className="container">
-          <div className="newRecent-row">
-            <h1>Add A Base</h1>
-          </div>
-        </div>
-
-        <div className="listView-row">
-
+        {this.state.userBases ?
           <ListView
-            selectedBase={this.selectedBase}
-            userBases={this.state.userBases} />
-        </div>
-
-        <Switch>
-         
-        </Switch>
-
+            selectBaseId={this.props.selectBaseId}
+            userBases={this.state.userBases} /> : ''}
       </div>
+
 
     );
   }
 }
 
 export default withAuthenticator(Home);
+// export default Home;
