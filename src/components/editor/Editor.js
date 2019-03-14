@@ -47,9 +47,6 @@ class Editor extends Component {
   }
 
   onCodeChange = async (codeValue) => {
-    console.log('Working')
-    // console.log('SelectedBase Code', this.state.selectedBase[0].codeNote)
-    // console.log('New Code', codeValue)
     const currentTime = moment().format()
     const updateItem = { ...this.state.selectedBase[0] }
 
@@ -63,8 +60,17 @@ class Editor extends Component {
 
   }
 
-  onTextChange = (textValue) => {
-    console.log(textValue)
+  onTextChange = async (textValue) => {
+    const currentTime = moment().format()
+    const updateItem = { ...this.state.selectedBase[0] }
+
+    updateItem.textNote = `${textValue}`
+    console.log(updateItem.codeNote)
+    updateItem.modifiedAt = currentTime
+
+    await API.put("notebase3API", "/bases", {
+      body: updateItem
+    })
   }
 
   render() {
