@@ -12,8 +12,6 @@ import NavBar from '../NavBar'
 import Greeting from './Greeting'
 import moment from 'moment'
 
-
-
 class Home extends Component {
 
   state = {
@@ -37,7 +35,6 @@ class Home extends Component {
     this.getBases()
 
     console.log('Home', this.state)
-
   }
 
   getBases = async () => {
@@ -68,9 +65,8 @@ class Home extends Component {
     })
     this.getBases()
     this.props.newBaseSelected(newId)
-    
-  }
 
+  }
 
   render() {
     return (
@@ -84,11 +80,12 @@ class Home extends Component {
               userBases={this.state.userBases}
               username={this.state.username} />
           </div>
+          <div className="col-md-8 mt-2">
+            <button type="button" onClick={this.handleSubmit} className="">
+              <Link to='/editor'>Create New Base</Link>
+            </button>
+          </div>
         </div>
-
-        
-          <button type="button" onClick={this.handleSubmit} className=""><Link to='/editor'>Create New Base</Link></button>
-        
 
         <div className="row container">
           <div className="col-md-12">
@@ -96,14 +93,9 @@ class Home extends Component {
               <ListView
                 selectBaseId={this.props.selectBaseId}
                 userBases={this.state.userBases} /> : ''}
-
           </div>
         </div>
-
-
       </div>
-
-
     );
   }
 }

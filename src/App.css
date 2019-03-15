@@ -11,7 +11,6 @@
 }
 
 
-
 .Anchor__a___3JUCG {}
 
 .Anchor__a___3JUCG:hover {
@@ -20,7 +19,6 @@
 
 .Section__sectionFooterSecondaryContent___3cjOa {
   color: #565658 !important;
-
 }
 
 .Button__button___1FrBC {
@@ -32,4 +30,20 @@
   background-color: #565658 !important;
   color: #EAEAEA !important;
   opacity: 1 !important;
+}
+
+.user-photo {
+  display: inline-block;
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+.greeting-text{
+  margin: auto;
+  line-height: 2px;
 }
