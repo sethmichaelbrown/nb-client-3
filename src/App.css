@@ -10,9 +10,6 @@
   box-shadow: none !important;
 }
 
-
-.Anchor__a___3JUCG {}
-
 .Anchor__a___3JUCG:hover {
   color: #5C908F !important;
 }
@@ -46,4 +43,9 @@
 .greeting-text{
   margin: auto;
   line-height: 2px;
+}
+
+.new-base-btn{
+  height: 161px;
+  border-radius: .25rem;
 }

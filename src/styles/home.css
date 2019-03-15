@@ -1,26 +1,3 @@
-/* .Home{
-  height: 100vh;
-  width: 100vw;
-}
-
-.Home-grid{
-  display: grid;
-  grid-template-columns: repeat(4, 25vw);
-  grid-template-rows: repeat(3, 33.3vh);
-}
-
-.greeting-row {
-  grid-column: 1/2;
-  grid-row: 1/2;
-  margin: auto;
-
-}
-
-.listView-row {
-  grid-column: 2/3;
-  grid-row: 2/3;
-} */
-
 .list-group-header {
   color: #565658;
   background-color: #EAEAEA;

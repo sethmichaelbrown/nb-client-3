@@ -81,9 +81,11 @@ class Home extends Component {
               username={this.state.username} />
           </div>
           <div className="col-md-8 mt-2">
-            <button type="button" onClick={this.handleSubmit} className="">
-              <Link to='/editor'>Create New Base</Link>
-            </button>
+            <div className="create-btn new-base-btn">
+              <Link to='/editor' onClick={this.handleSubmit} >
+                Create New Base
+              </Link>
+            </div>
           </div>
         </div>
 
