@@ -1,12 +1,17 @@
-import React, { Component } from 'react'
+import React from 'react'
 import 'react-quill/dist/quill.snow.css'
+import '../../../styles/codeEditor.css'
 
 
 import AceEditor from 'react-ace'
+import CodeEditorToolbar from './CodeEditorToolbar'
 
 
 import "brace/mode/java"
+import "brace/mode/django"
+import "brace/mode/haskell"
 import "brace/mode/javascript"
+import "brace/mode/json"
 import "brace/mode/python"
 import "brace/mode/xml"
 import "brace/mode/ruby"
@@ -20,6 +25,8 @@ import "brace/mode/golang"
 import "brace/mode/csharp"
 import "brace/mode/coffee"
 import "brace/mode/css"
+import "brace/mode/pascal"
+import "brace/mode/ruby"
 
 import "brace/theme/ambiance";
 import "brace/theme/chaos";
@@ -58,89 +65,29 @@ import "brace/theme/twilight";
 import "brace/theme/vibrant_ink";
 import "brace/theme/xcode";
 
-const modes = [
-  "java",
-  "javascript",
-  "python",
-  "xml",
-  "ruby",
-  "sass",
-  "markdown",
-  "mysql",
-  "json",
-  "html",
-  "handlebars",
-  "golang",
-  "csharp",
-  "coffee",
-  "css"]
-
-const themes = [
-  "ambiance",
-  "chaos",
-  "chrome",
-  "clouds",
-  "clouds_midnight",
-  "cobalt",
-  "crimson_editor",
-  "dawn",
-  "dracula",
-  "dreamweaver",
-  "eclipse",
-  "github",
-  "gob",
-  "gruvbox",
-  "idle_fingers",
-  "iplastic",
-  "katzenmilch",
-  "kr_theme",
-  "kuroir",
-  "merbivore",
-  "merbivore_soft",
-  "mono_industrial",
-  "pastel_on_dark",
-  "solarized_dark",
-  "solarized_light",
-  "sqlserver",
-  "terminal",
-  "textmate",
-  "tomorrow",
-  "tomorrow_night",
-  "tomorrow_night_blue",
-  "tomorrow_night_bright",
-  "tomorrow_night_eighties",
-  "twilight",
-  "vibrant_ink",
-  "xcode",
-]
 
 
 const CodeEditor = (props) => {
-  // console.log('Props', props)
+  console.log('CodeEditor', props)
 
   return (
     <div className="CodeEditor">
-      <div className="ql-toolbar ql-snow">
-        <span className='ql-formats'>
-          <span className='ql-header ql-picker'>
-            Language
-          </span>
-          <span className='ql-header ql-picker'>
-            Theme
-          </span>
-        </span>
-      </div>
-     {props.selectedBase.length > 0 ?  
-     <AceEditor
-        mode={props.selectedBase[0] ? props.selectedBase[0].codeLanguage : 'javascript'}
-        theme={props.selectedBase[0] ? props.selectedBase[0].theme : 'github'}
-        onChange={props.onCodeChange}
-        defaultValue={props.selectedBase[0].codeNote}
-        name="UNIQUE_ID_OF_DIV"
-        editorProps={{ $blockScrolling: true }}
-        width={''}
-      /> : ''}
-    </div>
+      <CodeEditorToolbar
+        themeChange={props.themeChange}
+        languageChange={props.languageChange} />
+
+
+      {props.selectedBase.length > 0 ?
+        <AceEditor
+          mode={props.selectedBase[0] ? props.selectedBase[0].codeLanguage : 'javascript'}
+          theme={props.selectedBase[0] ? props.selectedBase[0].theme : 'github'}
+          onChange={props.onCodeChange}
+          defaultValue={props.selectedBase[0].codeNote}
+          name="UNIQUE_ID_OF_DIV"
+          editorProps={{ $blockScrolling: true }}
+          width={''}
+        /> : ''}
+    </div >
   )
 }
 

@@ -1,0 +1,13 @@
+.ql-picker {
+  margin-left: 20px;
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+.dropdown-menu {
+  width: 300px !important;
+  height: 400px !important;
+  overflow: scroll !important;
+}

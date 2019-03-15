@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import { API, Auth } from 'aws-amplify'
-import { Link, Route, Redirect, Switch, BrowserRouter as Router } from 'react-browser-router'
+import { Route, Switch, BrowserRouter as Router } from 'react-browser-router'
 
 import Home from './components/home/Home'
 import Welcome from './components/Welcome'

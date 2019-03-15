@@ -16,28 +16,24 @@ class Editor extends Component {
   state = {
     changesSaved: false,
     selectedBase: {},
-    newBaseName: 'Name Goes Here',
-    codeVal: '',
-    textVal: ''
   }
 
   componentDidMount = async () => {
+    this.fetch()
+
+  }
+
+  fetch = async () => {
     const newState = { ...this.state }
     const response = await API.get('notebase3API', '/bases')
-    const sBase = response.filter(base => base.id === this.props.selectedId)
-    newState.selectedBase = sBase
-    this.setState({
-      selectedBase: newState.selectedBase,
-      codeVal: newState.selectedBase.codeNote,
-      textVal: newState.selectedBase.textNote
-    })
+    newState.selectedBase = response.filter(base => base.id === this.props.selectedId)
+    this.setState({ selectedBase: newState.selectedBase })
   }
 
   // Bug
   // Because updateItem is pulling from state, the updated values aren't present if you type before the call/ response.
   // Ideally, both of these actions would happen in the same function
   // How do to get codeValue and textValue in the same function? 
-
 
   onCodeChange = async (codeValue) => {
     const currentTime = moment().format()
@@ -50,7 +46,6 @@ class Editor extends Component {
     await API.put("notebase3API", "/bases", {
       body: updateItem
     })
-
   }
 
   onTextChange = async (textValue) => {
@@ -66,6 +61,14 @@ class Editor extends Component {
     })
   }
 
+  themeChange = () => {
+    console.log('Connected')
+  }
+
+  languageChange = () => {
+    console.log('Connected')
+  }
+
 
   render() {
     return (
@@ -76,9 +79,7 @@ class Editor extends Component {
             {this.state.selectedBase[0] ?
               <h3>{this.state.selectedBase[0].baseName}
                 {this.state.changesSaved ? <small>All Changes Saved</small> : ''}
-              </h3>
-              : ''}
-
+              </h3> : ''}
 
           </div>
           <div className="col-md-2">
@@ -99,6 +100,8 @@ class Editor extends Component {
 
           <div className="col-md-6">
             <CodeEditor
+              themeChange={this.themeChange}
+              languageChange={this.languageChange}
               codeVal={this.state.codeVal}
               onCodeChange={this.onCodeChange}
               selectedBase={this.state.selectedBase} />
