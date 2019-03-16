@@ -70,11 +70,9 @@ import 'brace/ext/searchbox'
 
 
 const CodeEditor = (props) => {
-  console.log('CodeEditor', props)
+  // console.log('CodeEditor', props)
 
   const fontSizeInt = parseInt(props.fontSize)
-  console.log(fontSizeInt)
-
 
   return (
     <div className="CodeEditor">
@@ -94,7 +92,7 @@ const CodeEditor = (props) => {
             onChange={props.onCodeChange}
             defaultValue={props.code}
             value={props.code}
-            name="UNIQUE_ID_OF_DIV"
+            name="editor-block"
             editorProps={{ $blockScrolling: true }}
             width={''}/>
             
