@@ -58,7 +58,7 @@ const convertUrlType = (param, type) => {
 app.get(path, function(req, res) {
   const queryParams = {
     TableName: tableName,
-    ProjectionExpression: "id, username, baseName, codeNote, textNote, createdAt, modifiedAt, codeLanguage, theme"
+    ProjectionExpression: "id, username, baseName, codeNote, textNote, fontSize, createdAt, modifiedAt, codeLanguage, theme"
   };
   dynamodb.scan(queryParams, (err, data) => {
     if (err) {

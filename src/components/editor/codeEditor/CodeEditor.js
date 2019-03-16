@@ -72,6 +72,9 @@ import 'brace/ext/searchbox'
 const CodeEditor = (props) => {
   console.log('CodeEditor', props)
 
+  const fontSizeInt = parseInt(props.fontSize)
+  console.log(fontSizeInt)
+
 
   return (
     <div className="CodeEditor">
@@ -81,9 +84,11 @@ const CodeEditor = (props) => {
           <CodeEditorToolbar
             themeChange={props.themeChange}
             languageChange={props.languageChange}
+            fontSizeChange={props.fontSizeChange}
             selectedBase={props.selectedBase} />
 
           <AceEditor
+            fontSize={fontSizeInt}
             mode={props.language ? props.language : 'javascript'}
             theme={props.theme ? props.theme : 'github'}
             onChange={props.onCodeChange}

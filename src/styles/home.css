@@ -1,4 +1,18 @@
 .list-group-header {
-  color: #565658;
-  background-color: #EAEAEA;
+
+}
+
+.item-text {
+  /* color: red; */
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+}
+
+.list-group-item:nth-of-type(n+2):hover {
+  background-color: #A4A4A4;
+  color: #EAEAEA;
+}
+
+.header-text {
+  font-family: 'Montserrat', sans-serif;
 }

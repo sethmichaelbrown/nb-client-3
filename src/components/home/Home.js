@@ -3,9 +3,12 @@ import '../../App.css';
 import '../../styles/home.css'
 
 import { withAuthenticator } from 'aws-amplify-react'
+import { LinkContainer } from 'react-router-bootstrap'
+
 import { Link } from 'react-browser-router'
 import { API, Auth } from 'aws-amplify'
 import uuid from 'uuid/v4'
+import random from 'random-words'
 
 import ListView from './ListView'
 import NavBar from '../NavBar'
@@ -47,15 +50,15 @@ class Home extends Component {
 
   newBase = async (event) => {
     event.preventDefault()
-    const length = (this.state.userBases.length + 1)
     const currentTime = moment().format()
     const newId = uuid()
     await API.post("notebase3API", "/bases", {
       body: {
-        baseName: `new-base-${length}`,
+        baseName: random({ exactly: 3, join: '-' }),
         codeLanguage: 'javascript',
         codeNote: this.state.newBaseCode,
         createdAt: `${currentTime}`,
+        fontSize: '14',
         id: `${newId}`,
         modifiedAt: `${currentTime}`,
         textNote: this.state.newBaseText,
@@ -65,8 +68,9 @@ class Home extends Component {
     })
     this.getBases()
     this.props.newBaseSelected(newId)
-
+    localStorage.setItem('lastSelectedBase', `${newId}`)
   }
+
 
   render() {
     return (
@@ -80,13 +84,14 @@ class Home extends Component {
               userBases={this.state.userBases}
               username={this.state.username} />
           </div>
+
+
           <div className="col-md-8 mt-2">
-            <div className="create-btn new-base-btn">
-              <Link to='/editor' newBase={this.handleSubmit} >
-                Create New Base
-              </Link>
-            </div>
+            <Link to='/editor'>
+              <button type="button" className="btn btn-outline-light btn-lg">Get Started</button>
+            </Link>
           </div>
+
         </div>
 
         <div className="row">

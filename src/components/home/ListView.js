@@ -9,19 +9,19 @@ const ListView = (props) => {
       <ul className="list-group">
         <li className="list-group-item list-group-header">
           <div className="row">
-            <div className="col-md-3">
+            <div className="col-md-3 header-text">
               baseName
           </div>
-            <div className="col-md-2">
+            <div className="col-md-2 header-text">
               Language
           </div>
-            <div className="col-md-2">
+            <div className="col-md-2 header-text">
               Last Modified
           </div>
-            <div className="col-md-2">
+            <div className="col-md-2 header-text">
               Created
           </div>
-            <div className="col-md-2">
+            <div className="col-md-2 header-text">
 
             </div>
             <div className="col-md-1">
@@ -34,26 +34,25 @@ const ListView = (props) => {
 
         {props.userBases.length > 0 ?
           props.userBases.map((base, idx) =>
-            <li className="list-group-item" id={base.id} key={idx}>
+            <li className="list-group-item group-item" id={base.id} key={idx}>
               <LinkContainer to='/editor' onClick={(props.selectBaseId)} id={base.id}>
-                <div className="row" id={base.id}>
-
-                  <div className="col-md-3" id={base.id}>
+                <div className="row group-item" id={base.id}>
+                  <div className="col-md-3 item-text" id={base.id}>
                     {base.baseName}
                   </div>
-                  <div className="col-md-2" id={base.id}>
+                  <div className="col-md-2 item-text" id={base.id}>
                     {base.codeLanguage}
                   </div>
-                  <div className="col-md-2" id={base.id}>
+                  <div className="col-md-2 item-text" id={base.id}>
                     {moment(base.modifiedAt).calendar()}
                   </div>
-                  <div className="col-md-2" id={base.id}>
+                  <div className="col-md-2 item-text" id={base.id}>
                     {moment(base.createdAt).format('L')}
                   </div>
-                  <div className="col-md-2">
+                  <div className="col-md-2 item-text">
                   </div>
 
-                  <div className="col-md-1">
+                  {/* <div className="col-md-1">
                     <button type="button" className="btn-sm btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <span className="sr-only">Toggle Dropdown</span>
                     </button>
@@ -64,7 +63,7 @@ const ListView = (props) => {
                       <div role="separator" className="dropdown-divider"></div>
                       <a className="dropdown-item" href="#">Separated link</a>
                     </div>
-                  </div>
+                  </div> */}
 
 
                 </div>

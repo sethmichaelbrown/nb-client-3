@@ -18,7 +18,8 @@ class Editor extends Component {
     selectedBase: {},
     language: '',
     theme: '',
-    code: ''
+    code: '',
+    fontSize: 0,
   }
 
   componentDidMount = async () => {
@@ -36,22 +37,23 @@ class Editor extends Component {
       const storedId = localStorage.getItem('lastSelectedBase')
       newState.selectedBase = response.filter(base => base.id === storedId)
     }
+   
     newState.code = newState.selectedBase[0].codeNote
+    newState.fontSize = newState.selectedBase[0].fontSize
     newState.theme = newState.selectedBase[0].theme
     newState.language = newState.selectedBase[0].codeLanguage
 
     this.setState({
+      fontSize: newState.fontSize,
       code: newState.code,
       selectedBase: newState.selectedBase,
       language: newState.language,
       theme: newState.theme
     })
+    console.log(this.state)
   }
 
-  // Bug
-  // Because updateItem is pulling from state, the updated values aren't present if you type before the call/ response.
-  // Ideally, both of these actions would happen in the same function
-  // How do to get codeValue and textValue in the same function? 
+
 
   onCodeChange = async (codeValue) => {
     const currentTime = moment().format()
@@ -95,6 +97,15 @@ class Editor extends Component {
     this.updateEditorProperties('language', value)
   }
 
+  fontSizeChange = (event) => {
+    const newState = { ...this.state }
+    const value = event.target.value
+    newState.fontSize = parseInt(value)
+    this.setState({ fontSize: newState.fontSize })
+    console.log(this.state)
+    this.updateEditorProperties('fontSize', value)
+  }
+
   updateEditorProperties = async (type, val) => {
     const currentTime = moment().format()
     const updateItem = { ...this.state.selectedBase[0] }
@@ -104,8 +115,11 @@ class Editor extends Component {
     if (type === 'language') {
       updateItem.codeLanguage = val
     }
-    else {
+    else if(type === 'theme') {
       updateItem.theme = val
+    }
+    else{
+      updateItem.fontSize = val
     }
 
     await API.put("notebase3API", "/bases", {
@@ -138,11 +152,13 @@ class Editor extends Component {
 
           <div className="col-md-6">
             <CodeEditor
+              fontSize={this.state.fontSize}
               code={this.state.code}
               language={this.state.language}
               theme={this.state.theme}
               themeChange={this.themeChange}
               languageChange={this.languageChange}
+              fontSizeChange={this.fontSizeChange}
               onCodeChange={this.onCodeChange}
               selectedBase={this.state.selectedBase} />
           </div>
