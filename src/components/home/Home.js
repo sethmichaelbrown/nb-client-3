@@ -45,14 +45,14 @@ class Home extends Component {
     // console.log(this.state)
   }
 
-  handleSubmit = async (event) => {
+  newBase = async (event) => {
     event.preventDefault()
     const length = (this.state.userBases.length + 1)
     const currentTime = moment().format()
     const newId = uuid()
     await API.post("notebase3API", "/bases", {
       body: {
-        baseName: `new-base-6`,
+        baseName: `new-base-${length}`,
         codeLanguage: 'javascript',
         codeNote: this.state.newBaseCode,
         createdAt: `${currentTime}`,
@@ -82,14 +82,14 @@ class Home extends Component {
           </div>
           <div className="col-md-8 mt-2">
             <div className="create-btn new-base-btn">
-              <Link to='/editor' onClick={this.handleSubmit} >
+              <Link to='/editor' newBase={this.handleSubmit} >
                 Create New Base
               </Link>
             </div>
           </div>
         </div>
 
-        <div className="row container">
+        <div className="row">
           <div className="col-md-12">
             {this.state.userBases ?
               <ListView
