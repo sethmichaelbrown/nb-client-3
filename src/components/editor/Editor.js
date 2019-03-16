@@ -16,18 +16,36 @@ class Editor extends Component {
   state = {
     changesSaved: false,
     selectedBase: {},
+    language: '',
+    theme: '',
+    code: ''
   }
 
   componentDidMount = async () => {
     this.fetch()
-
+    console.log(this.state)
   }
 
   fetch = async () => {
     const newState = { ...this.state }
     const response = await API.get('notebase3API', '/bases')
-    newState.selectedBase = response.filter(base => base.id === this.props.selectedId)
-    this.setState({ selectedBase: newState.selectedBase })
+    if (this.props.selectedId) {
+      newState.selectedBase = response.filter(base => base.id === this.props.selectedId)
+    }
+    else {
+      const storedId = localStorage.getItem('lastSelectedBase')
+      newState.selectedBase = response.filter(base => base.id === storedId)
+    }
+    newState.code = newState.selectedBase[0].codeNote
+    newState.theme = newState.selectedBase[0].theme
+    newState.language = newState.selectedBase[0].codeLanguage
+
+    this.setState({
+      code: newState.code,
+      selectedBase: newState.selectedBase,
+      language: newState.language,
+      theme: newState.theme
+    })
   }
 
   // Bug
@@ -42,7 +60,7 @@ class Editor extends Component {
     updateItem.codeNote = `${codeValue}`
     updateItem.modifiedAt = currentTime
 
-    console.log('Code', updateItem)
+    // console.log('Code', updateItem)
     await API.put("notebase3API", "/bases", {
       body: updateItem
     })
@@ -55,18 +73,44 @@ class Editor extends Component {
     updateItem.textNote = `${textValue}`
     updateItem.modifiedAt = currentTime
 
-    console.log('Text', updateItem)
+    // console.log('Text', updateItem)
     await API.put("notebase3API", "/bases", {
       body: updateItem
     })
   }
 
-  themeChange = () => {
-    console.log('Connected')
+  themeChange = (event) => {
+    const newState = { ...this.state }
+    const value = event.target.value
+    newState.theme = value
+    this.setState({ theme: newState.theme })
+    this.updateEditorProperties('theme', value)
   }
 
-  languageChange = () => {
-    console.log('Connected')
+  languageChange = (event) => {
+    const newState = { ...this.state }
+    const value = event.target.value
+    newState.language = value
+    this.setState({ language: newState.language })
+    this.updateEditorProperties('language', value)
+  }
+
+  updateEditorProperties = async (type, val) => {
+    const currentTime = moment().format()
+    const updateItem = { ...this.state.selectedBase[0] }
+
+    updateItem.modifiedAt = currentTime
+
+    if (type === 'language') {
+      updateItem.codeLanguage = val
+    }
+    else {
+      updateItem.theme = val
+    }
+
+    await API.put("notebase3API", "/bases", {
+      body: updateItem
+    })
   }
 
 
@@ -75,17 +119,11 @@ class Editor extends Component {
       <div className="Editor" >
         <NavBar />
         <div className="row editor-header-row container my-2">
-          <div className="col-md-10">
+          <div className="col-md-12">
             {this.state.selectedBase[0] ?
               <h3>{this.state.selectedBase[0].baseName}
                 {this.state.changesSaved ? <small>All Changes Saved</small> : ''}
               </h3> : ''}
-
-          </div>
-          <div className="col-md-2">
-            <Link to='/bases'>
-              <button type="button" className="btn btn-outline-dark">Back to Bases</button>
-            </Link>
           </div>
 
         </div>
@@ -100,9 +138,11 @@ class Editor extends Component {
 
           <div className="col-md-6">
             <CodeEditor
+              code={this.state.code}
+              language={this.state.language}
+              theme={this.state.theme}
               themeChange={this.themeChange}
               languageChange={this.languageChange}
-              codeVal={this.state.codeVal}
               onCodeChange={this.onCodeChange}
               selectedBase={this.state.selectedBase} />
           </div>

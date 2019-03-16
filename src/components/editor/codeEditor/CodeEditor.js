@@ -65,28 +65,36 @@ import "brace/theme/twilight";
 import "brace/theme/vibrant_ink";
 import "brace/theme/xcode";
 
+import 'brace/ext/searchbox'
+
 
 
 const CodeEditor = (props) => {
   console.log('CodeEditor', props)
 
+
   return (
     <div className="CodeEditor">
-      <CodeEditorToolbar
-        themeChange={props.themeChange}
-        languageChange={props.languageChange} />
-
-
       {props.selectedBase.length > 0 ?
-        <AceEditor
-          mode={props.selectedBase[0] ? props.selectedBase[0].codeLanguage : 'javascript'}
-          theme={props.selectedBase[0] ? props.selectedBase[0].theme : 'github'}
-          onChange={props.onCodeChange}
-          defaultValue={props.selectedBase[0].codeNote}
-          name="UNIQUE_ID_OF_DIV"
-          editorProps={{ $blockScrolling: true }}
-          width={''}
-        /> : ''}
+        <div className="codeEditor-block">
+          
+          <CodeEditorToolbar
+            themeChange={props.themeChange}
+            languageChange={props.languageChange}
+            selectedBase={props.selectedBase} />
+
+          <AceEditor
+            mode={props.language ? props.language : 'javascript'}
+            theme={props.theme ? props.theme : 'github'}
+            onChange={props.onCodeChange}
+            defaultValue={props.code}
+            value={props.code}
+            name="UNIQUE_ID_OF_DIV"
+            editorProps={{ $blockScrolling: true }}
+            width={''}/>
+            
+        </div>
+        : ''}
     </div >
   )
 }

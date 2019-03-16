@@ -34,7 +34,7 @@ class Home extends Component {
     this.setState({ username: newState.username })
     this.getBases()
 
-    console.log('Home', this.state)
+    // console.log('Home', this.state)
   }
 
   getBases = async () => {
@@ -42,7 +42,7 @@ class Home extends Component {
     const response = await API.get('notebase3API', '/bases')
     newState.userBases = response.filter(base => base.username === this.state.userInfo.username)
     this.setState({ userBases: newState.userBases })
-    console.log(this.state)
+    // console.log(this.state)
   }
 
   handleSubmit = async (event) => {

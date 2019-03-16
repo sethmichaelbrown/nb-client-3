@@ -49,3 +49,7 @@
   height: 161px;
   border-radius: .25rem;
 }
+
+.dropdown-btn{
+  color: black !important;
+}
