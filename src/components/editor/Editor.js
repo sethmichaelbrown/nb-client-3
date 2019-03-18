@@ -52,7 +52,6 @@ class Editor extends Component {
       language: newState.language,
       theme: newState.theme
     })
-    console.log(this.state)
   }
 
   updateDB = async () => {
@@ -103,7 +102,7 @@ class Editor extends Component {
   fontSizeChange = (event) => {
     const newState = { ...this.state }
     newState.fontSize = parseInt(event.target.value)
-    this.setState({ fontSize: newState.fontSize }, () => console.log(this.state))
+    this.setState({ fontSize: newState.fontSize })
     this.updateDB()
   }
 
@@ -117,8 +116,8 @@ class Editor extends Component {
           <div className="col-md-12">
             {this.state.selectedBase[0] ?
               <h3>{this.state.selectedBase[0].baseName}
-              {this.state.saved !== '' ?
-                this.state.saved ? <span className="ml-2 saved-text">All Changes Saved</span> : <span className="ml-2 saved-text">Saving...</span> : ''}
+                {this.state.saved !== '' ?
+                  this.state.saved ? <span className="ml-2 saved-text">All Changes Saved</span> : <span className="ml-2 saved-text">Saving...</span> : ''}
               </h3> : ''}
           </div>
         </div>

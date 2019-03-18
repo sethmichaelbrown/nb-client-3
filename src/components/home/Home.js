@@ -22,12 +22,14 @@ import '../../styles/home.css'
 class Home extends Component {
 
   state = {
+    baseToDelete: {},
+    displaySearchBox: false,
+    displayUserPreferences: false,
+    displayDeleteWarning: false,
+    filterString: '',
     newBaseCode: ' ',
     newBaseName: '',
     newBaseText: ' ',
-    baseToDelete: {},
-    displayUserPreferences: false,
-    displayDeleteWarning: false,
     selectedBase: {},
     userBases: [],
     userInfo: {},
@@ -99,7 +101,24 @@ class Home extends Component {
     const newState = { ...this.state }
     newState.displayUserPreferences = true
     this.setState({ displayUserPreferences: newState.displayUserPreferences })
-    console.log(this.state)
+  }
+
+  showSearchBox = () => {
+    const newState = { ...this.state }
+    newState.displaySearchBox = true
+    this.setState({ displaySearchBox: newState.displaySearchBox })
+  }
+
+  search = (event) => {
+    const newState = { ...this.state }
+    newState.filterString = event.target.value
+    this.setState({ filterString: newState.filterString })
+  }
+
+  backToIcon = () => {
+    const newState = { ...this.state }
+    newState.displaySearchBox = false
+    this.setState({ displaySearchBox: newState.displaySearchBox })
   }
 
 
@@ -135,11 +154,18 @@ class Home extends Component {
 
         <div className="row">
           <div className="col-md-12">
-            {this.state.userBases ?
+            {this.state.userBases.length > 0 ?
               <ListView
+                filterString={this.state.filterString}
                 deleteBase={this.deleteBase}
                 selectBaseId={this.props.selectBaseId}
-                userBases={this.state.userBases} /> : ''}
+                userBases={this.state.userBases}
+                displaySearchBox={this.state.displaySearchBox}
+                showSearchBox={this.showSearchBox}
+                search={this.search}
+                backToIcon={this.backToIcon} />
+              :
+              <div className="loading"><h6>Loading...</h6></div>}
           </div>
         </div>
       </div>
