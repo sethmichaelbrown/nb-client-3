@@ -40,11 +40,13 @@ class Editor extends Component {
 
     newState.code = newState.selectedBase[0].codeNote
     newState.fontSize = newState.selectedBase[0].fontSize
+    newState.text = newState.selectedBase[0].textNote
     newState.theme = newState.selectedBase[0].theme
     newState.language = newState.selectedBase[0].codeLanguage
 
     this.setState({
       fontSize: newState.fontSize,
+      text: newState.text,
       code: newState.code,
       selectedBase: newState.selectedBase,
       language: newState.language,
@@ -100,8 +102,8 @@ class Editor extends Component {
 
   fontSizeChange = (event) => {
     const newState = { ...this.state }
-    newState.fontSize = event.target.value
-    this.setState({ fontSize: newState.fontSize })
+    newState.fontSize = parseInt(event.target.value)
+    this.setState({ fontSize: newState.fontSize }, () => console.log(this.state))
     this.updateDB()
   }
 
@@ -116,7 +118,7 @@ class Editor extends Component {
             {this.state.selectedBase[0] ?
               <h3>{this.state.selectedBase[0].baseName}
               {this.state.saved !== '' ?
-                this.state.saved ? <span class="ml-2 saved-text">All Changes Saved</span> : <span class="ml-2 saved-text">Saving...</span> : ''}
+                this.state.saved ? <span className="ml-2 saved-text">All Changes Saved</span> : <span className="ml-2 saved-text">Saving...</span> : ''}
               </h3> : ''}
           </div>
         </div>
