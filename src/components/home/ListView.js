@@ -10,17 +10,17 @@ const ListView = (props) => {
         <li className="list-group-item list-group-header">
           <div className="row">
             <div className="col-md-3 header-text">
-              baseName
-          </div>
+              <button href="">baseName</button>
+            </div>
             <div className="col-md-2 header-text">
-              Language
-          </div>
+              <button href="">Language</button>
+            </div>
             <div className="col-md-2 header-text">
-              Last Modified
-          </div>
+              <button href="">Last Modified</button>
+            </div>
             <div className="col-md-2 header-text">
-              Created
-          </div>
+              <button href="">Created</button>
+            </div>
             <div className="col-md-2 header-text">
 
             </div>
@@ -35,39 +35,40 @@ const ListView = (props) => {
         {props.userBases.length > 0 ?
           props.userBases.map((base, idx) =>
             <li className="list-group-item group-item" id={base.id} key={idx}>
-              <LinkContainer to='/editor' onClick={(props.selectBaseId)} id={base.id}>
-                <div className="row group-item" id={base.id}>
-                  <div className="col-md-3 item-text" id={base.id}>
-                    {base.baseName}
-                  </div>
-                  <div className="col-md-2 item-text" id={base.id}>
-                    {base.codeLanguage}
-                  </div>
-                  <div className="col-md-2 item-text" id={base.id}>
-                    {moment(base.modifiedAt).calendar()}
-                  </div>
-                  <div className="col-md-2 item-text" id={base.id}>
-                    {moment(base.createdAt).format('L')}
-                  </div>
-                  <div className="col-md-2 item-text">
-                  </div>
-
-                  {/* <div className="col-md-1">
-                    <button type="button" className="btn-sm btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <span className="sr-only">Toggle Dropdown</span>
-                    </button>
-                    <div className="dropdown-menu pull-left">
-                      <a className="dropdown-item" href="#">Action</a>
-                      <a className="dropdown-item" href="#">Another action</a>
-                      <a className="dropdown-item" href="#">Something else here</a>
-                      <div role="separator" className="dropdown-divider"></div>
-                      <a className="dropdown-item" href="#">Separated link</a>
+              <div className="row">
+                <div className="col-md-11">
+                  <LinkContainer to='/editor' onClick={props.selectBaseId} id={base.id}>
+                    <div className="row group-item" id={base.id}>
+                      <div className="col-md-3 item-text" id={base.id}>
+                        {base.baseName}
+                      </div>
+                      <div className="col-md-3 item-text" id={base.id}>
+                        {base.codeLanguage}
+                      </div>
+                      <div className="col-md-2 item-text" id={base.id}>
+                        {moment(base.modifiedAt).calendar()}
+                      </div>
+                      <div className="col-md-2 item-text" id={base.id}>
+                        {moment(base.createdAt).format('L')}
+                      </div>
+                      <div className="col-md-2 item-text">
+                      </div>
                     </div>
-                  </div> */}
 
 
+
+
+
+                  </LinkContainer>
                 </div>
-              </LinkContainer>
+                <div className="col-md-1">
+                  <button
+                    id={base.id} 
+                    type="button" 
+                    onClick={props.deleteBase} 
+                    className="btn btn-outline-danger btn-sm">Delete</button>
+                </div>
+              </div>
             </li>
           )
           : ''}

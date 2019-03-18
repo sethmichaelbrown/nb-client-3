@@ -4,7 +4,7 @@ import NavBar from '../NavBar'
 import CodeEditor from './codeEditor/CodeEditor'
 import TextEditor from './textEditor/TextEditor'
 
-import { Link } from 'react-browser-router'
+// import { Link } from 'react-browser-router'
 import { API } from 'aws-amplify'
 import moment from 'moment'
 
@@ -55,12 +55,14 @@ class Editor extends Component {
 
 
 
+
   onCodeChange = async (codeValue) => {
     const currentTime = moment().format()
     const updateItem = { ...this.state.selectedBase[0] }
 
     updateItem.codeNote = `${codeValue}`
     updateItem.modifiedAt = currentTime
+
 
     // console.log('Code', updateItem)
     await API.put("notebase3API", "/bases", {

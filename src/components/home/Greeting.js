@@ -23,8 +23,7 @@ const Greeting = (props) => {
           </div>
           <div className="row">
             <div className="col-md-12 mt-2">
-              <button type="button" className="btn btn-outline-secondary mr-2">My Account</button>
-              <button type="button" className="btn btn-outline-secondary">My Account</button>
+              <button type="button" onClick={props.showUserPreferences} className="btn btn-outline-secondary mr-2">My Preferences</button>
             </div>
           </div>
         </div>

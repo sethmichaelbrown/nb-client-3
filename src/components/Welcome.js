@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, } from 'react-browser-router'
-import recording from '../media/video/recording.mov'
+// import recording from '../media/video/recording.mov'
 import logo from '../media/svgs/text&logo.svg'
 
 import '../styles/welcome.css'
