@@ -49,7 +49,7 @@ class Home extends Component {
   }
 
   newBase = async (event) => {
-    event.preventDefault()
+    // event.preventDefault()
     const currentTime = moment().format()
     const newId = uuid()
     await API.post("notebase3API", "/bases", {
@@ -88,7 +88,7 @@ class Home extends Component {
 
           <div className="col-md-8 mt-2">
             <Link to='/editor'>
-              <button type="button" className="btn btn-outline-light btn-lg">Get Started</button>
+              <button type="button" onClick={() => this.newBase()} className="btn btn-outline-light btn-lg">Get Started</button>
             </Link>
           </div>
 
