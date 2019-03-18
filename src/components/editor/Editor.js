@@ -14,17 +14,17 @@ import '../../styles/editor.css'
 class Editor extends Component {
 
   state = {
-    changesSaved: false,
     selectedBase: {},
     language: '',
     theme: '',
     code: '',
-    fontSize: 0,
+    text: '',
+    fontSize: null,
+    saved: ''
   }
 
   componentDidMount = async () => {
     this.fetch()
-    console.log(this.state)
   }
 
   fetch = async () => {
@@ -37,7 +37,7 @@ class Editor extends Component {
       const storedId = localStorage.getItem('lastSelectedBase')
       newState.selectedBase = response.filter(base => base.id === storedId)
     }
-   
+
     newState.code = newState.selectedBase[0].codeNote
     newState.fontSize = newState.selectedBase[0].fontSize
     newState.theme = newState.selectedBase[0].theme
@@ -53,81 +53,58 @@ class Editor extends Component {
     console.log(this.state)
   }
 
+  updateDB = async () => {
+    this.setState({ saved: false })
+    const updateItem = { ...this.state.selectedBase[0] }
 
+    updateItem.codeNote = this.state.code
+    updateItem.textNote = this.state.text
+    updateItem.theme = this.state.theme
+    updateItem.codeLanguage = this.state.language
+    updateItem.fontSize = this.state.fontSize
+    updateItem.modifiedAt = moment().format()
+
+    await API.put("notebase3API", "/bases", {
+      body: updateItem
+    }).then(response => response.success ? this.setState({ saved: true }) : '')
+  }
 
 
   onCodeChange = async (codeValue) => {
-    const currentTime = moment().format()
-    const updateItem = { ...this.state.selectedBase[0] }
-
-    updateItem.codeNote = `${codeValue}`
-    updateItem.modifiedAt = currentTime
-
-
-    // console.log('Code', updateItem)
-    await API.put("notebase3API", "/bases", {
-      body: updateItem
-    })
+    const newState = { ...this.state }
+    newState.code = codeValue
+    this.setState({ code: newState.code })
+    this.updateDB()
   }
 
   onTextChange = async (textValue) => {
-    const currentTime = moment().format()
-    const updateItem = { ...this.state.selectedBase[0] }
-
-    updateItem.textNote = `${textValue}`
-    updateItem.modifiedAt = currentTime
-
-    // console.log('Text', updateItem)
-    await API.put("notebase3API", "/bases", {
-      body: updateItem
-    })
+    const newState = { ...this.state }
+    newState.text = textValue
+    this.setState({ text: newState.text })
+    this.updateDB()
   }
 
   themeChange = (event) => {
     const newState = { ...this.state }
-    const value = event.target.value
-    newState.theme = value
+    newState.theme = event.target.value
     this.setState({ theme: newState.theme })
-    this.updateEditorProperties('theme', value)
+    this.updateDB()
   }
 
   languageChange = (event) => {
     const newState = { ...this.state }
-    const value = event.target.value
-    newState.language = value
+    newState.language = event.target.value
     this.setState({ language: newState.language })
-    this.updateEditorProperties('language', value)
+    this.updateDB()
   }
 
   fontSizeChange = (event) => {
     const newState = { ...this.state }
-    const value = event.target.value
-    newState.fontSize = parseInt(value)
+    newState.fontSize = event.target.value
     this.setState({ fontSize: newState.fontSize })
-    console.log(this.state)
-    this.updateEditorProperties('fontSize', value)
+    this.updateDB()
   }
 
-  updateEditorProperties = async (type, val) => {
-    const currentTime = moment().format()
-    const updateItem = { ...this.state.selectedBase[0] }
-
-    updateItem.modifiedAt = currentTime
-
-    if (type === 'language') {
-      updateItem.codeLanguage = val
-    }
-    else if(type === 'theme') {
-      updateItem.theme = val
-    }
-    else{
-      updateItem.fontSize = val
-    }
-
-    await API.put("notebase3API", "/bases", {
-      body: updateItem
-    })
-  }
 
 
   render() {
@@ -138,15 +115,16 @@ class Editor extends Component {
           <div className="col-md-12">
             {this.state.selectedBase[0] ?
               <h3>{this.state.selectedBase[0].baseName}
-                {this.state.changesSaved ? <small>All Changes Saved</small> : ''}
+              {this.state.saved !== '' ?
+                this.state.saved ? <span class="ml-2 saved-text">All Changes Saved</span> : <span class="ml-2 saved-text">Saving...</span> : ''}
               </h3> : ''}
           </div>
-
         </div>
 
         <div className="row ">
           <div className="col-md-6">
             <TextEditor
+              onChange={this.onChange}
               textVal={this.state.textVal}
               onTextChange={this.onTextChange}
               selectedBase={this.state.selectedBase} />
@@ -154,6 +132,7 @@ class Editor extends Component {
 
           <div className="col-md-6">
             <CodeEditor
+              onChange={this.onChange}
               fontSize={this.state.fontSize}
               code={this.state.code}
               language={this.state.language}
