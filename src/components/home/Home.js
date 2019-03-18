@@ -121,10 +121,13 @@ class Home extends Component {
     this.setState({ displaySearchBox: newState.displaySearchBox })
   }
 
+  sortBy = (event) => {
+    const val = event.target.id
+  }
+
 
   render() {
     return (
-
       <div className="Home">
         <NavBar />
         <DeleteWarning
@@ -132,8 +135,6 @@ class Home extends Component {
           confirmedDelete={this.confirmedDelete}
           closeDeleteModal={this.closeDeleteModal}
           displayDeleteWarning={this.state.displayDeleteWarning} />
-
-
 
         <div className="row container">
           <div className="col-md-4">
@@ -143,19 +144,18 @@ class Home extends Component {
               username={this.state.username} />
           </div>
 
-
           <div className="col-md-4 mt-2">
             <Link to='/editor'>
               <button type="button" onClick={() => this.newBase()} className="btn btn-outline-dark btn-lg">Create New Base</button>
             </Link>
           </div>
-
         </div>
 
         <div className="row">
           <div className="col-md-12">
             {this.state.userBases.length > 0 ?
               <ListView
+                sortBy={this.sortBy}
                 filterString={this.state.filterString}
                 deleteBase={this.deleteBase}
                 selectBaseId={this.props.selectBaseId}

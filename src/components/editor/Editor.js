@@ -52,6 +52,7 @@ class Editor extends Component {
       language: newState.language,
       theme: newState.theme
     })
+    console.log(this.state)
   }
 
   updateDB = async () => {
@@ -67,42 +68,44 @@ class Editor extends Component {
 
     await API.put("notebase3API", "/bases", {
       body: updateItem
-    }).then(response => response.success ? this.setState({ saved: true }) : '')
+    })
+      .then(response => response.success ? this.setState({ saved: true }) : '')
+
   }
 
 
   onCodeChange = async (codeValue) => {
     const newState = { ...this.state }
     newState.code = codeValue
-    this.setState({ code: newState.code })
+    await this.setState({ code: newState.code })
     this.updateDB()
   }
 
   onTextChange = async (textValue) => {
     const newState = { ...this.state }
     newState.text = textValue
-    this.setState({ text: newState.text })
+    await this.setState({ text: newState.text })
     this.updateDB()
   }
 
-  themeChange = (event) => {
+  themeChange = async (event) => {
     const newState = { ...this.state }
     newState.theme = event.target.value
-    this.setState({ theme: newState.theme })
+    await this.setState({ theme: newState.theme })
     this.updateDB()
   }
 
-  languageChange = (event) => {
+  languageChange = async (event) => {
     const newState = { ...this.state }
     newState.language = event.target.value
-    this.setState({ language: newState.language })
+    await this.setState({ language: newState.language })
     this.updateDB()
   }
 
-  fontSizeChange = (event) => {
+  fontSizeChange = async (event) => {
     const newState = { ...this.state }
     newState.fontSize = parseInt(event.target.value)
-    this.setState({ fontSize: newState.fontSize })
+    await this.setState({ fontSize: newState.fontSize })
     this.updateDB()
   }
 

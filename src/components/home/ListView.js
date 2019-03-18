@@ -4,26 +4,26 @@ import { FormControl } from 'react-bootstrap'
 import moment from 'moment'
 
 const ListView = (props) => {
-  console.log('ListView', props)
+  // console.log('ListView', props)
 
   const filteredBases = props.userBases.filter(base => base.baseName.toLowerCase().includes(props.filterString.toLowerCase()) || base.textNote.toLowerCase().includes(props.filterString.toLowerCase()) || base.codeNote.toLowerCase().includes(props.filterString.toLowerCase()))
-
+  
   return (
     <div className="ListView">
       <ul className="list-group">
         <li className="list-group-item list-group-header">
           <div className="row">
-            <div className="col-md-3 header-text">
-              <button href="">baseName</button>
+            <div className="col-md-3 header-text" onClick={props.sortBy}>
+              <a id='baseName'>baseName</a>
             </div>
-            <div className="col-md-2 header-text">
-              <button href="">Language</button>
+            <div className="col-md-2 header-text" onClick={props.sortBy}>
+              <a id='codeLanguage'>Language</a>
             </div>
-            <div className="col-md-2 header-text">
-              <button href="">Last Modified</button>
+            <div className="col-md-2 header-text" onClick={props.sortBy}>
+              <a id='modifiedAt'>Last Modified</a>
             </div>
-            <div className="col-md-2 header-text">
-              <button href="">Created</button>
+            <div className="col-md-2 header-text" onClick={props.sortBy}>
+              <a id='createdAt'>Created</a>
             </div>
 
             {props.displaySearchBox ?
