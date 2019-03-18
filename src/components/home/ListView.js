@@ -6,8 +6,13 @@ import moment from 'moment'
 const ListView = (props) => {
   // console.log('ListView', props)
 
-  const filteredBases = props.userBases.filter(base => base.baseName.toLowerCase().includes(props.filterString.toLowerCase()) || base.textNote.toLowerCase().includes(props.filterString.toLowerCase()) || base.codeNote.toLowerCase().includes(props.filterString.toLowerCase()))
-  
+  const filteredBases = props.userBases.filter(base =>
+    base.baseName.toLowerCase().includes(props.filterString.toLowerCase()) ||
+    base.textNote.toLowerCase().includes(props.filterString.toLowerCase()) ||
+    base.codeNote.toLowerCase().includes(props.filterString.toLowerCase()) ||
+    base.codeLanguage.toLowerCase().includes(props.filterString.toLowerCase())
+  )
+
   return (
     <div className="ListView">
       <ul className="list-group">
@@ -27,8 +32,9 @@ const ListView = (props) => {
             </div>
 
             {props.displaySearchBox ?
-              <div className="col-md-2 float-right">
-                <FormControl type="text" placeholder="Search" className="mr-sm-2 float-right" onKeyUp={props.search} onBlur={props.backToIcon} />
+              <div className="col-md-2 float-right" onBlur={props.backToIcon}>
+                {/* <FormControl type="text" placeholder="Search" className="float-right" onKeyUp={props.search} onBlur={props.backToIcon} /> */}
+                <input className="form-control searchBox" type="search" placeholder="Search" aria-label="Search" onKeyUp={props.search} onBlur={props.backToIcon}/>
               </div>
               :
               <div className="col-md-2">
@@ -47,8 +53,8 @@ const ListView = (props) => {
           filteredBases.map((base, idx) =>
             <li className="list-group-item group-item" id={base.id} key={idx}>
               <div className="row">
-                <div className="col-md-11">
-                  <LinkContainer to='/editor' onClick={props.selectBaseId} id={base.id}>
+              <LinkContainer to='/editor' onClick={props.selectBaseId} id={base.id}>
+                <div className="col-md-11">          
                     <div className="row group-item" id={base.id}>
                       <div className="col-md-3 item-text" id={base.id}>
                         {base.baseName}
@@ -64,14 +70,9 @@ const ListView = (props) => {
                       </div>
                       <div className="col-md-2 item-text">
                       </div>
-                    </div>
-
-
-
-
-
-                  </LinkContainer>
+                    </div>              
                 </div>
+                  </LinkContainer>
                 <div className="col-md-1">
                   <button
                     id={base.id}

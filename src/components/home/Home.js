@@ -144,7 +144,7 @@ class Home extends Component {
               username={this.state.username} />
           </div>
 
-          <div className="col-md-4 mt-2">
+          <div className="col-md-4 mt-5">
             <Link to='/editor'>
               <button type="button" onClick={() => this.newBase()} className="btn btn-outline-dark btn-lg">Create New Base</button>
             </Link>

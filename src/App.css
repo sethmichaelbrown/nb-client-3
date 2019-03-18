@@ -40,27 +40,32 @@
   background-size: cover;
 }
 
-.greeting-text{
+.greeting-text {
   margin: auto;
   line-height: 2px;
 }
 
-.new-base-btn{
+.new-base-btn {
   height: 161px;
   border-radius: .25rem;
 }
 
-.dropdown-btn{
+.dropdown-btn {
   color: black !important;
 }
 
-.bold-text{
+.bold-text {
   font-weight: 700;
 }
 
-.saved-text{
+.saved-text {
   font-size: 10px;
   font-family: 'Roboto', sans-serif;
   color: grey;
 }
 
+.searchBox {
+  margin-top: -5px !important;
+  margin-bottom: -5px !important;
+  height: calc(1.5em + .75rem) !important;
+}
