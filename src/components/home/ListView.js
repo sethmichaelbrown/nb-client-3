@@ -4,7 +4,7 @@ import { FormControl } from 'react-bootstrap'
 import moment from 'moment'
 
 const ListView = (props) => {
-  // console.log('ListView', props)
+  console.log('ListView', props)
 
   const filteredBases = props.userBases.filter(base =>
     base.baseName.toLowerCase().includes(props.filterString.toLowerCase()) ||
@@ -21,18 +21,26 @@ const ListView = (props) => {
             <div className="col-md-10">
               <div className="row">
                 <div className="col-md-3 header-text" onClick={props.sortBy}>
-                  <a id='baseName'>baseName</a>
+                  <a id='baseName'>baseName
+                  {props.sortByVal === 'baseName' ? <i className="fa fa-caret-down"></i> : ''}
+                  </a>
                 </div>
                 <div className="col-md-2 header-text" onClick={props.sortBy}>
-                  <a id='codeLanguage'>Language</a>
+                  <a id='codeLanguage'>Language
+                  {props.sortByVal === 'codeLanguage' ? <i className="fa fa-caret-down"></i> : ''}
+                  </a>
                 </div>
                 <div className="col-md-2 header-text" onClick={props.sortBy}>
-                  <a id='modifiedAt'>Last Modified</a>
+                  <a id='modifiedAt'>Last Modified
+                  {props.sortByVal === 'modifiedAt' ? <i className="fa fa-caret-down"></i> : ''}
+                  </a>
                 </div>
                 <div className="col-md-1 item-text">
                 </div>
                 <div className="col-md-2 header-text" onClick={props.sortBy}>
-                  <a id='createdAt'>Created</a>
+                  <a id='createdAt'>Created
+                  {props.sortByVal === 'createdAt' ? <i className="fa fa-caret-down"></i> : ''}
+                  </a>
                 </div>
               </div>
             </div>
@@ -86,11 +94,15 @@ const ListView = (props) => {
                   </div>
                 </LinkContainer>
                 <div className="col-md-2">
-                  <button
-                    id={base.id}
+                  {/* <button> */}
+                    <i className="fa fa-trash" onClick={props.deleteBase} id={base.id}></i>
+                  {/* </button> */}
+
+                  {/* <button
+onClick={props.deleteBase} id={base.id}
                     type="button"
-                    onClick={props.deleteBase}
-                    className="btn btn-outline-danger btn-sm">Delete</button>
+
+                    className="btn btn-outline-danger btn-sm">Delete</button> */}
                 </div>
               </div>
             </li>

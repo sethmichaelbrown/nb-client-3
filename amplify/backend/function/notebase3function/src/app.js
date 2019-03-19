@@ -58,7 +58,7 @@ const convertUrlType = (param, type) => {
 app.get(path, function(req, res) {
   const queryParams = {
     TableName: tableName,
-    ProjectionExpression: "id, username, baseName, codeNote, textNote, fontSize, createdAt, modifiedAt, codeLanguage, theme"
+    ProjectionExpression: "id, username, baseName, codeNote, textNote, deleteVal, fontSize, createdAt, modifiedAt, codeLanguage, theme"
   };
   dynamodb.scan(queryParams, (err, data) => {
     if (err) {
@@ -163,8 +163,8 @@ app.post(path, function(req, res) {
 ***************************************/
 
 app.delete(path + '/object' + hashKeyPath + sortKeyPath, function(req, res) {
-  console.log('working')
-  console.log(path + '/object' + hashKeyPath + sortKeyPath)
+  // console.log('working')
+  // console.log(path + '/object' + hashKeyPath + sortKeyPath)
   var params = {};
   if (userIdPresent && req.apiGateway) {
     params[partitionKeyName] = req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;

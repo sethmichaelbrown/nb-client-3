@@ -70,6 +70,14 @@
   height: calc(1.5em + .75rem) !important;
 } */
 
-.active{
-  color: red;
+.fa-trash {
+  color: #565658;
+}
+
+.fa-trash:hover {
+  color: #5C908F;
+}
+
+.fa-caret-down {
+  margin-left: 1em;
 }

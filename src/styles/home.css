@@ -1,16 +1,13 @@
-.list-group-header {
-
-}
+.list-group-header {}
 
 .item-text {
-  /* color: red; */
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
 }
 
 .list-group-item:nth-of-type(n+2):hover {
-  background-color: #A4A4A4;
-  color: #EAEAEA;
+  background-color: rgba(136, 136, 136, 0.1);
+  color: rgb(0, 0, 0);
 }
 
 .header-text {
