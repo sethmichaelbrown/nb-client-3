@@ -163,6 +163,8 @@ app.post(path, function(req, res) {
 ***************************************/
 
 app.delete(path + '/object' + hashKeyPath + sortKeyPath, function(req, res) {
+  console.log('working')
+  console.log(path + '/object' + hashKeyPath + sortKeyPath)
   var params = {};
   if (userIdPresent && req.apiGateway) {
     params[partitionKeyName] = req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;

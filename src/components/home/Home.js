@@ -123,6 +123,9 @@ class Home extends Component {
 
   sortBy = (event) => {
     const val = event.target.id
+    const newState = { ...this.state }
+    const sortedBases = newState.userBases.sort((a, b) => (a[`${val}`] > b[`${val}`]) ? 1 : ((b[`${val}`] > a[`${val}`]) ? -1 : 0));
+    this.setState({ userBases: sortedBases })
   }
 
 

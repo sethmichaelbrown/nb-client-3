@@ -64,8 +64,12 @@
   color: grey;
 }
 
-.searchBox {
+/* .searchBox {
   margin-top: -5px !important;
   margin-bottom: -5px !important;
   height: calc(1.5em + .75rem) !important;
+} */
+
+.active{
+  color: red;
 }
