@@ -70,7 +70,6 @@ class Editor extends Component {
       body: updateItem
     })
       .then(response => response.success ? this.setState({ saved: true }) : '')
-
   }
 
 
@@ -108,8 +107,6 @@ class Editor extends Component {
     await this.setState({ fontSize: newState.fontSize })
     this.updateDB()
   }
-
-
 
   render() {
     return (

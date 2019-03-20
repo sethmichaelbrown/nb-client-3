@@ -66,13 +66,12 @@ class Home extends Component {
   }
 
   confirmedDelete = async () => {
-
     const updateItem = { ...this.state.baseToDelete }
     updateItem.deleteVal = true
 
     await API.put("notebase3API", "/bases", {
       body: updateItem
-    })
+    }).then(response => console.log(response))
     const lastId = localStorage.getItem('lastSelectedBase')
 
     if (lastId === updateItem.id) {
