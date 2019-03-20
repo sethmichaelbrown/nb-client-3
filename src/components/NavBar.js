@@ -28,7 +28,7 @@ const NavBar = (props) => {
           <ul className="navbar-nav mr-auto">
             
           </ul>
-          <button type="button" className="Button__button___1FrBC" onClick={signOut}>Sign Out</button>
+          <button type="button" className="" onClick={signOut}>Sign Out</button>
         </div>
       </nav>
 
