@@ -31,7 +31,7 @@ class Home extends Component {
     newBaseName: '',
     newBaseText: ' ',
     selectedBase: {},
-    sortByVal: '',
+    sortByVal: ['baseName', 'up'],
     userBases: [],
     userInfo: {},
     userPreferences: { theme: 'solarized_dark' },
@@ -108,7 +108,7 @@ class Home extends Component {
     })
     this.getBases()
     this.props.newBaseSelected(newId)
-    localStorage.setItem('lastSelectedBase', `${newId}`)
+    // localStorage.setItem('lastSelectedBase', `${newId}`)
   }
 
   showUserPreferences = () => {
@@ -138,12 +138,15 @@ class Home extends Component {
   sortBy = (event) => {
     const val = event.target.id
     const newState = { ...this.state }
-    newState.sortByVal = val
+    newState.sortByVal[0] = val
     let sortedBases = []
-    if (this.state.sortByVal === val) {
-      sortedBases = newState.userBases.sort((a, b) => (a[`${val}`] > b[`${val}`]) ? -1 : ((b[`${val}`] > a[`${val}`]) ? 1 : 0));
+
+    if(this.state.sortByVal[1] === 'up'){
+      newState.sortByVal[1] = 'down'
+      sortedBases = newState.userBases.sort((a, b) => (a[`${val}`] > b[`${val}`]) ? -1 : ((b[`${val}`] > a[`${val}`]) ? -1 : 0));
     }
-    else {
+    else{
+      newState.sortByVal[1] = 'up'
       sortedBases = newState.userBases.sort((a, b) => (a[`${val}`] > b[`${val}`]) ? 1 : ((b[`${val}`] > a[`${val}`]) ? -1 : 0));
     }
 

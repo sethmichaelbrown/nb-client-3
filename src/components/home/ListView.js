@@ -22,24 +22,28 @@ const ListView = (props) => {
               <div className="row">
                 <div className="col-md-3 header-text" onClick={props.sortBy}>
                   <a id='baseName'>baseName
-                  {props.sortByVal === 'baseName' ? <i className="fa fa-caret-down"></i> : ''}
+                  {props.sortByVal[0] === 'baseName' ? props.sortByVal[1] === 'down' ?
+                      <i className="fa fa-caret-down"></i> : <i className="fa fa-caret-up"></i> : ''}
                   </a>
                 </div>
                 <div className="col-md-2 header-text" onClick={props.sortBy}>
                   <a id='codeLanguage'>Language
-                  {props.sortByVal === 'codeLanguage' ? <i className="fa fa-caret-down"></i> : ''}
+                  {props.sortByVal[0] === 'codeLanguage' ? props.sortByVal[1] === 'down' ?
+                      <i className="fa fa-caret-down"></i> : <i className="fa fa-caret-up"></i> : ''}
                   </a>
                 </div>
                 <div className="col-md-2 header-text" onClick={props.sortBy}>
                   <a id='modifiedAt'>Last Modified
-                  {props.sortByVal === 'modifiedAt' ? <i className="fa fa-caret-down"></i> : ''}
+                  {props.sortByVal[0] === 'modifiedAt' ? props.sortByVal[1] === 'down' ?
+                      <i className="fa fa-caret-down"></i> : <i className="fa fa-caret-up"></i> : ''}
                   </a>
                 </div>
                 <div className="col-md-1 item-text">
                 </div>
                 <div className="col-md-2 header-text" onClick={props.sortBy}>
                   <a id='createdAt'>Created
-                  {props.sortByVal === 'createdAt' ? <i className="fa fa-caret-down"></i> : ''}
+                  {props.sortByVal[0] === 'createdAt' ? props.sortByVal[1] === 'down' ?
+                      <i className="fa fa-caret-down"></i> : <i className="fa fa-caret-up"></i> : ''}
                   </a>
                 </div>
               </div>
@@ -95,7 +99,7 @@ const ListView = (props) => {
                 </LinkContainer>
                 <div className="col-md-2">
                   {/* <button> */}
-                    <i className="fa fa-trash" onClick={props.deleteBase} id={base.id}></i>
+                  <i className="fa fa-trash" onClick={props.deleteBase} id={base.id}></i>
                   {/* </button> */}
 
                   {/* <button
