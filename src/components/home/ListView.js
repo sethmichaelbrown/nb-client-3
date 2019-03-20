@@ -16,7 +16,7 @@ const ListView = (props) => {
   return (
     <div className="ListView">
       <ul className="list-group">
-        <li className="list-group-item list-group-header">
+        {/* <li className="list-group-item list-group-header">
           <div className="row">
             <div className="col-md-10">
               <div className="row">
@@ -66,7 +66,7 @@ const ListView = (props) => {
             </div>
           </div>
 
-        </li>
+        </li> */}
 
         {props.userBases.length > 0 ?
           filteredBases.map((base, idx) =>

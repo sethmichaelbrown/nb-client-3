@@ -1,8 +1,11 @@
-.list-group-header {}
+.list-group-item {
+  cursor: pointer;
+}
 
 .item-text {
   font-family: 'Roboto', sans-serif;
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: 400;
 }
 
 .list-group-item:nth-of-type(n+2):hover {
@@ -12,4 +15,7 @@
 
 .header-text {
   font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-weight: bolder;
+  cursor: pointer;
 }
