@@ -45,15 +45,6 @@
   line-height: 2px;
 }
 
-.new-base-btn {
-  height: 161px;
-  border-radius: .25rem;
-}
-
-.dropdown-btn {
-  color: black !important;
-}
-
 .bold-text {
   font-weight: 700;
 }
@@ -64,28 +55,7 @@
   color: grey;
 }
 
-.searchBox {
-  margin-top: -5px !important;
-  margin-bottom: -5px !important;
-  height: calc(1.5em + .75rem) !important;
+h4 {
+  font-family: 'Montserrat', sans-serif;
 }
 
-.fa-trash {
-  color: #565658;
-}
-
-.fa-trash:hover {
-  color: #5C908F;
-}
-
-.fa-caret-down,
-.fa-caret-up {
-  margin-left: 1em;
-}
-
-.editor-loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20vh;
-}

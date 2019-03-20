@@ -2,13 +2,14 @@ import React from 'react'
 import { FormControl } from 'react-bootstrap'
 
 const ListViewHeader = (props) => {
+  // console.log('LVH', props)
   return (
     <ul className="list-group">
       <li className="list-group-item list-group-header">
         <div className="row">
           <div className="col-md-10">
             <div className="row">
-              <div className="col-md-3 header-text" onClick={props.sortBy}>
+              <div className="col-md-4 header-text" onClick={props.sortBy}>
                 <a id='baseName'>baseName
                   {props.sortByVal[0] === 'baseName' ? props.sortByVal[1] === 'down' ?
                     <i className="fa fa-caret-down"></i> : <i className="fa fa-caret-up"></i> : ''}
@@ -20,13 +21,11 @@ const ListViewHeader = (props) => {
                     <i className="fa fa-caret-down"></i> : <i className="fa fa-caret-up"></i> : ''}
                 </a>
               </div>
-              <div className="col-md-2 header-text" onClick={props.sortBy}>
+              <div className="col-md-3 header-text" onClick={props.sortBy}>
                 <a id='modifiedAt'>Last Modified
                   {props.sortByVal[0] === 'modifiedAt' ? props.sortByVal[1] === 'down' ?
                     <i className="fa fa-caret-down"></i> : <i className="fa fa-caret-up"></i> : ''}
                 </a>
-              </div>
-              <div className="col-md-1 item-text">
               </div>
               <div className="col-md-2 header-text" onClick={props.sortBy}>
                 <a id='createdAt'>Created

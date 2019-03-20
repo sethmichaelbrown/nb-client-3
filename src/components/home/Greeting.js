@@ -14,7 +14,7 @@ const Greeting = (props) => {
             <div className="col-md-3">
               <img className='user-photo' src={profile} alt="user-profile" />
             </div>
-            <div className="col-md-9 greeting-text">
+            <div className="col-md-8 greeting-text">
               <h5 className="card-title">Hello, {props.username}</h5>
               <p className="card-text">
                 {props.userBases.length} Bases in {diffLangs.size} {diffLangs.size > 1 ? 'Languages' : 'Language'}
@@ -22,8 +22,8 @@ const Greeting = (props) => {
             </div>
           </div>
           <div className="row">
-            <div className="col-md-12 mt-2">
-              <button type="button" onClick={props.showUserPreferences} className="btn btn-outline-secondary mr-2">My Preferences</button>
+            <div className="col-md-12">
+              <button type="button" onClick={props.showUserPreferences} className="btn btn-outline-secondary mt-1">My Preferences</button>
             </div>
           </div>
         </div>

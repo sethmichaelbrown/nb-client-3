@@ -70,7 +70,7 @@ import 'brace/ext/searchbox'
 
 
 const CodeEditor = (props) => {
-  console.log('CodeEditor', props)
+  // console.log('CodeEditor', props)
 
   const fontSizeInt = parseInt(props.fontSize)
 
