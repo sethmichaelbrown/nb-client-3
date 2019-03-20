@@ -1,15 +1,32 @@
-.list-group-header {}
-
 .item-text {
+  /* color: red; */
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
 }
 
 .list-group-item:nth-of-type(n+2):hover {
-  background-color: rgba(136, 136, 136, 0.1);
-  color: rgb(0, 0, 0);
+  background-color: #A4A4A4;
+  color: #EAEAEA;
 }
 
 .header-text {
   font-family: 'Montserrat', sans-serif;
+}
+
+.searchBox {
+  margin-top: -5px !important;
+  margin-bottom: -5px !important;
+  height: calc(1.5em + .75rem) !important;
+}
+
+.fa-trash {
+  color: #565658;
+}
+
+.fa-trash:hover {
+  color: #5C908F;
+}
+
+.fa-caret-down {
+  margin-left: 1em;
 }

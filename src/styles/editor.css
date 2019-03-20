@@ -11,3 +11,9 @@
   font-family: 'Roboto', sans-serif !important;
   font-size: 14px !important;
 }
+
+.saved-text {
+  font-size: 10px;
+  font-family: 'Roboto', sans-serif;
+  color: grey;
+}
