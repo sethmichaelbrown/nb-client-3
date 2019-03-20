@@ -20,16 +20,12 @@ class App extends Component {
   }
 
   selectBaseId = (event) => {
-    const newState = { ...this.state }
-    newState.selectedId = event.target.id
-    this.setState({ selectedId: newState.selectedId })
-    localStorage.setItem('lastSelectedBase', newState.selectedId)
+    const selectedId = event.target.id
+    localStorage.setItem('lastSelectedBase', `${selectedId}`)
   }
 
   newBaseSelected = (id) => {
-    const newState = { ...this.state }
-    newState.selectedId = id
-    this.setState({ selectedId: newState.selectedId })
+    localStorage.setItem('lastSelectedBase', `${id}`)
   }
 
 

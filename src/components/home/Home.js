@@ -106,8 +106,8 @@ class Home extends Component {
         username: this.state.username,
       }
     })
-    this.getBases()
-    this.props.newBaseSelected(newId)
+    // this.getBases()
+    // this.props.newBaseSelected(newId)
     // localStorage.setItem('lastSelectedBase', `${newId}`)
   }
 

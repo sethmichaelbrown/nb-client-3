@@ -14,35 +14,44 @@ import '../../styles/editor.css'
 class Editor extends Component {
 
   state = {
-    selectedBase: {},
+    storedId: '',
+    editorUserBases: [],
+    selectedBase: [],
     language: '',
     theme: '',
     code: '',
     text: '',
     fontSize: null,
-    saved: ''
+    saved: '',
+    err: false
   }
 
   componentDidMount = async () => {
+    const newState = { ...this.state }
+    newState.storedId = await localStorage.getItem('lastSelectedBase')
+    newState.editorUserBases = await API.get('notebase3API', '/bases')
+    await this.setState({
+      editorUserBases: newState.editorUserBases,
+      storedId: newState.storedId
+    })
     this.fetch()
   }
 
-  fetch = async () => {
+  fetch = () => {
     const newState = { ...this.state }
-    const response = await API.get('notebase3API', '/bases')
-    if (this.props.selectedId) {
-      newState.selectedBase = response.filter(base => base.id === this.props.selectedId)
+    newState.selectedBase[0] = newState.editorUserBases.find(base => base.id === newState.storedId && base.deleteVal !== true)
+
+    if (newState.selectedBase[0]) {
+      newState.code = newState.selectedBase[0].codeNote
+      newState.fontSize = newState.selectedBase[0].fontSize
+      newState.text = newState.selectedBase[0].textNote
+      newState.theme = newState.selectedBase[0].theme
+      newState.language = newState.selectedBase[0].codeLanguage
     }
     else {
-      const storedId = localStorage.getItem('lastSelectedBase')
-      newState.selectedBase = response.filter(base => base.id === storedId)
+      window.location.reload()
     }
 
-    newState.code = newState.selectedBase[0].codeNote
-    newState.fontSize = newState.selectedBase[0].fontSize
-    newState.text = newState.selectedBase[0].textNote
-    newState.theme = newState.selectedBase[0].theme
-    newState.language = newState.selectedBase[0].codeLanguage
 
     this.setState({
       fontSize: newState.fontSize,
@@ -52,7 +61,6 @@ class Editor extends Component {
       language: newState.language,
       theme: newState.theme
     })
-    console.log(this.state)
   }
 
   updateDB = async () => {
@@ -70,6 +78,7 @@ class Editor extends Component {
       body: updateItem
     })
       .then(response => response.success ? this.setState({ saved: true }) : '')
+      .catch(err => this.setState({ err: true }))
   }
 
 
@@ -112,6 +121,11 @@ class Editor extends Component {
     return (
       <div className="Editor" >
         <NavBar />
+        {this.state.err ?
+          <div class="alert alert-danger" role="alert">
+            An error has occurred! Please <a onClick={() => window.location.reload()}>refresh</a> page
+          </div>
+          : ''}
         <div className="row editor-header-row container my-2">
           <div className="col-md-12">
             {this.state.selectedBase[0] ?
@@ -122,31 +136,30 @@ class Editor extends Component {
           </div>
         </div>
 
-        <div className="row ">
-          <div className="col-md-6">
-            <TextEditor
-              onChange={this.onChange}
-              textVal={this.state.textVal}
-              onTextChange={this.onTextChange}
-              selectedBase={this.state.selectedBase} />
-          </div>
+        {this.state.selectedBase[0] ?
+          <div className="row ">
+            <div className="col-md-6">
+              <TextEditor
+                onChange={this.onChange}
+                textVal={this.state.textVal}
+                onTextChange={this.onTextChange}
+                selectedBase={this.state.selectedBase} />
+            </div>
 
-          <div className="col-md-6">
-            <CodeEditor
-              onChange={this.onChange}
-              fontSize={this.state.fontSize}
-              code={this.state.code}
-              language={this.state.language}
-              theme={this.state.theme}
-              themeChange={this.themeChange}
-              languageChange={this.languageChange}
-              fontSizeChange={this.fontSizeChange}
-              onCodeChange={this.onCodeChange}
-              selectedBase={this.state.selectedBase} />
-          </div>
-        </div>
-
-
+            <div className="col-md-6">
+              <CodeEditor
+                onChange={this.onChange}
+                fontSize={this.state.fontSize}
+                code={this.state.code}
+                language={this.state.language}
+                theme={this.state.theme}
+                themeChange={this.themeChange}
+                languageChange={this.languageChange}
+                fontSizeChange={this.fontSizeChange}
+                onCodeChange={this.onCodeChange}
+                selectedBase={this.state.selectedBase} />
+            </div>
+          </div> : ''}
       </div>
     )
   }
