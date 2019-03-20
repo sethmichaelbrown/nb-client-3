@@ -78,6 +78,14 @@
   color: #5C908F;
 }
 
-.fa-caret-down, .fa-caret-up {
+.fa-caret-down,
+.fa-caret-up {
   margin-left: 1em;
+}
+
+.editor-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20vh;
 }

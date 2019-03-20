@@ -14,6 +14,7 @@ import ListView from './ListView'
 import NavBar from '../NavBar'
 import Greeting from './Greeting'
 import DeleteWarning from './DeleteWarning'
+import Loading from './Loading'
 
 // Styles
 import '../../App.css';
@@ -51,6 +52,7 @@ class Home extends Component {
   getBases = async () => {
     const newState = { ...this.state }
     const response = await API.get('notebase3API', '/bases')
+    console.log(response)
     newState.userBases = response.filter(base => base.username === this.state.userInfo.username && base.deleteVal !== true)
     this.setState({ userBases: newState.userBases })
   }
@@ -106,9 +108,6 @@ class Home extends Component {
         username: this.state.username,
       }
     })
-    // this.getBases()
-    // this.props.newBaseSelected(newId)
-    // localStorage.setItem('lastSelectedBase', `${newId}`)
   }
 
   showUserPreferences = () => {
@@ -141,11 +140,11 @@ class Home extends Component {
     newState.sortByVal[0] = val
     let sortedBases = []
 
-    if(this.state.sortByVal[1] === 'up'){
+    if (this.state.sortByVal[1] === 'up') {
       newState.sortByVal[1] = 'down'
       sortedBases = newState.userBases.sort((a, b) => (a[`${val}`] > b[`${val}`]) ? -1 : ((b[`${val}`] > a[`${val}`]) ? -1 : 0));
     }
-    else{
+    else {
       newState.sortByVal[1] = 'up'
       sortedBases = newState.userBases.sort((a, b) => (a[`${val}`] > b[`${val}`]) ? 1 : ((b[`${val}`] > a[`${val}`]) ? -1 : 0));
     }
@@ -197,7 +196,9 @@ class Home extends Component {
                 backToIcon={this.backToIcon}
                 sortByVal={this.state.sortByVal} />
               :
-              <div className="loading"><h6>Loading...</h6></div>}
+              <div className="row justify-content-center">
+                <div className="loading mt-5"><Loading /></div>
+              </div>}
           </div>
         </div>
       </div>

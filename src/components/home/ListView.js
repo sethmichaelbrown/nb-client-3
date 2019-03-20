@@ -95,15 +95,7 @@ const ListView = (props) => {
                   </div>
                 </LinkContainer>
                 <div className="col-md-2">
-                  {/* <button> */}
                   <i className="fa fa-trash" onClick={props.deleteBase} id={base.id}></i>
-                  {/* </button> */}
-
-                  {/* <button
-onClick={props.deleteBase} id={base.id}
-                    type="button"
-
-                    className="btn btn-outline-danger btn-sm">Delete</button> */}
                 </div>
               </div>
             </li>
