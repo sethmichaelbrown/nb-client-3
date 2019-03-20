@@ -4,7 +4,7 @@ import { FormControl } from 'react-bootstrap'
 import moment from 'moment'
 
 const ListView = (props) => {
-  console.log('ListView', props)
+  // console.log('ListView', props)
 
   const filteredBases = props.userBases.filter(base =>
     base.baseName.toLowerCase().includes(props.filterString.toLowerCase()) ||
@@ -21,36 +21,28 @@ const ListView = (props) => {
             <div className="col-md-10">
               <div className="row">
                 <div className="col-md-3 header-text" onClick={props.sortBy}>
-                  <a id='baseName'>baseName
-                  {props.sortByVal === 'baseName' ? <i className="fa fa-caret-down"></i> : ''}
-                  </a>
+                  <a id='baseName'>baseName</a>
                 </div>
                 <div className="col-md-2 header-text" onClick={props.sortBy}>
-                  <a id='codeLanguage'>Language
-                  {props.sortByVal === 'codeLanguage' ? <i className="fa fa-caret-down"></i> : ''}
-                  </a>
+                  <a id='codeLanguage'>Language</a>
                 </div>
                 <div className="col-md-2 header-text" onClick={props.sortBy}>
-                  <a id='modifiedAt'>Last Modified
-                  {props.sortByVal === 'modifiedAt' ? <i className="fa fa-caret-down"></i> : ''}
-                  </a>
+                  <a id='modifiedAt'>Last Modified</a>
                 </div>
                 <div className="col-md-1 item-text">
                 </div>
                 <div className="col-md-2 header-text" onClick={props.sortBy}>
-                  <a id='createdAt'>Created
-                  {props.sortByVal === 'createdAt' ? <i className="fa fa-caret-down"></i> : ''}
-                  </a>
+                  <a id='createdAt'>Created</a>
                 </div>
               </div>
             </div>
 
-            <div className="col-md-1"></div>
+            {/* <div className="col-md-1"></div> */}
 
-            <div className="col-md-1">
+            <div className="col-md-2">
               {props.displaySearchBox ?
                 <div className="col-md-12">
-                  <FormControl type="text" placeholder="Search" className="" onKeyUp={props.search} onBlur={props.backToIcon} />
+                  <FormControl type="text" placeholder="Search" className="searchBox" onKeyUp={props.search} onBlur={props.backToIcon} />
                   {/* <input className="form-control" type="search" placeholder="Search" aria-label="Search" onKeyUp={props.search} onBlur={props.backToIcon} /> */}
                 </div>
                 :
@@ -94,15 +86,11 @@ const ListView = (props) => {
                   </div>
                 </LinkContainer>
                 <div className="col-md-2">
-                  {/* <button> */}
-                    <i className="fa fa-trash" onClick={props.deleteBase} id={base.id}></i>
-                  {/* </button> */}
-
-                  {/* <button
-onClick={props.deleteBase} id={base.id}
+                  <button
+                    id={base.id}
                     type="button"
-
-                    className="btn btn-outline-danger btn-sm">Delete</button> */}
+                    onClick={props.deleteBase}
+                    className="btn btn-outline-danger btn-sm">Delete</button>
                 </div>
               </div>
             </li>

@@ -31,7 +31,6 @@ class Home extends Component {
     newBaseName: '',
     newBaseText: ' ',
     selectedBase: {},
-    sortByVal: '',
     userBases: [],
     userInfo: {},
     userPreferences: { theme: 'solarized_dark' },
@@ -51,7 +50,7 @@ class Home extends Component {
   getBases = async () => {
     const newState = { ...this.state }
     const response = await API.get('notebase3API', '/bases')
-    newState.userBases = response.filter(base => base.username === this.state.userInfo.username && base.deleteVal !== true)
+    newState.userBases = response.filter(base => base.username === this.state.userInfo.username)
     this.setState({ userBases: newState.userBases })
   }
 
@@ -66,21 +65,8 @@ class Home extends Component {
   }
 
   confirmedDelete = async () => {
-
-    const updateItem = { ...this.state.baseToDelete }
-    updateItem.deleteVal = true
-
-    await API.put("notebase3API", "/bases", {
-      body: updateItem
-    })
-    const lastId = localStorage.getItem('lastSelectedBase')
-
-    if (lastId === updateItem.id) {
-      localStorage.removeItem('lastSelectedBase')
-    }
-
-    this.closeDeleteModal()
-    this.getBases()
+    await API.del("notebase3API", "/bases", {
+    }).then(response => console.log(response)).catch(err => console.log(err))
   }
 
   closeDeleteModal = () => {
@@ -138,19 +124,8 @@ class Home extends Component {
   sortBy = (event) => {
     const val = event.target.id
     const newState = { ...this.state }
-    newState.sortByVal = val
-    let sortedBases = []
-    if (this.state.sortByVal === val) {
-      sortedBases = newState.userBases.sort((a, b) => (a[`${val}`] > b[`${val}`]) ? -1 : ((b[`${val}`] > a[`${val}`]) ? 1 : 0));
-    }
-    else {
-      sortedBases = newState.userBases.sort((a, b) => (a[`${val}`] > b[`${val}`]) ? 1 : ((b[`${val}`] > a[`${val}`]) ? -1 : 0));
-    }
-
-    this.setState({
-      userBases: sortedBases,
-      sortByVal: newState.sortByVal
-    })
+    const sortedBases = newState.userBases.sort((a, b) => (a[`${val}`] > b[`${val}`]) ? 1 : ((b[`${val}`] > a[`${val}`]) ? -1 : 0));
+    this.setState({ userBases: sortedBases })
   }
 
 
@@ -191,8 +166,7 @@ class Home extends Component {
                 displaySearchBox={this.state.displaySearchBox}
                 showSearchBox={this.showSearchBox}
                 search={this.search}
-                backToIcon={this.backToIcon}
-                sortByVal={this.state.sortByVal} />
+                backToIcon={this.backToIcon} />
               :
               <div className="loading"><h6>Loading...</h6></div>}
           </div>

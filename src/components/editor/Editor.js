@@ -4,9 +4,10 @@ import NavBar from '../NavBar'
 import CodeEditor from './codeEditor/CodeEditor'
 import TextEditor from './textEditor/TextEditor'
 
-// import { Link } from 'react-browser-router'
+
 import { API } from 'aws-amplify'
 import moment from 'moment'
+import EditableLabel from 'react-inline-editing'
 
 import '../../styles/editor.css'
 
@@ -19,6 +20,7 @@ class Editor extends Component {
     theme: '',
     code: '',
     text: '',
+    name: '',
     fontSize: null,
     saved: ''
   }
@@ -31,7 +33,7 @@ class Editor extends Component {
     const newState = { ...this.state }
     const response = await API.get('notebase3API', '/bases')
     if (this.props.selectedId) {
-      newState.selectedBase = response.filter(base => base.id === this.props.selectedId)
+      newState.selectedBase = response.filter(base => base.id === this.props.selectedId && base.deleteVal === false)
     }
     else {
       const storedId = localStorage.getItem('lastSelectedBase')
@@ -59,18 +61,17 @@ class Editor extends Component {
     this.setState({ saved: false })
     const updateItem = { ...this.state.selectedBase[0] }
 
+    updateItem.baseName = this.state.name
     updateItem.codeNote = this.state.code
-    updateItem.textNote = this.state.text
-    updateItem.theme = this.state.theme
     updateItem.codeLanguage = this.state.language
     updateItem.fontSize = this.state.fontSize
     updateItem.modifiedAt = moment().format()
+    updateItem.textNote = this.state.text
+    updateItem.theme = this.state.theme
 
     await API.put("notebase3API", "/bases", {
       body: updateItem
-    })
-      .then(response => response.success ? this.setState({ saved: true }) : '')
-
+    }).then(response => response.success ? this.setState({ saved: true }) : '').catch(err => console.log(err))
   }
 
 
@@ -109,6 +110,22 @@ class Editor extends Component {
     this.updateDB()
   }
 
+  deleteOnNameChange = async () => {
+    const deleteItem = { ...this.state.selectedBase[0] }
+    deleteItem.deleteVal = true
+
+    await API.put("notebase3API", "/bases", {
+      body: deleteItem
+    })
+  }
+
+  _handleFocusOut = async (text) => {
+    const newState = { ...this.state }
+    newState.name = text
+    await this.setState(newState)
+    this.deleteOnNameChange()
+    this.updateDB()
+  }
 
 
   render() {
@@ -118,10 +135,22 @@ class Editor extends Component {
         <div className="row editor-header-row container my-2">
           <div className="col-md-12">
             {this.state.selectedBase[0] ?
+              <EditableLabel
+                text={this.state.selectedBase[0].baseName}
+                labelClassName='myLabelClass'
+                inputClassName='myInputClass'
+                inputWidth='200px'
+                inputHeight='25px'
+                inputMaxLength={50}
+                labelFontWeight='bold'
+                inputFontWeight='bold'
+                onFocusOut={this._handleFocusOut}
+              /> : ''}
+            {/* {this.state.selectedBase[0] ?
               <h3>{this.state.selectedBase[0].baseName}
                 {this.state.saved !== '' ?
                   this.state.saved ? <span className="ml-2 saved-text">All Changes Saved</span> : <span className="ml-2 saved-text">Saving...</span> : ''}
-              </h3> : ''}
+              </h3> : ''} */}
           </div>
         </div>
 
