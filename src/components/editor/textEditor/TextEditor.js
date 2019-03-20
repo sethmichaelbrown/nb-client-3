@@ -9,9 +9,9 @@ const TextEditor = (props) => {
 
   return (
     <div className="TextEditor">
-     {props.selectedBase.length > 0 ?
+     {props.selectedBase.baseName ?
       <ReactQuill
-        defaultValue={props.selectedBase[0].textNote}
+        defaultValue={props.selectedBase.textNote}
         onChange={props.onTextChange}
         height={100}
       /> : ''}

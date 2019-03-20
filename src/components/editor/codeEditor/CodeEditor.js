@@ -70,13 +70,13 @@ import 'brace/ext/searchbox'
 
 
 const CodeEditor = (props) => {
-  // console.log('CodeEditor', props)
+  console.log('CodeEditor', props)
 
   const fontSizeInt = parseInt(props.fontSize)
 
   return (
     <div className="CodeEditor">
-      {props.selectedBase.length > 0 ?
+      {props.selectedBase.baseName ?
         <div className="codeEditor-block">
           
           <CodeEditorToolbar

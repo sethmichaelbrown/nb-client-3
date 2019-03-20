@@ -62,26 +62,28 @@ class CodeEditorToolbar extends Component {
     this.setState({ value: event.target.value })
   }
 
+
   render() {
+    console.log(this.props.selectedBase.codeLanguage)
     return (
       <div className="CodeEditorToolbar">
         <div className="ql-toolbar ql-snow">
           <span className='ql-formats'>
             <div className="row">
               <div className="col-md-4">
-                <Form.Control className='ql-picker-label' as="select" onChange={this.props.languageChange} defaultValue={this.props.selectedBase[0].codeLanguage}>
+                <Form.Control className='ql-picker-label' as="select" onChange={this.props.languageChange} defaultValue={this.props.selectedBase.codeLanguage}>
                   {modes.map((lang, idx) => <option value={lang} key={idx}>{lang}</option>)}
                 </Form.Control>
               </div>
 
               <div className="col-md-5">
-                <Form.Control className='ql-picker-label' as="select" onChange={this.props.themeChange} defaultValue={this.props.selectedBase[0].theme}>
+                <Form.Control className='ql-picker-label' as="select" onChange={this.props.themeChange} defaultValue={this.props.selectedBase.theme}>
                   {themes.map((theme, idx) => <option value={theme} key={idx}>{theme.split('_').join(' ')}</option>)}
                 </Form.Control>
               </div>
 
                <div className="col-md-3">
-                <Form.Control className='ql-picker-label' as="select" onChange={this.props.fontSizeChange} defaultValue={this.props.selectedBase[0].fontSize}>
+                <Form.Control className='ql-picker-label' as="select" onChange={this.props.fontSizeChange} defaultValue={this.props.selectedBase.fontSize}>
                   {fontSize.map((size, idx) => <option value={size} key={idx}>{size}</option>)}
                 </Form.Control>
               </div>

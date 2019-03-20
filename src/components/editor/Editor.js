@@ -16,7 +16,7 @@ class Editor extends Component {
   state = {
     storedId: '',
     editorUserBases: [],
-    selectedBase: [],
+    selectedBase: {},
     language: '',
     theme: '',
     code: '',
@@ -39,19 +39,18 @@ class Editor extends Component {
 
   fetch = () => {
     const newState = { ...this.state }
-    newState.selectedBase[0] = newState.editorUserBases.find(base => base.id === newState.storedId && base.deleteVal !== true)
+    newState.selectedBase = newState.editorUserBases.find(base => base.id === newState.storedId && base.deleteVal !== true)
 
-    if (newState.selectedBase[0]) {
-      newState.code = newState.selectedBase[0].codeNote
-      newState.fontSize = newState.selectedBase[0].fontSize
-      newState.text = newState.selectedBase[0].textNote
-      newState.theme = newState.selectedBase[0].theme
-      newState.language = newState.selectedBase[0].codeLanguage
+    if (newState.selectedBase) {
+      newState.code = newState.selectedBase.codeNote
+      newState.fontSize = newState.selectedBase.fontSize
+      newState.text = newState.selectedBase.textNote
+      newState.theme = newState.selectedBase.theme
+      newState.language = newState.selectedBase.codeLanguage
     }
     else {
       window.location.reload()
     }
-
 
     this.setState({
       fontSize: newState.fontSize,
@@ -65,7 +64,7 @@ class Editor extends Component {
 
   updateDB = async () => {
     this.setState({ saved: false })
-    const updateItem = { ...this.state.selectedBase[0] }
+    const updateItem = { ...this.state.selectedBase }
 
     updateItem.codeNote = this.state.code
     updateItem.textNote = this.state.text
@@ -128,15 +127,15 @@ class Editor extends Component {
           : ''}
         <div className="row editor-header-row container my-2">
           <div className="col-md-12">
-            {this.state.selectedBase[0] ?
-              <h3>{this.state.selectedBase[0].baseName}
+            {this.state.selectedBase ?
+              <h3>{this.state.selectedBase.baseName}
                 {this.state.saved !== '' ?
                   this.state.saved ? <span className="ml-2 saved-text">All Changes Saved</span> : <span className="ml-2 saved-text">Saving...</span> : ''}
               </h3> : ''}
           </div>
         </div>
 
-        {this.state.selectedBase[0] ?
+        {this.state.selectedBase ?
           <div className="row ">
             <div className="col-md-6">
               <TextEditor
