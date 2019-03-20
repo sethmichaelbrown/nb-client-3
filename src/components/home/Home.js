@@ -14,6 +14,8 @@ import ListView from './ListView'
 import NavBar from '../NavBar'
 import Greeting from './Greeting'
 import DeleteWarning from './DeleteWarning'
+import Loading from './Loading'
+import ListViewHeader from './ListViewHeader'
 
 // Styles
 import '../../App.css';
@@ -36,6 +38,8 @@ class Home extends Component {
     userInfo: {},
     userPreferences: { theme: 'solarized_dark' },
     username: '',
+    noBases: false,
+    err: null
   }
 
   componentDidMount = async () => {
@@ -51,8 +55,15 @@ class Home extends Component {
   getBases = async () => {
     const newState = { ...this.state }
     const response = await API.get('notebase3API', '/bases')
+    if (response.length === 0) {
+      newState.noBases = true
+    }
     newState.userBases = response.filter(base => base.username === this.state.userInfo.username && base.deleteVal !== true)
-    this.setState({ userBases: newState.userBases })
+    this.setState({
+      userBases: newState.userBases,
+      noBases: newState.noBases
+    })
+    console.log(this.state)
   }
 
   deleteBase = (event) => {
@@ -71,13 +82,17 @@ class Home extends Component {
 
     await API.put("notebase3API", "/bases", {
       body: updateItem
-    }).then(response => console.log(response))
+    }).then(response => console.log(response)).catch(err => this.setState({ err: err }))
     const lastId = localStorage.getItem('lastSelectedBase')
 
     if (lastId === updateItem.id) {
       localStorage.removeItem('lastSelectedBase')
     }
-
+    if (this.state.userBases.length === 0) {
+      const newState = { ...this.state }
+      newState.noBases = true
+      this.setState({ noBases: newState.noBases })
+    }
     this.closeDeleteModal()
     this.getBases()
   }
@@ -106,9 +121,6 @@ class Home extends Component {
         username: this.state.username,
       }
     })
-    // this.getBases()
-    // this.props.newBaseSelected(newId)
-    // localStorage.setItem('lastSelectedBase', `${newId}`)
   }
 
   showUserPreferences = () => {
@@ -141,11 +153,11 @@ class Home extends Component {
     newState.sortByVal[0] = val
     let sortedBases = []
 
-    if(this.state.sortByVal[1] === 'up'){
+    if (this.state.sortByVal[1] === 'up') {
       newState.sortByVal[1] = 'down'
       sortedBases = newState.userBases.sort((a, b) => (a[`${val}`] > b[`${val}`]) ? -1 : ((b[`${val}`] > a[`${val}`]) ? -1 : 0));
     }
-    else{
+    else {
       newState.sortByVal[1] = 'up'
       sortedBases = newState.userBases.sort((a, b) => (a[`${val}`] > b[`${val}`]) ? 1 : ((b[`${val}`] > a[`${val}`]) ? -1 : 0));
     }
@@ -175,29 +187,39 @@ class Home extends Component {
               username={this.state.username} />
           </div>
 
-          <div className="col-md-4 mt-5">
+          <div className="col-md-4 my-2 ml-2">
             <Link to='/editor'>
-              <button type="button" onClick={() => this.newBase()} className="btn btn-outline-dark btn-lg">Create New Base</button>
+              <button type="button" onClick={() => this.newBase()} className="btn btn-outline-dark btn-lg new-base-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" /><path d="M0 0h24v24H0z" fill="none" /></svg>
+              </button>
             </Link>
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-12">
-            {this.state.userBases.length > 0 ?
-              <ListView
-                sortBy={this.sortBy}
-                filterString={this.state.filterString}
-                deleteBase={this.deleteBase}
-                selectBaseId={this.props.selectBaseId}
-                userBases={this.state.userBases}
-                displaySearchBox={this.state.displaySearchBox}
-                showSearchBox={this.showSearchBox}
-                search={this.search}
-                backToIcon={this.backToIcon}
-                sortByVal={this.state.sortByVal} />
+            <ListViewHeader
+              sortBy={this.sortBy}
+              displaySearchBox={this.state.displaySearchBox}
+              showSearchBox={this.showSearchBox}
+              search={this.search}
+              backToIcon={this.backToIcon}
+              sortByVal={this.state.sortByVal} />
+
+            {this.state.noBases ?
+              <div className="noBases">No Bases!</div>
               :
-              <div className="loading"><h6>Loading...</h6></div>}
+              this.state.userBases.length > 0 ?
+                <ListView
+                  filterString={this.state.filterString}
+                  deleteBase={this.deleteBase}
+                  selectBaseId={this.props.selectBaseId}
+                  userBases={this.state.userBases} />
+                :
+                <div className="row justify-content-center">
+                  <div className="loading mt-5"><Loading /></div>
+                </div>
+            }
           </div>
         </div>
       </div>

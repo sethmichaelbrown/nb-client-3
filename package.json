@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^3.9.2",
     "aws-amplify": "^1.1.22",
     "aws-amplify-react": "^2.3.2",
     "bootstrap": "^4.3.1",
