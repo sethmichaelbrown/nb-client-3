@@ -89,8 +89,9 @@ class Home extends Component {
   }
 
   newBase = async () => {
-    const currentTime = moment().format()
     const newId = uuid()
+    localStorage.setItem('lastSelectedBase', `${newId}`)
+    const currentTime = moment().format()
     await API.post("notebase3API", "/bases", {
       body: {
         baseName: random({ exactly: 3, join: '-' }),
