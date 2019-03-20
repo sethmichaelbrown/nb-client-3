@@ -19,3 +19,16 @@
   font-weight: bolder;
   cursor: pointer;
 }
+
+.new-base-btn{
+  min-width: 100px;
+}
+
+.new-base-btn:hover {
+  fill: #EAEAEA;
+}
+
+/* .tester{
+  height: 75vh;
+  overflow: scroll
+} */
