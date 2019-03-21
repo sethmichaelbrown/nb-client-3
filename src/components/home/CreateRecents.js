@@ -38,7 +38,7 @@ const CreateRecents = (props) => {
         <div className="col-md-8">
           {recentFour[0] !== undefined ?
             recentFour.map((recent, idx) =>
-              <Link to='/editor' key={idx}>
+              <Link to='/editor' key={idx} onClick={() => localStorage.setItem('lastSelectedBase', `${recent.id}`)}>
                 <button key={idx} type="button" className="btn btn-outline-dark btn recent-base-btn mr-1">
                   <span className="small-text">{recent.baseName}</span>
                 </button>
