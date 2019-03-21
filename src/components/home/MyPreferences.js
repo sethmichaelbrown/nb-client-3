@@ -48,6 +48,13 @@ const themes = [
 ].sort()
 
 
+const preferences = {
+  language: 'java',
+  theme: 'vibrant_ink'
+}
+
+localStorage.setItem('defaultUserPrefs', JSON.stringify(preferences))
+
 class MyPreferences extends Component {
 
   state = {
@@ -57,6 +64,7 @@ class MyPreferences extends Component {
 
   render() {
     const username = localStorage.getItem('CognitoIdentityServiceProvider.43e59kat93rjn7fsptfkilhnpq.LastAuthUser')
+    const defaultPres = JSON.parse(localStorage.getItem('defaultUserPrefs'))
 
     return (
       <div className="MyPreferences">
@@ -65,8 +73,8 @@ class MyPreferences extends Component {
         <div className="preferences-content">
           <div className="row container">
             <div className="col-md-12">
-              <div class="card">
-                <div class="card-body">
+              <div className="card">
+                <div className="card-body">
                   <div className="row container">
                     <div className="col-md-3">
                       <img className='user-photo-preferences' src={profile} alt="user-profile" />
@@ -79,17 +87,20 @@ class MyPreferences extends Component {
                     </div>
                   </div>
                 </div>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item">Cras justo odio</li>
-                  <li class="list-group-item">Dapibus ac facilisis in</li>
-                  <li class="list-group-item">Vestibulum at eros</li>
-                </ul>
-                <div class="card-body">
-                  <a href="#" class="card-link">Card link</a>
-                  <a href="#" class="card-link">Another link</a>
-                </div>
-              </div>
 
+                
+                <ul className="list-group list-group-flush">
+                  <li className="list-group-item">Cras justo odio</li>
+                  <li className="list-group-item">Dapibus ac facilisis in</li>
+                  <li className="list-group-item">Vestibulum at eros</li>
+                </ul>
+                <div className="card-body">
+                  <a href="#" className="card-link">Card link</a>
+                  <a href="#" className="card-link">Another link</a>
+                </div>
+              
+              
+              </div>
             </div>
           </div>
         </div>

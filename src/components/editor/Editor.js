@@ -132,7 +132,7 @@ class Editor extends Component {
           :
           <React.Fragment>
             {this.state.err ?
-              <div class="alert alert-danger" role="alert">
+              <div className="alert alert-danger" role="alert">
                 An error has occurred! Please <a onClick={() => window.location.reload()}>refresh</a> page
           </div>
               : ''}
