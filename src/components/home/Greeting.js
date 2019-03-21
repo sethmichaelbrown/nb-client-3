@@ -1,5 +1,6 @@
 import React from 'react'
 import profile from '../../media/images/portrait_2_copy.png'
+import { Link, } from 'react-browser-router'
 
 const Greeting = (props) => {
 
@@ -23,7 +24,9 @@ const Greeting = (props) => {
           </div>
           <div className="row">
             <div className="col-md-12">
-              <button type="button" onClick={props.showUserPreferences} className="btn btn-outline-secondary mt-1">My Preferences</button>
+              <Link to='/preferences'>
+                <button type="button" className="btn btn-outline-secondary mt-1">My Preferences</button>
+              </Link>
             </div>
           </div>
         </div>
