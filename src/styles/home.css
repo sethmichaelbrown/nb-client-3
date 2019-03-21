@@ -2,6 +2,12 @@
   cursor: pointer;
 }
 
+.list-group-header {
+  background-color: #565658 !important;
+  color: #EAEAEA;
+  fill: #EAEAEA
+}
+
 .item-text {
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
@@ -27,14 +33,19 @@
 
 .new-base-btn,
 .recent-base-btn {
-  min-width: 100px;
+  width: 100px;
   height: 150px;
   border-radius: 0rem !important;
+  overflow: hidden;
 }
 
 
-.new-base-btn:hover {
+.new-base-btn {
   fill: #EAEAEA;
+}
+
+.small-text {
+  font-size: 12px;
 }
 
 .searchBox {
@@ -98,8 +109,14 @@
   grid-column: 2/12;
 }
 
-.loading-cont {
+.loading-cont,
+.noBases-cont {
   grid-row: 7/12;
   grid-column: 2/12;
   margin: auto;
+  text-align: center;
+}
+
+.noBase-text {
+  opacity: .5;
 }

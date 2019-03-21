@@ -63,7 +63,6 @@ class Home extends Component {
       userBases: newState.userBases,
       noBases: newState.noBases
     })
-    // console.log(this.state)
   }
 
   deleteBase = (event) => {
@@ -152,13 +151,14 @@ class Home extends Component {
     const newState = { ...this.state }
     newState.sortByVal[0] = val
     let sortedBases = []
+
     if (this.state.sortByVal[1] === 'up') {
       newState.sortByVal[1] = 'down'
-      sortedBases = newState.userBases.sort((a, b) => (a[`${val}`] > b[`${val}`]) ? 1 : ((b[`${val}`] > a[`${val}`]) ? -1 : 0));
+      sortedBases = newState.userBases.sort((a, b) => (a[`${val}`] > b[`${val}`]) ? -1 : ((b[`${val}`] > a[`${val}`]) ? 1 : 0))
     }
     else {
       newState.sortByVal[1] = 'up'
-      sortedBases = newState.userBases.sort((a, b) => (a[`${val}`] > b[`${val}`]) ? -1 : ((b[`${val}`] > a[`${val}`]) ? 1 : 0));
+      sortedBases = newState.userBases.sort((a, b) => (a[`${val}`] > b[`${val}`]) ? 1 : ((b[`${val}`] > a[`${val}`]) ? -1 : 0))
     }
 
     this.setState({
@@ -189,6 +189,7 @@ class Home extends Component {
 
         <div className="createRecents-cont mt-2">
           <CreateRecents
+            selectBaseId={this.props.selectBaseId}
             newBase={this.newBase}
             userBases={this.state.userBases} />
         </div>
@@ -205,7 +206,10 @@ class Home extends Component {
 
 
         {this.state.noBases ?
-          <div className="noBases">No Bases!</div>
+          <div className="noBases-cont">
+            <h4 className='noBase-text'>No Bases!</h4>
+            <h5 className='noBase-text'>Get started with the New Base button above</h5>
+          </div>
           :
           this.state.userBases.length > 0 ?
             <div className="listView-cont">
