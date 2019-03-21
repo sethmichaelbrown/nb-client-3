@@ -40,6 +40,17 @@
   background-size: cover;
 }
 
+.user-photo-preferences {
+  display: inline-block;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
 .greeting-text {
   margin: auto;
   line-height: 2px;
@@ -58,4 +69,3 @@
 h4 {
   font-family: 'Montserrat', sans-serif;
 }
-

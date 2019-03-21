@@ -7,7 +7,8 @@ const CreateRecents = (props) => {
   let recentFour = []
 
   let uBases = [...props.userBases]
-  let sBases = uBases.sort((a, b) => (a.modifiedAt > b.modifiedAt) ? -1 : ((b.modifiedAt > a.modifiedAt) ? 1 : 0))
+  let fBases = uBases.filter(base => base.deleteVal !== true)
+  let sBases = fBases.sort((a, b) => (a.modifiedAt > b.modifiedAt) ? -1 : ((b.modifiedAt > a.modifiedAt) ? 1 : 0))
 
   for (let i = 0; i < 4; i++) {
     recentFour.push(sBases[i])

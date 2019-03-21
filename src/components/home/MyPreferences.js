@@ -67,9 +67,9 @@ class MyPreferences extends Component {
             <div className="col-md-12">
               <div class="card">
                 <div class="card-body">
-                  <div className="row">
+                  <div className="row container">
                     <div className="col-md-3">
-                      <img className='user-photo' src={profile} alt="user-profile" />
+                      <img className='user-photo-preferences' src={profile} alt="user-profile" />
                     </div>
                     <div className="col-md-8 greeting-text">
                       <h5 className="card-title">{username}'s Default Preferences</h5>
