@@ -64,7 +64,6 @@ class CodeEditorToolbar extends Component {
 
 
   render() {
-    console.log(this.props.selectedBase.codeLanguage)
     return (
       <div className="CodeEditorToolbar">
         <div className="ql-toolbar ql-snow">

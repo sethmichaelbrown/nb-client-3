@@ -1,7 +1,6 @@
 // Libraries
 import React, { Component } from 'react';
 import { withAuthenticator } from 'aws-amplify-react'
-import { Link } from 'react-browser-router'
 import { API, Auth } from 'aws-amplify'
 
 // External Tools
@@ -16,6 +15,7 @@ import Greeting from './Greeting'
 import DeleteWarning from './DeleteWarning'
 import Loading from './Loading'
 import ListViewHeader from './ListViewHeader'
+import CreateRecents from './CreateRecents'
 
 // Styles
 import '../../App.css';
@@ -63,7 +63,6 @@ class Home extends Component {
       userBases: newState.userBases,
       noBases: newState.noBases
     })
-    console.log(this.state)
   }
 
   deleteBase = (event) => {
@@ -155,11 +154,11 @@ class Home extends Component {
 
     if (this.state.sortByVal[1] === 'up') {
       newState.sortByVal[1] = 'down'
-      sortedBases = newState.userBases.sort((a, b) => (a[`${val}`] > b[`${val}`]) ? -1 : ((b[`${val}`] > a[`${val}`]) ? -1 : 0));
+      sortedBases = newState.userBases.sort((a, b) => (a[`${val}`] > b[`${val}`]) ? -1 : ((b[`${val}`] > a[`${val}`]) ? 1 : 0))
     }
     else {
       newState.sortByVal[1] = 'up'
-      sortedBases = newState.userBases.sort((a, b) => (a[`${val}`] > b[`${val}`]) ? 1 : ((b[`${val}`] > a[`${val}`]) ? -1 : 0));
+      sortedBases = newState.userBases.sort((a, b) => (a[`${val}`] > b[`${val}`]) ? 1 : ((b[`${val}`] > a[`${val}`]) ? -1 : 0))
     }
 
     this.setState({
@@ -172,58 +171,62 @@ class Home extends Component {
   render() {
     return (
       <div className="Home">
-        <NavBar />
+
+        <div className="navbar-cont"><NavBar /></div>
+
         <DeleteWarning
           baseToDelete={this.state.baseToDelete}
           confirmedDelete={this.confirmedDelete}
           closeDeleteModal={this.closeDeleteModal}
           displayDeleteWarning={this.state.displayDeleteWarning} />
 
-        <div className="row container">
-          <div className="col-md-4">
-            <Greeting
-              showUserPreferences={this.showUserPreferences}
-              userBases={this.state.userBases}
-              username={this.state.username} />
-          </div>
-
-          <div className="col-md-4 my-2 ml-2">
-            <Link to='/editor'>
-              <button type="button" onClick={() => this.newBase()} className="btn btn-outline-dark btn-lg new-base-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" /><path d="M0 0h24v24H0z" fill="none" /></svg>
-              </button>
-            </Link>
-          </div>
+        <div className="greeting-cont ml-1">
+          <Greeting
+            showUserPreferences={this.showUserPreferences}
+            userBases={this.state.userBases}
+            username={this.state.username} />
         </div>
 
-        <div className="row">
-          <div className="col-md-12">
-            <ListViewHeader
-              sortBy={this.sortBy}
-              displaySearchBox={this.state.displaySearchBox}
-              showSearchBox={this.showSearchBox}
-              search={this.search}
-              backToIcon={this.backToIcon}
-              sortByVal={this.state.sortByVal} />
-
-            {this.state.noBases ?
-              <div className="noBases">No Bases!</div>
-              :
-              this.state.userBases.length > 0 ?
-                <ListView
-                  filterString={this.state.filterString}
-                  deleteBase={this.deleteBase}
-                  selectBaseId={this.props.selectBaseId}
-                  userBases={this.state.userBases} />
-                :
-                <div className="row justify-content-center">
-                  <div className="loading mt-5"><Loading /></div>
-                </div>
-            }
-          </div>
+        <div className="createRecents-cont mt-2">
+          <CreateRecents
+            selectBaseId={this.props.selectBaseId}
+            newBase={this.newBase}
+            userBases={this.state.userBases} />
         </div>
+
+        <div className="listViewHeader-cont mt-3">
+          <ListViewHeader
+            sortBy={this.sortBy}
+            displaySearchBox={this.state.displaySearchBox}
+            showSearchBox={this.showSearchBox}
+            search={this.search}
+            backToIcon={this.backToIcon}
+            sortByVal={this.state.sortByVal} />
+        </div>
+
+
+        {this.state.noBases ?
+          <div className="noBases-cont">
+            <h4 className='noBase-text'>No Bases!</h4>
+            <h5 className='noBase-text'>Get started with the New Base button above</h5>
+          </div>
+          :
+          this.state.userBases.length > 0 ?
+            <div className="listView-cont">
+              <ListView
+                filterString={this.state.filterString}
+                deleteBase={this.deleteBase}
+                selectBaseId={this.props.selectBaseId}
+                userBases={this.state.userBases} />
+            </div>
+            :
+            <div className="loading-cont">
+              <Loading />
+            </div>}
+
+
       </div>
-    );
+    )
   }
 }
 

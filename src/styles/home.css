@@ -2,6 +2,12 @@
   cursor: pointer;
 }
 
+.list-group-header {
+  background-color: #565658 !important;
+  color: #EAEAEA;
+  fill: #EAEAEA
+}
+
 .item-text {
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
@@ -18,17 +24,99 @@
   font-size: 16px;
   font-weight: bolder;
   cursor: pointer;
+  user-select: none;
 }
 
-.new-base-btn{
-  min-width: 100px;
+.header-text:hover {
+  color: #5C908F;
 }
 
-.new-base-btn:hover {
+.new-base-btn,
+.recent-base-btn {
+  width: 100px;
+  height: 150px;
+  border-radius: 0rem !important;
+  overflow: hidden;
+}
+
+
+.new-base-btn {
   fill: #EAEAEA;
 }
 
-/* .tester{
-  height: 75vh;
-  overflow: scroll
-} */
+.small-text {
+  font-size: 12px;
+}
+
+.searchBox {
+  margin-top: -5px !important;
+  margin-bottom: -5px !important;
+  height: calc(1.5em + .75rem) !important;
+  border: none !important;
+}
+
+.searchBox:focus {
+  outline: none !important;
+}
+
+.card-body {
+  padding: 0.5em !important;
+}
+
+.fa-trash {
+  color: #565658;
+}
+
+.fa-trash:hover {
+  color: #5C908F;
+}
+
+.fa-caret-down,
+.fa-caret-up {
+  margin-left: 1em;
+}
+
+.Home {
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  grid-template-columns: repeat(12, 0.0834fr);
+  grid-template-rows: repeat(12, 0.0834fr);
+}
+
+.navbar-cont {
+  grid-row: 1/2;
+  grid-column: 1/13;
+}
+
+.greeting-cont {
+  grid-row: 2/3;
+  grid-column: 2/5;
+}
+
+.createRecents-cont {
+  grid-row: 2/4;
+  grid-column: 6/12;
+}
+
+.listViewHeader-cont {
+  grid-row: 5/7;
+  grid-column: 2/12;
+}
+
+.listView-cont {
+  grid-row: 7/12;
+  grid-column: 2/12;
+}
+
+.loading-cont,
+.noBases-cont {
+  grid-row: 7/12;
+  grid-column: 2/12;
+  margin: auto;
+  text-align: center;
+}
+
+.noBase-text {
+  opacity: .5;
+}
