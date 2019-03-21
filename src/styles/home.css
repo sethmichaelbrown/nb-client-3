@@ -14,7 +14,7 @@
   font-weight: 400;
 }
 
-.list-group-item:nth-of-type(n+2):hover {
+.grey-on-hover:hover {
   background-color: rgba(136, 136, 136, 0.1);
   color: rgb(0, 0, 0);
 }

@@ -19,7 +19,7 @@ const ListView = (props) => {
         <div className="tester">
           {props.userBases.length > 0 ?
             filteredBases.map((base, idx) =>
-              <li className="list-group-item group-item" id={base.id} key={idx}>
+              <li className="list-group-item group-item grey-on-hover" id={base.id} key={idx}>
                 <div className="row">
                   <LinkContainer to='/editor' onClick={props.selectBaseId} id={base.id}>
                     <div className="col-md-10">

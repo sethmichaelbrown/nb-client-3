@@ -83,7 +83,6 @@ class Editor extends Component {
       .catch(err => this.setState({ err: true }))
   }
 
-
   onCodeChange = async (codeValue) => {
     const newState = { ...this.state }
     newState.code = codeValue
@@ -132,7 +131,7 @@ class Editor extends Component {
           :
           <React.Fragment>
             {this.state.err ?
-              <div class="alert alert-danger" role="alert">
+              <div className="alert alert-danger" role="alert">
                 An error has occurred! Please <a onClick={() => window.location.reload()}>refresh</a> page
           </div>
               : ''}
@@ -141,7 +140,10 @@ class Editor extends Component {
                 {this.state.selectedBase ?
                   <h3>{this.state.selectedBase.baseName}
                     {this.state.saved !== '' ?
-                      this.state.saved ? <span className="ml-2 saved-text">All Changes Saved</span> : <span className="ml-2 saved-text">Saving...</span> : ''}
+                      this.state.saved ?
+                        <span className="ml-2 saved-text">All Changes Saved</span>
+                        :
+                        <span className="ml-2 saved-text">Saving...</span> : ''}
                   </h3> : ''}
               </div>
             </div>
