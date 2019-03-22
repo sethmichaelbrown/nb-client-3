@@ -2,10 +2,8 @@ import React from 'react'
 import 'react-quill/dist/quill.snow.css'
 import '../../../styles/codeEditor.css'
 
-
 import AceEditor from 'react-ace'
 import CodeEditorToolbar from './CodeEditorToolbar'
-
 
 import "brace/mode/java"
 import "brace/mode/django"
@@ -27,6 +25,27 @@ import "brace/mode/coffee"
 import "brace/mode/css"
 import "brace/mode/pascal"
 import "brace/mode/ruby"
+
+import "brace/snippets/java"
+import "brace/snippets/django"
+import "brace/snippets/haskell"
+import "brace/snippets/javascript"
+import "brace/snippets/json"
+import "brace/snippets/python"
+import "brace/snippets/xml"
+import "brace/snippets/ruby"
+import "brace/snippets/sass"
+import "brace/snippets/markdown"
+import "brace/snippets/mysql"
+import "brace/snippets/json"
+import "brace/snippets/html"
+import "brace/snippets/handlebars"
+import "brace/snippets/golang"
+import "brace/snippets/csharp"
+import "brace/snippets/coffee"
+import "brace/snippets/css"
+import "brace/snippets/pascal"
+import "brace/snippets/ruby"
 
 import "brace/theme/ambiance";
 import "brace/theme/chaos";
@@ -66,6 +85,7 @@ import "brace/theme/vibrant_ink";
 import "brace/theme/xcode";
 
 import 'brace/ext/searchbox'
+import "brace/ext/language_tools";
 
 
 

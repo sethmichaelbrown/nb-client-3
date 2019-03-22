@@ -130,7 +130,7 @@ const themes = [
   'twilight/vibrant_ink',
   'xcode'].sort()
 
-
+const fontSize = ['8', '10', '12', '14', '16', '18']
 
 class MyPreferences extends Component {
 
@@ -140,6 +140,7 @@ class MyPreferences extends Component {
     previewTheme: '',
     previewLang: '',
     previewText: '',
+    previewFontSize: '',
   }
 
   componentDidMount() {
@@ -156,14 +157,17 @@ class MyPreferences extends Component {
     newState.previewTheme = newState.defaultPrefs.theme
     newState.previewLang = newState.defaultPrefs.language
     newState.previewText = newState.defaultPrefs.previewText
+    newState.previewFontSize = newState.defaultPrefs.fontSize
+
 
     this.setState({
       username: newState.username,
       defaultPrefs: newState.defaultPrefs,
       previewTheme: newState.previewTheme,
+      previewFontSize: newState.previewFontSize,
       previewText: newState.previewText,
       previewLang: newState.previewLang
-    })
+    }, () => console.log(this.state))
   }
 
   onSave = () => {
@@ -171,11 +175,19 @@ class MyPreferences extends Component {
     const preferences = {
       language: this.state.previewLang,
       theme: this.state.previewTheme,
-      previewText: this.state.previewText
+      previewText: this.state.previewText,
+      fontSize: this.state.previewFontSize
     }
     const newPrefs = JSON.parse(localStorage.getItem(`defaultUserPrefs`))
     newPrefs[`${this.state.username}`] = preferences
     localStorage.setItem('defaultUserPrefs', JSON.stringify(newPrefs))
+  }
+
+  onCancel = () => {
+    this.preferenceOnLoad()
+    document.getElementById(`${this.state.defaultPrefs.language}`).selected = true
+    document.getElementById(`${this.state.defaultPrefs.theme}`).selected = true
+    document.getElementById(`${this.state.defaultPrefs.fontSize}`).selected = true
   }
 
   previewLangChange = (event) => {
@@ -188,6 +200,10 @@ class MyPreferences extends Component {
 
   previewThemeChange = (event) => {
     this.setState({ previewTheme: event.target.value })
+  }
+
+  previewFontChange = (event) => {
+    this.setState({ previewFontSize: event.target.value })
   }
 
 
@@ -209,10 +225,10 @@ class MyPreferences extends Component {
                       <h5 className="card-title">{this.state.username}'s Default Preferences</h5>
                       <div className="row">
                         <div className="col-md-6">
-                          <button type="button" class="btn-block btn btn-dark" onClick={this.onSave}>Save</button>
+                          <button type="button" className="btn-block btn btn-dark" onClick={this.onSave}>Save</button>
                         </div>
                         <div className="col-md-6">
-                          <button type="button" class="btn-block btn btn-outline-secondary" onClick={this.preferenceOnLoad}>Cancel</button>
+                          <button type="button" className="btn-block btn btn-outline-secondary" onClick={this.onCancel}>Cancel</button>
                         </div>
                       </div>
                     </div>
@@ -222,41 +238,97 @@ class MyPreferences extends Component {
                 <ul className="list-group list-group-flush container">
                   <div className="row">
                     <div className="col-md-6">
+
                       {this.state.defaultPrefs.language &&
                         <li className="list-group-item">
                           <div className="row">
                             <div className="col-md-7">
-                              <p>Current Default Language:</p>
+                              <p>
+                                {this.state.previewLang === this.state.defaultPrefs.language ? 'Current' : 'New'} Default Theme:
+                              </p>
                             </div>
                             <div className="col-md-5">
                               <Form.Control className='ql-picker-label' as="select" onChange={this.previewLangChange} defaultValue={this.state.previewLang}>
-                                {modes.map((lang, index) => <option value={lang} id='Hello' key={index}>{lang}</option>)}
+                                {modes.map((lang, index) => <option value={lang} id={lang} key={index}>{lang}</option>)}
                               </Form.Control>
                             </div>
                           </div>
                         </li>}
 
                       {this.state.defaultPrefs.theme &&
-                        <li className="list-group-item" onClick={this.closePreview}>
+                        <li className="list-group-item">
                           <div className="row">
                             <div className="col-md-7">
-                              <p>Current Default Theme:</p>
+                              <p>
+                                {this.state.previewTheme === this.state.defaultPrefs.theme ? 'Current' : 'New'} Default Theme:
+                              </p>
                             </div>
                             <div className="col-md-5">
                               <Form.Control className='ql-picker-label' as="select" onChange={this.previewThemeChange} defaultValue={this.state.previewTheme}>
-                                {themes.map((theme, idx) => <option value={theme} key={idx}>{theme.split('_').join(' ')}</option>)}
+                                {themes.map((theme, idx) => <option value={theme} id={theme} key={idx}>{theme.split('_').join(' ')}</option>)}
                               </Form.Control>
                             </div>
                           </div>
                         </li>}
+
+                      {this.state.defaultPrefs.fontSize &&
+                        <li className="list-group-item">
+                          <div className="row">
+                            <div className="col-md-7">
+                              <p>
+                                {parseInt(this.state.previewFontSize) === parseInt(this.state.defaultPrefs.fontSize) ? 'Current' : 'New'} Default Font Size:
+                                </p>
+                            </div>
+                            <div className="col-md-5">
+                              <Form.Control className='ql-picker-label' as="select" onChange={this.previewFontChange} defaultValue={this.state.previewFontSize}>
+                                {fontSize.map((font, idx) => <option value={font} id={font} key={idx}>{font}</option>)}
+                              </Form.Control>
+                            </div>
+                          </div>
+                        </li>}
+
+                      {this.state &&
+                        <li className="list-group-item">
+                          <div className="row">
+                            <div className="col-md-7">
+                              <p>
+                                Live AutoCompletion Disabled
+                                </p>
+                            </div>
+                            <div className="col-md-5">
+                             {/*  */}
+
+
+                             {/*  */}
+                            </div>
+                          </div>
+                        </li>}
+
+                      {this.state &&
+                        <li className="list-group-item">
+                          <div className="row">
+                            <div className="col-md-7">
+                              <p>
+                                Highlight Active Line Disabled
+                                </p>
+                            </div>
+                            <div className="col-md-5">
+                             {/*  */}
+
+                             {/*  */}
+                            </div>
+                          </div>
+                        </li>}
+
+
                     </div >
 
-                    < div className="col-md-6 editor-preview" >
+                    <div className="col-md-6 editor-preview" >
                       <AceEditor
-                        fontSize='12'
+                        fontSize={parseInt(this.state.previewFontSize)}
                         theme={this.state.previewTheme}
                         mode={this.state.previewLang}
-                        height='17vh'
+                        height='29vh'
                         value={this.state.previewText}
                         editorProps={{ $blockScrolling: true }}
                       />
