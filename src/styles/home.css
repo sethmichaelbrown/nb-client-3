@@ -8,9 +8,15 @@
   fill: #EAEAEA
 }
 
-.item-text {
+.title-text {
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
+  font-weight: 400;
+}
+
+.second-text {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
   font-weight: 400;
 }
 
@@ -28,7 +34,15 @@
 }
 
 .header-text:hover {
-  color: #5C908F;
+  color: #6FA9A7;
+}
+
+svg:hover {
+  fill: #6FA9A7
+}
+
+a {
+  text-decoration: none !important; 
 }
 
 .new-base-btn,
