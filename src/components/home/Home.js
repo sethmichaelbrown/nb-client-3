@@ -42,14 +42,18 @@ class Home extends Component {
     err: null
   }
 
-  componentDidMount = async () => {
+  componentDidMount() {
+    this.onHomeLoad()
+    this.getBases()
+  }
+
+  onHomeLoad = async () => {
     const user = await Auth.currentAuthenticatedUser()
       .then(user => this.setState({ userInfo: user }))
       .catch(err => this.setState({ error: err }))
     const newState = { ...this.state }
     newState.username = newState.userInfo.username
     this.setState({ username: newState.username })
-    this.getBases()
   }
 
   getBases = async () => {

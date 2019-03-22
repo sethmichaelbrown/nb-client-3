@@ -16,9 +16,6 @@ class App extends Component {
     selectedId: null,
   }
 
-  componentDidMount = async () => {
-
-  }
 
   selectBaseId = (event) => {
     const selectedId = event.target.id
