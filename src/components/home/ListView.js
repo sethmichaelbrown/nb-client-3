@@ -1,6 +1,5 @@
 import React from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
-import { FormControl } from 'react-bootstrap'
 import moment from 'moment'
 
 const ListView = (props) => {
