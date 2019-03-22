@@ -130,49 +130,49 @@ class Editor extends Component {
           </div>
           :
           <React.Fragment>
-            {this.state.err ?
+            {this.state.err &&
               <div className="alert alert-danger" role="alert">
                 An error has occurred! Please <a onClick={() => window.location.reload()}>refresh</a> page
           </div>
-              : ''}
+            }
             < div className="row editor-header-row container my-2">
               <div className="col-md-12">
-                {this.state.selectedBase ?
+                {this.state.selectedBase &&
                   <h3>{this.state.selectedBase.baseName}
                     {this.state.saved !== '' ?
                       this.state.saved ?
                         <span className="ml-2 saved-text">All Changes Saved</span>
                         :
                         <span className="ml-2 saved-text">Saving...</span> : ''}
-                  </h3> : ''}
+                  </h3>}
               </div>
             </div>
 
             {
-              this.state.selectedBase ?
-                <div className="row ">
-                  <div className="col-md-6">
-                    <TextEditor
-                      onChange={this.onChange}
-                      textVal={this.state.textVal}
-                      onTextChange={this.onTextChange}
-                      selectedBase={this.state.selectedBase} />
-                  </div>
+              this.state.selectedBase &&
+              <div className="row ">
+                <div className="col-md-6">
+                  <TextEditor
+                    onChange={this.onChange}
+                    textVal={this.state.textVal}
+                    onTextChange={this.onTextChange}
+                    selectedBase={this.state.selectedBase} />
+                </div>
 
-                  <div className="col-md-6">
-                    <CodeEditor
-                      onChange={this.onChange}
-                      fontSize={this.state.fontSize}
-                      code={this.state.code}
-                      language={this.state.language}
-                      theme={this.state.theme}
-                      themeChange={this.themeChange}
-                      languageChange={this.languageChange}
-                      fontSizeChange={this.fontSizeChange}
-                      onCodeChange={this.onCodeChange}
-                      selectedBase={this.state.selectedBase} />
-                  </div>
-                </div> : ''
+                <div className="col-md-6">
+                  <CodeEditor
+                    onChange={this.onChange}
+                    fontSize={this.state.fontSize}
+                    code={this.state.code}
+                    language={this.state.language}
+                    theme={this.state.theme}
+                    themeChange={this.themeChange}
+                    languageChange={this.languageChange}
+                    fontSizeChange={this.fontSizeChange}
+                    onCodeChange={this.onCodeChange}
+                    selectedBase={this.state.selectedBase} />
+                </div>
+              </div>
             }
           </React.Fragment>}
       </div>

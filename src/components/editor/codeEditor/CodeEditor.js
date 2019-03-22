@@ -76,7 +76,7 @@ const CodeEditor = (props) => {
 
   return (
     <div className="CodeEditor">
-      {props.selectedBase.baseName ?
+      {props.selectedBase.baseName &&
         <div className="codeEditor-block">
           
           <CodeEditorToolbar
@@ -96,8 +96,7 @@ const CodeEditor = (props) => {
             editorProps={{ $blockScrolling: true }}
             width={''}/>
             
-        </div>
-        : ''}
+        </div>}
     </div >
   )
 }

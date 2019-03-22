@@ -16,7 +16,7 @@ const ListView = (props) => {
     <div className="ListView">
       <ul className="list-group">
         <div className="tester">
-          {props.userBases.length > 0 ?
+          {props.userBases.length > 0 &&
             filteredBases.map((base, idx) =>
               <li className="list-group-item group-item grey-on-hover" id={base.id} key={idx}>
                 <div className="row">
@@ -43,7 +43,7 @@ const ListView = (props) => {
                   </div>
                 </div>
               </li>
-            ) : ''}
+            )}
         </div>
       </ul>
     </div>

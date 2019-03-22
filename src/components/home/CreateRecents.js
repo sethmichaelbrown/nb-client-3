@@ -3,7 +3,7 @@ import { Link } from 'react-browser-router'
 
 const CreateRecents = (props) => {
   // console.log('CreateRecents', props)
-  
+
   let recentFour = []
   let uBases = [...props.userBases]
   let fBases = uBases.filter(base => base.deleteVal !== true)
@@ -36,13 +36,13 @@ const CreateRecents = (props) => {
         </div>
 
         <div className="col-md-8 d-md-none d-sm-none d-none d-lg-block">
-          {recentFour[0] !== undefined ?
+          {recentFour[0] !== undefined &&
             recentFour.map((recent, idx) =>
               <Link to='/editor' key={idx} onClick={() => localStorage.setItem('lastSelectedBase', `${recent.id}`)}>
                 <button key={idx} type="button" className="btn btn-outline-dark btn recent-base-btn mr-1">
                   <span className="small-text">{recent.baseName}</span>
                 </button>
-              </Link>) : ''}
+              </Link>)}
         </div>
       </div>
 
