@@ -50,6 +50,7 @@ class Home extends Component {
     if (!JSON.parse(localStorage.getItem('defaultUserPrefs'))) {
       this.noDefaultPrefs()
     }
+    this.props.pacmanLoading()
     this.getBases()
   }
 
