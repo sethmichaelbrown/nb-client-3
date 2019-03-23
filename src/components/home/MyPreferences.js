@@ -318,7 +318,7 @@ class MyPreferences extends Component {
                                 checked={this.state.previewLiveAuto}
                                 onColor='#5C908F'
                                 uncheckedIcon={false}
-                                checkedIcon={false}
+                                // checkedIcon={false}
                               />
                             </div>
                           </div>
@@ -338,7 +338,7 @@ class MyPreferences extends Component {
                                 checked={this.state.previewHighlightLine}
                                 onColor='#5C908F'
                                 uncheckedIcon={false}
-                                checkedIcon={false}
+                                // checkedIcon={false}
                               />
                             </div>
                           </div>
