@@ -14,6 +14,17 @@ class App extends Component {
 
   state = {
     selectedId: null,
+    pacman: false
+  }
+
+  componentDidMount() {
+    this.pacmanLoading()
+  }
+
+  pacmanLoading = () => {
+    const allPrefs = JSON.parse(localStorage.getItem('defaultUserPrefs'))
+    const user = localStorage.getItem('CognitoIdentityServiceProvider.43e59kat93rjn7fsptfkilhnpq.LastAuthUser')
+    this.setState({ pacman: allPrefs[`${user}`].pacman })
   }
 
 
@@ -37,16 +48,21 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={Welcome} />
 
-            <Route exact path="/preferences" component={MyPreferences} />
+            <Route exact path="/preferences" render={() =>
+              <MyPreferences
+                pacmanLoading={this.pacmanLoading} />} />
+
 
             <Route exact path="/bases"
               render={() =>
                 <Home
+                  pacman={this.state.pacman}
                   newBaseSelected={this.newBaseSelected}
                   selectBaseId={this.selectBaseId} />} />
 
             <Route exact path="/editor" render={() =>
               <Editor
+                pacman={this.state.pacman}
                 selectedId={this.state.selectedId} />} />
 
             <Route component={NotFound} />

@@ -68,7 +68,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "notebaseappclient3-20190308123754-deployment",
-					"S3Key": "amplify-builds/notebase3function-1553093757-latest-build.zip"
+					"S3Key": "amplify-builds/notebase3function-1553366305-latest-build.zip"
 				}
 			}
 		},

@@ -4,6 +4,7 @@ import profile from '../../media/images/portrait_2_copy.png'
 import { Form } from 'react-bootstrap'
 import AceEditor from 'react-ace'
 import Switch from "react-switch";
+import PacmanLoader from './PacmanLoader'
 
 import "brace/theme/ambiance";
 import "brace/theme/chaos";
@@ -142,13 +143,18 @@ class MyPreferences extends Component {
     previewLang: '',
     previewText: '',
     previewFontSize: '',
-    previewLiveAuto: '',
-    previewHighlightLine: '',
+    previewLiveAuto: false,
+    previewHighlightLine: false,
+    previewPacman: false,
     saved: ''
   }
 
   componentDidMount() {
     this.preferenceOnLoad()
+  }
+
+  componentWillUnmount() {
+    this.props.pacmanLoading()
   }
 
   preferenceOnLoad = () => {
@@ -164,6 +170,7 @@ class MyPreferences extends Component {
     newState.previewLiveAuto = newState.defaultPrefs.liveAutoCompletion
     newState.previewHighlightLine = newState.defaultPrefs.highlightActiveLine
     newState.previewFontSize = newState.defaultPrefs.fontSize
+    newState.previewPacman = newState.defaultPrefs.pacman
 
 
     this.setState({
@@ -174,7 +181,8 @@ class MyPreferences extends Component {
       previewLiveAuto: newState.previewLiveAuto,
       previewHighlightLine: newState.previewHighlightLine,
       previewText: newState.previewText,
-      previewLang: newState.previewLang
+      previewLang: newState.previewLang,
+      previewPacman: newState.previewPacman
     })
   }
 
@@ -186,7 +194,8 @@ class MyPreferences extends Component {
       previewText: this.state.previewText,
       fontSize: this.state.previewFontSize,
       liveAutoCompletion: this.state.previewLiveAuto,
-      highlightActiveLine: this.state.previewHighlightLine
+      highlightActiveLine: this.state.previewHighlightLine,
+      pacman: this.state.previewPacman
     }
     const newPrefs = JSON.parse(localStorage.getItem(`defaultUserPrefs`))
     newPrefs[`${this.state.username}`] = preferences
@@ -232,6 +241,11 @@ class MyPreferences extends Component {
   previewHighlightLineChange = (value) => {
     this.unSaved()
     this.setState({ previewHighlightLine: value })
+  }
+
+  previewPacmanChange = (value) => {
+    this.unSaved()
+    this.setState({ previewPacman: value })
   }
 
 
@@ -329,7 +343,6 @@ class MyPreferences extends Component {
                                 checked={this.state.previewLiveAuto}
                                 onColor='#5C908F'
                                 uncheckedIcon={false}
-                              // checkedIcon={false}
                               />
                             </div>
                           </div>
@@ -349,7 +362,26 @@ class MyPreferences extends Component {
                                 checked={this.state.previewHighlightLine}
                                 onColor='#5C908F'
                                 uncheckedIcon={false}
-                              // checkedIcon={false}
+                              />
+                            </div>
+                          </div>
+                        </li>}
+
+
+                      {this.state.defaultPrefs &&
+                        <li className="list-group-item">
+                          <div className="row">
+                            <div className="col-md-7">
+                              <p>
+                                {`Pacman Loader ${this.state.previewPacman ? 'Enabled' : 'Disabled'}`}
+                              </p>
+                            </div>
+                            <div className="col-md-2 offset-md-3">
+                              <Switch
+                                onChange={this.previewPacmanChange}
+                                checked={this.state.previewPacman}
+                                onColor='#5C908F'
+                                uncheckedIcon={false}
                               />
                             </div>
                           </div>
@@ -359,21 +391,39 @@ class MyPreferences extends Component {
                     </div >
 
                     <div className="col-md-6 editor-preview" >
-                      <AceEditor
-                        fontSize={parseInt(this.state.previewFontSize)}
-                        theme={this.state.previewTheme}
-                        mode={this.state.previewLang}
-                        setOptions={{
-                          enableLiveAutocompletion: this.state.previewLiveAuto
-                        }}
-                        highlightActiveLine={this.state.previewHighlightLine}
-                        height='45vh'
-                        value={this.state.previewText}
-                        editorProps={{ $blockScrolling: true }}
-                      />
+                      <div className="row">
+                        <div className="col-md-12">
+                          <AceEditor
+                            fontSize={parseInt(this.state.previewFontSize)}
+                            theme={this.state.previewTheme}
+                            mode={this.state.previewLang}
+                            setOptions={{
+                              enableLiveAutocompletion: this.state.previewLiveAuto
+                            }}
+                            highlightActiveLine={this.state.previewHighlightLine}
+                            height='45vh'
+                            value={this.state.previewText}
+                            editorProps={{ $blockScrolling: true }}
+                          />
+
+
+                        </div>
+                        <div className="col-md-12">
+                          <div className="mt-4">
+                            {this.state.previewPacman &&
+                              <PacmanLoader
+                                size={25}
+                              />
+                            }
+                          </div>
+                        </div>
+                      </div>
+
+
 
                     </div>
                   </div>
+
                 </ul>
               </div>
             </div>
