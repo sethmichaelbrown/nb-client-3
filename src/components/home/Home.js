@@ -16,10 +16,14 @@ import DeleteWarning from './DeleteWarning'
 import Loading from './Loading'
 import ListViewHeader from './ListViewHeader'
 import CreateRecents from './CreateRecents'
+import PacmanLoader from './PacmanLoader'
+
+
 
 // Styles
 import '../../App.css';
 import '../../styles/home.css'
+
 
 class Home extends Component {
 
@@ -38,7 +42,7 @@ class Home extends Component {
     userInfo: {},
     username: '',
     noBases: false,
-    err: null
+    err: null,
   }
 
   componentDidMount() {
@@ -135,7 +139,7 @@ class Home extends Component {
         codeLanguage: `${userPrefs.language}`,
         codeNote: this.state.newBaseCode,
         createdAt: `${currentTime}`,
-        fontSize: '14',
+        fontSize: `${userPrefs.fontSize}`,
         id: `${newId}`,
         modifiedAt: `${currentTime}`,
         textNote: this.state.newBaseText,
@@ -191,6 +195,7 @@ class Home extends Component {
   }
 
 
+
   render() {
     return (
       <div className="Home">
@@ -244,7 +249,7 @@ class Home extends Component {
             </div>
             :
             <div className="loading-cont">
-              <Loading />
+              {this.props.pacman ? <PacmanLoader size={50} /> : <Loading />}
             </div>}
 
 

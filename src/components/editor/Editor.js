@@ -4,6 +4,7 @@ import NavBar from '../NavBar'
 import CodeEditor from './codeEditor/CodeEditor'
 import TextEditor from './textEditor/TextEditor'
 import Loading from '../home/Loading'
+import PacmanLoader from '../home/PacmanLoader'
 
 
 import { API } from 'aws-amplify'
@@ -25,7 +26,8 @@ class Editor extends Component {
     text: '',
     fontSize: null,
     saved: '',
-    err: false
+    err: false,
+    pacman: false
   }
 
   componentDidMount = async () => {
@@ -38,6 +40,8 @@ class Editor extends Component {
     })
     this.fetch()
   }
+
+
 
   fetch = () => {
     const newState = { ...this.state }
@@ -125,7 +129,7 @@ class Editor extends Component {
         {this.state.loading ?
           <div className="row editor-loading-parent">
             <div className="col-md-12 editor-loading">
-              <Loading />
+              {this.props.pacman ? <PacmanLoader size={50} /> : <Loading />}
             </div>
           </div>
           :

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { ClipLoader } from 'react-spinners';
+import { PacmanLoader } from 'react-spinners';
 
 
-class Loading extends Component {
+class PacmanLoading extends Component {
   state = {
     loading: true
   }
@@ -10,9 +10,9 @@ class Loading extends Component {
   render() {
     return (
       <div className='sweet-loading'>
-        <ClipLoader
+        <PacmanLoader
           sizeUnit={"px"}
-          size={50}
+          size={this.props.size}
           color={'#5C908F'}
           loading={this.state.loading}
         />
@@ -21,4 +21,4 @@ class Loading extends Component {
   }
 }
 
-export default Loading
+export default PacmanLoading
