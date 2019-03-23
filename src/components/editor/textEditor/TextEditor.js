@@ -5,7 +5,7 @@ import '../../../styles/textEditor.css'
 
 
 const TextEditor = (props) => {
-  // console.log('TE', props)
+  // console.log('TextEditor', props)
 
   return (
     <div className="TextEditor">
