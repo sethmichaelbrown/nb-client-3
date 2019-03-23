@@ -36,7 +36,6 @@ class Home extends Component {
     sortByVal: ['baseName', 'up'],
     userBases: [],
     userInfo: {},
-    userPreferences: { theme: 'solarized_dark' },
     username: '',
     noBases: false,
     err: null
@@ -44,7 +43,25 @@ class Home extends Component {
 
   componentDidMount() {
     this.onHomeLoad()
+    if (!JSON.parse(localStorage.getItem('defaultUserPrefs'))) {
+      this.noDefaultPrefs()
+    }
     this.getBases()
+  }
+
+  noDefaultPrefs = () => {
+    const userPrefs = {
+      language: 'javascript',
+      theme: 'solarized_dark',
+      previewText: "console.log('Hello World!')",
+      fontSize: '14',
+      liveAutoCompletion: true,
+      highlightActiveLine: true
+    }
+    const user = localStorage.getItem('CognitoIdentityServiceProvider.43e59kat93rjn7fsptfkilhnpq.LastAuthUser')
+    let allPrefs = {}
+    allPrefs[`${user}`] = userPrefs
+    localStorage.setItem('defaultUserPrefs', JSON.stringify(allPrefs))
   }
 
   onHomeLoad = async () => {
