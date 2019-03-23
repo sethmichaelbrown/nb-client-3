@@ -313,7 +313,13 @@ class MyPreferences extends Component {
                               </p>
                             </div>
                             <div className="col-md-2 offset-md-3">
-                              <Switch onChange={this.previewLiveAutoChange} checked={this.state.previewLiveAuto} />
+                              <Switch
+                                onChange={this.previewLiveAutoChange}
+                                checked={this.state.previewLiveAuto}
+                                onColor='#5C908F'
+                                uncheckedIcon={false}
+                                checkedIcon={false}
+                              />
                             </div>
                           </div>
                         </li>}
@@ -327,7 +333,13 @@ class MyPreferences extends Component {
                               </p>
                             </div>
                             <div className="col-md-2 offset-md-3">
-                              <Switch onChange={this.previewHighlightLineChange} checked={this.state.previewHighlightLine} />
+                              <Switch
+                                onChange={this.previewHighlightLineChange}
+                                checked={this.state.previewHighlightLine}
+                                onColor='#5C908F'
+                                uncheckedIcon={false}
+                                checkedIcon={false}
+                              />
                             </div>
                           </div>
                         </li>}
@@ -344,7 +356,7 @@ class MyPreferences extends Component {
                           enableLiveAutocompletion: this.state.previewLiveAuto
                         }}
                         highlightActiveLine={this.state.previewHighlightLine}
-                        height='29vh'
+                        height='45vh'
                         value={this.state.previewText}
                         editorProps={{ $blockScrolling: true }}
                       />
