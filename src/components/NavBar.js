@@ -16,7 +16,7 @@ const NavBar = (props) => {
 
   return (
     <div className="NavBar">
-      <nav className="navbar navbar-expand-lg">
+      <nav className="navbar navbar-expand-*">
         <LinkContainer className="navbar-brand" to='/bases'>
           <img src={logo} alt="noteBase-logo" />
         </LinkContainer>
@@ -28,7 +28,7 @@ const NavBar = (props) => {
           <ul className="navbar-nav mr-auto">
             
           </ul>
-          <button type="button" className="btn btn-outline-light" onClick={signOut}>Sign Out</button>
+          <button type="button" className="btn btn-outline-light mt-2" onClick={signOut}>Sign Out</button>
         </div>
       </nav>
 

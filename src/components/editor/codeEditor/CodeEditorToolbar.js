@@ -21,32 +21,45 @@ const modes = [
   "css",
   "django",
   "haskell",
-  "json",
   "pascal",
   "ruby"].sort()
 
 const themes = [
-  "ambiance",
-  "chaos",
-  "clouds",
-  "clouds_midnight",
-  "cobalt",
-  "dawn",
-  "dreamweaver",
-  "eclipse",
-  "github",
-  "merbivore",
-  "mono_industrial",
-  "pastel_on_dark",
-  "solarized_dark",
-  "solarized_light",
-  "tomorrow",
-  "tomorrow_night",
-  "tomorrow_night_eighties",
-  "twilight",
-  "vibrant_ink",
-  "xcode"
-].sort()
+  'ambiance',
+  'chaos',
+  'chrome',
+  'clouds',
+  'clouds_midnight',
+  'cobalt',
+  'crimson_editor',
+  'dawn',
+  'dracula',
+  'dreamweaver',
+  'eclipse',
+  'github',
+  'gob',
+  'gruvbox',
+  'idle_fingers',
+  'iplastic',
+  'katzenmilch',
+  'kr_theme',
+  'kuroir',
+  'merbivore',
+  'merbivore_soft',
+  'mono_industrial',
+  'pastel_on_dark',
+  'solarized_dark',
+  'solarized_light',
+  'sqlserver',
+  'terminal',
+  'textmate',
+  'tomorrow',
+  'tomorrow_night',
+  'tomorrow_night_blue',
+  'tomorrow_night_bright',
+  'tomorrow_night_eighties',
+  'twilight/vibrant_ink',
+  'xcode'].sort()
 
 const fontSize = [8, 10, 12, 14, 16, 18]
 
@@ -81,7 +94,7 @@ class CodeEditorToolbar extends Component {
                 </Form.Control>
               </div>
 
-               <div className="col-md-3">
+              <div className="col-md-3">
                 <Form.Control className='ql-picker-label' as="select" onChange={this.props.fontSizeChange} defaultValue={this.props.selectedBase.fontSize}>
                   {fontSize.map((size, idx) => <option value={size} key={idx}>{size}</option>)}
                 </Form.Control>

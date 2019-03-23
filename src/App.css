@@ -69,3 +69,14 @@
 h4 {
   font-family: 'Montserrat', sans-serif;
 }
+
+.editor-preview {
+  display: flex;
+  height: 100%;
+}
+
+.preferences-card {
+  display: flex;
+  height: 100%;
+  justify-content: center
+}

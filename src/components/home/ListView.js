@@ -23,16 +23,16 @@ const ListView = (props) => {
                   <LinkContainer to='/editor' onClick={props.selectBaseId} id={base.id}>
                     <div className="col-md-10">
                       <div className="row group-item" id={base.id}>
-                        <div className="col-md-4 item-text" id={base.id}>
+                        <div className="col-md-4 title-text" id={base.id}>
                           {base.baseName}
                         </div>
-                        <div className="col-md-2 item-text" id={base.id}>
+                        <div className="col-md-2 second-text" id={base.id}>
                           {base.codeLanguage}
                         </div>
-                        <div className="col-md-3 item-text" id={base.id}>
+                        <div className="col-md-3 second-text" id={base.id}>
                           {moment(base.modifiedAt).calendar()}
                         </div>
-                        <div className="col-md-2 item-text" id={base.id}>
+                        <div className="col-md-2 second-text" id={base.id}>
                           {moment(base.createdAt).format('L')}
                         </div>
                       </div>

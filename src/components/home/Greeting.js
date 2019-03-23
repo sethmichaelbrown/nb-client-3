@@ -27,7 +27,7 @@ const Greeting = (props) => {
           <div className="row">
             <div className="col-md-12 d-md-none d-sm-none d-none d-lg-block">
               <Link to='/preferences'>
-                <button type="button" className="btn btn-outline-dark mt-1">My Preferences</button>
+                <button type="button" className="btn btn-block btn-outline-dark mt-1">My Preferences</button>
               </Link>
             </div>
           </div>

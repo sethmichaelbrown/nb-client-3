@@ -110,17 +110,19 @@ class Home extends Component {
     const newId = uuid()
     localStorage.setItem('lastSelectedBase', `${newId}`)
     const currentTime = moment().format()
+    const allPrefs = JSON.parse(localStorage.getItem('defaultUserPrefs'))
+    const userPrefs = allPrefs[this.state.username]
     await API.post("notebase3API", "/bases", {
       body: {
         baseName: random({ exactly: 3, join: '-' }),
-        codeLanguage: 'javascript',
+        codeLanguage: `${userPrefs.language}`,
         codeNote: this.state.newBaseCode,
         createdAt: `${currentTime}`,
         fontSize: '14',
         id: `${newId}`,
         modifiedAt: `${currentTime}`,
         textNote: this.state.newBaseText,
-        theme: 'solarized_dark',
+        theme: `${userPrefs.theme}`,
         username: this.state.username,
       }
     })
@@ -184,7 +186,7 @@ class Home extends Component {
           closeDeleteModal={this.closeDeleteModal}
           displayDeleteWarning={this.state.displayDeleteWarning} />
 
-        <div className="greeting-cont ml-1">
+        <div className="greeting-cont">
           <Greeting
             showUserPreferences={this.showUserPreferences}
             userBases={this.state.userBases}
