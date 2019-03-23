@@ -21,7 +21,6 @@ const modes = [
   "css",
   "django",
   "haskell",
-  "json",
   "pascal",
   "ruby"].sort()
 

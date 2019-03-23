@@ -3,6 +3,7 @@ import NavBar from '../NavBar'
 import profile from '../../media/images/portrait_2_copy.png'
 import { Form } from 'react-bootstrap'
 import AceEditor from 'react-ace'
+import Switch from "react-switch";
 
 import "brace/theme/ambiance";
 import "brace/theme/chaos";
@@ -141,6 +142,8 @@ class MyPreferences extends Component {
     previewLang: '',
     previewText: '',
     previewFontSize: '',
+    previewLiveAuto: '',
+    previewHighlightLine: ''
   }
 
   componentDidMount() {
@@ -157,6 +160,8 @@ class MyPreferences extends Component {
     newState.previewTheme = newState.defaultPrefs.theme
     newState.previewLang = newState.defaultPrefs.language
     newState.previewText = newState.defaultPrefs.previewText
+    newState.previewLiveAuto = newState.defaultPrefs.liveAutoCompletion
+    newState.previewHighlightLine = newState.defaultPrefs.highlightActiveLine
     newState.previewFontSize = newState.defaultPrefs.fontSize
 
 
@@ -165,9 +170,11 @@ class MyPreferences extends Component {
       defaultPrefs: newState.defaultPrefs,
       previewTheme: newState.previewTheme,
       previewFontSize: newState.previewFontSize,
+      previewLiveAuto: newState.previewLiveAuto,
+      previewHighlightLine: newState.previewHighlightLine,
       previewText: newState.previewText,
       previewLang: newState.previewLang
-    }, () => console.log(this.state))
+    })
   }
 
   onSave = () => {
@@ -176,7 +183,9 @@ class MyPreferences extends Component {
       language: this.state.previewLang,
       theme: this.state.previewTheme,
       previewText: this.state.previewText,
-      fontSize: this.state.previewFontSize
+      fontSize: this.state.previewFontSize,
+      liveAutoCompletion: this.state.previewLiveAuto,
+      highlightActiveLine: this.state.previewHighlightLine
     }
     const newPrefs = JSON.parse(localStorage.getItem(`defaultUserPrefs`))
     newPrefs[`${this.state.username}`] = preferences
@@ -204,6 +213,14 @@ class MyPreferences extends Component {
 
   previewFontChange = (event) => {
     this.setState({ previewFontSize: event.target.value })
+  }
+
+  previewLiveAutoChange = (value) => {
+    this.setState({ previewLiveAuto: value })
+  }
+
+  previewHighlightLineChange = (value) => {
+    this.setState({ previewHighlightLine: value })
   }
 
 
@@ -287,35 +304,30 @@ class MyPreferences extends Component {
                           </div>
                         </li>}
 
-                      {this.state &&
+                      {this.state.defaultPrefs &&
                         <li className="list-group-item">
                           <div className="row">
                             <div className="col-md-7">
                               <p>
-                                Live AutoCompletion Disabled
-                                </p>
+                                {`Live AutoCompletion ${this.state.previewLiveAuto ? 'Enabled' : 'Disabled'}`}
+                              </p>
                             </div>
-                            <div className="col-md-5">
-                             {/*  */}
-
-
-                             {/*  */}
+                            <div className="col-md-2 offset-md-3">
+                              <Switch onChange={this.previewLiveAutoChange} checked={this.state.previewLiveAuto} />
                             </div>
                           </div>
                         </li>}
 
-                      {this.state &&
+                      {this.state.defaultPrefs &&
                         <li className="list-group-item">
                           <div className="row">
                             <div className="col-md-7">
                               <p>
-                                Highlight Active Line Disabled
-                                </p>
+                                {`Highlight Active Line ${this.state.previewHighlightLine ? 'Enabled' : 'Disabled'}`}
+                              </p>
                             </div>
-                            <div className="col-md-5">
-                             {/*  */}
-
-                             {/*  */}
+                            <div className="col-md-2 offset-md-3">
+                              <Switch onChange={this.previewHighlightLineChange} checked={this.state.previewHighlightLine} />
                             </div>
                           </div>
                         </li>}
@@ -328,6 +340,10 @@ class MyPreferences extends Component {
                         fontSize={parseInt(this.state.previewFontSize)}
                         theme={this.state.previewTheme}
                         mode={this.state.previewLang}
+                        setOptions={{
+                          enableLiveAutocompletion: this.state.previewLiveAuto
+                        }}
+                        highlightActiveLine={this.state.previewHighlightLine}
                         height='29vh'
                         value={this.state.previewText}
                         editorProps={{ $blockScrolling: true }}
