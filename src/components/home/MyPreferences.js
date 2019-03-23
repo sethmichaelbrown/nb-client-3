@@ -143,7 +143,8 @@ class MyPreferences extends Component {
     previewText: '',
     previewFontSize: '',
     previewLiveAuto: '',
-    previewHighlightLine: ''
+    previewHighlightLine: '',
+    saved: ''
   }
 
   componentDidMount() {
@@ -190,6 +191,7 @@ class MyPreferences extends Component {
     const newPrefs = JSON.parse(localStorage.getItem(`defaultUserPrefs`))
     newPrefs[`${this.state.username}`] = preferences
     localStorage.setItem('defaultUserPrefs', JSON.stringify(newPrefs))
+    this.setState({ saved: true })
   }
 
   onCancel = () => {
@@ -199,7 +201,12 @@ class MyPreferences extends Component {
     document.getElementById(`${this.state.defaultPrefs.fontSize}`).selected = true
   }
 
+  unSaved = () => {
+    this.setState({ saved: false })
+  }
+
   previewLangChange = (event) => {
+    this.unSaved()
     const idx = modes.indexOf(event.target.value)
     this.setState({
       previewLang: event.target.value,
@@ -208,18 +215,22 @@ class MyPreferences extends Component {
   }
 
   previewThemeChange = (event) => {
+    this.unSaved()
     this.setState({ previewTheme: event.target.value })
   }
 
   previewFontChange = (event) => {
+    this.unSaved()
     this.setState({ previewFontSize: event.target.value })
   }
 
   previewLiveAutoChange = (value) => {
+    this.unSaved()
     this.setState({ previewLiveAuto: value })
   }
 
   previewHighlightLineChange = (value) => {
+    this.unSaved()
     this.setState({ previewHighlightLine: value })
   }
 
@@ -242,7 +253,7 @@ class MyPreferences extends Component {
                       <h5 className="card-title">{this.state.username}'s Default Preferences</h5>
                       <div className="row">
                         <div className="col-md-6">
-                          <button type="button" className="btn-block btn btn-dark" onClick={this.onSave}>Save</button>
+                          <button type="button" className="btn-block btn btn-dark" onClick={this.onSave}>{this.state.saved ? 'Preferences Saved!' : 'Save'}</button>
                         </div>
                         <div className="col-md-6">
                           <button type="button" className="btn-block btn btn-outline-secondary" onClick={this.onCancel}>Cancel</button>
@@ -318,7 +329,7 @@ class MyPreferences extends Component {
                                 checked={this.state.previewLiveAuto}
                                 onColor='#5C908F'
                                 uncheckedIcon={false}
-                                // checkedIcon={false}
+                              // checkedIcon={false}
                               />
                             </div>
                           </div>
@@ -338,7 +349,7 @@ class MyPreferences extends Component {
                                 checked={this.state.previewHighlightLine}
                                 onColor='#5C908F'
                                 uncheckedIcon={false}
-                                // checkedIcon={false}
+                              // checkedIcon={false}
                               />
                             </div>
                           </div>
