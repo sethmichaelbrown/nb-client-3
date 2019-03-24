@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, } from 'react-browser-router'
+import { Link } from 'react-browser-router'
 import logo from '../media/svgs/text&logo.svg'
 
 import '../styles/welcome.css'
