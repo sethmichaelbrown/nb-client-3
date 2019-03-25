@@ -66,8 +66,8 @@
   color: grey;
 }
 
-h4 {
-  font-family: 'Montserrat', sans-serif;
+h4, .btn {
+  font-family: 'Montserrat', sans-serif !important;
 }
 
 .editor-preview {
